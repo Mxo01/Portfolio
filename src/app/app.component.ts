@@ -13,6 +13,7 @@ import { ProjectsComponent } from "./components/projects/projects.component";
 })
 export class AppComponent implements OnInit {
 	public windowWidth: number = window.innerWidth;
+	private oldWindowWidth: number = this.windowWidth;
 
 	public ngOnInit(): void {
 		this.setTheme();
@@ -20,7 +21,10 @@ export class AppComponent implements OnInit {
 
 		window.addEventListener("resize", () => {
 			this.windowWidth = window.innerWidth;
-			window.scrollTo(0, 0);
+			if (this.windowWidth !== this.oldWindowWidth) {
+				this.oldWindowWidth = this.windowWidth;
+				window.scrollTo(0, 0);
+			}
 
 			this.setOverflowBehavior();
 		});
