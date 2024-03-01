@@ -1,0 +1,79 @@
+<app-info-offcanvas></app-info-offcanvas>
+
+<nav
+	id="nav"
+	class="navbar fixed-top"
+>
+	<div class="container-fluid d-none d-lg-flex">
+		<ul class="nav justify-content-center">
+			<li class="nav-item">
+				<a
+					[ngClass]="{
+						'nav-link': true,
+						'link-dark-mode': theme === 'dark',
+						'link-light-mode': theme === 'light'
+					}"
+					style="cursor: pointer"
+					aria-current="page"
+					(click)="toAbout()"
+				>
+					About
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					[ngClass]="{
+						'nav-link': true,
+						'link-dark-mode': theme === 'dark',
+						'link-light-mode': theme === 'light'
+					}"
+					style="cursor: pointer"
+					aria-current="page"
+					(click)="toProjects()"
+				>
+					Projects
+				</a>
+			</li>
+		</ul>
+
+		<div class="d-flex align-items-center">
+			<i
+				[ngClass]="{
+					'bi bi-sun-fill link-dark-mode': theme === 'dark',
+					'bi bi-moon-fill link-light-mode': theme === 'light'
+				}"
+				(click)="toggleTheme()"
+				style="cursor: pointer"
+			></i>
+		</div>
+	</div>
+
+	<div class="container-fluid d-flex justify-content-end d-lg-none">
+		<div class="d-flex align-items-center">
+			<i
+				[ngClass]="{
+					'bi bi-sun-fill link-dark-mode': theme === 'dark',
+					'bi bi-moon-fill link-light-mode': theme === 'light'
+				}"
+				(click)="toggleTheme()"
+				style="cursor: pointer"
+			></i>
+
+			<img
+				src="assets/profile-pic.jpg"
+				width="32"
+				class="ms-4 rounded-circle d-block d-lg-none border border-2"
+				alt="Profile Picture"
+				data-bs-toggle="offcanvas"
+				data-bs-target="#infoOffcanvas"
+				aria-controls="infoOffcanvas"
+				[ngStyle]="{
+					'box-shadow':
+						theme === 'light'
+							? '0 0 5px 3px rgba(0, 0, 0, 0.2)'
+							: '0 0 5px 3px rgba(255, 255, 255, 0.2)'
+				}"
+			/>
+		</div>
+	</div>
+</nav>

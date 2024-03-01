@@ -1,0 +1,95 @@
+<div
+	class="modal modal-xl fade"
+	id="projectGalleryModal"
+	tabindex="-1"
+	aria-labelledby="projectGalleryModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1
+					class="modal-title fs-5"
+					id="projectGalleryModalLabel"
+				>
+					@if (project === 'GymBro') { 🏋🏻 } @else if (project ===
+					'LoveJob') { 🧐 } @else if (project === 'MyLibretto') { 📚 }
+					{{ project }}
+				</h1>
+				<button
+					type="button"
+					class="btn-close"
+					style="box-shadow: none"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body d-flex flex-column align-items-center">
+				@if (project === 'GymBro') {
+				<img
+					src="assets/gymbro0.jpg"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Login"
+				/>
+				<img
+					src="assets/gymbro1.png"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Home"
+				/>
+				<img
+					src="assets/gymbro2.png"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Training Programs"
+				/>
+				<img
+					src="assets/gymbro3.png"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Workout"
+				/>
+				<img
+					src="assets/gymbro4.png"
+					class="w-100 rounded-4 shadow"
+					alt="Profile"
+				/>
+				} @else if (project === 'LoveJob') {
+				<img
+					src="assets/lovejob1.jpeg"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Login"
+				/>
+				<img
+					src="assets/lovejob2.jpeg"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Home"
+				/>
+				<img
+					src="assets/lovejob3.jpeg"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Chats"
+				/>
+				<img
+					src="assets/lovejob4.jpeg"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Profile"
+				/>
+				} @else if (project === 'MyLibretto') {
+				<img
+					src="assets/mylibretto1.png"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Login"
+				/>
+				<img
+					src="assets/mylibretto2.png"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Subjects"
+				/>
+				<img
+					src="assets/mylibretto3.png"
+					class="w-100 rounded-4 shadow mb-3"
+					alt="Statistics"
+				/>
+				}
+			</div>
+		</div>
+	</div>
+</div>

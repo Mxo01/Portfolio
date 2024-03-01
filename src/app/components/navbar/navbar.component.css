@@ -1,0 +1,27 @@
+.navbar {
+	background: rgba(255, 255, 255, 0);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(9.4px);
+	-webkit-backdrop-filter: blur(9.4px);
+	height: 60px;
+}
+
+.link-dark-mode {
+	color: #bfbfbf;
+  transition: 0.3s;
+}
+
+.link-light-mode {
+	color: #525252;
+  transition: 0.3s;
+}
+
+.link-dark-mode:hover {
+	color: #ffffff;
+	text-shadow: #ffffff89 1px 0 5px;
+}
+
+.link-light-mode:hover {
+	color: #000000;
+  text-shadow: #0000006a 1px 0 5px;
+}

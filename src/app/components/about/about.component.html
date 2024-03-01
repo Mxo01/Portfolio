@@ -1,0 +1,1056 @@
+<div
+	id="about"
+	class="section p-3 d-none d-lg-block"
+>
+	<!-- Container -->
+	<div class="d-flex justify-content-center w-100 h-100">
+		<!-- Max 2000px centered container -->
+		<div
+			class="d-flex justify-content-center align-items-center h-100"
+			style="max-width: 2000px"
+		>
+			<!-- Left Container (CV) -->
+			<div
+				class="shadow rounded-5 h-100 me-3 d-flex flex-column align-items-between overflow-hidden"
+				style="width: 65%"
+			>
+				<div class="h-100 w-100 overflow-y-auto pt-4 px-4">
+					<!-- About -->
+					<div
+						class="w-100 d-flex flex-column align-items-center mb-4"
+					>
+						<h1 class="text-center">
+							Hi!
+							<span class="wave">👋🏻</span>
+						</h1>
+						<p class="w-75 text-center mb-0">
+							I'm currently a Software Engineer at
+							<span class="fw-bold">NTT Data Italia</span>
+							and a Cybersecurity & AI enthusiast gaining
+							proficency in Full Stack Development with Angular,
+							React, C#, Java, PostgreSQL and more.
+						</p>
+					</div>
+
+					<!-- Actions -->
+					<div
+						class="d-flex justify-content-center align-items-center w-100 mb-4"
+					>
+						<a
+							[ngClass]="{
+								'downloadCV d-none d-xl-block btn rounded-5 w-25': true,
+								'btn-light': theme === 'dark',
+								'btn-dark': theme === 'light'
+							}"
+							[ngStyle]="{
+								'box-shadow':
+									theme === 'light'
+										? '0 0 20px 5px rgba(0, 0, 0, 0.2)'
+										: '0 0 20px 5px rgba(255, 255, 255, 0.2)'
+							}"
+							href="assets/CV - Mario_Di_Modica.pdf"
+							download="CV - Mario_Di_Modica.pdf"
+						>
+							<span>
+								Download CV
+								<i class="ms-1 bi bi-download"></i>
+							</span>
+						</a>
+
+						<a
+							[ngClass]="{
+								'downloadCV d-block d-xl-none btn d rounded-5 w-50': true,
+								'btn-light': theme === 'dark',
+								'btn-dark': theme === 'light'
+							}"
+							[ngStyle]="{
+								'box-shadow':
+									theme === 'light'
+										? '0 0 20px 5px rgba(0, 0, 0, 0.2)'
+										: '0 0 20px 5px rgba(255, 255, 255, 0.2)'
+							}"
+							href="assets/CV - Mario_Di_Modica.pdf"
+							download="CV - Mario_Di_Modica.pdf"
+						>
+							<span>
+								Download CV
+								<i class="ms-1 bi bi-download"></i>
+							</span>
+						</a>
+					</div>
+
+					<!-- Tech Stack -->
+					<div class="mb-4">
+						<h1 class="mb-3">
+							<span>👨🏻‍💻</span>
+							Tech Stack
+						</h1>
+
+						<div class="d-flex align-items-center">
+							<div
+								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								style="width: 65px; height: 65px"
+							>
+								<img
+									src="assets/angular.png"
+									width="45"
+									alt="Angular"
+								/>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								style="width: 65px; height: 65px"
+							>
+								<img
+									src="assets/csharp.png"
+									width="50"
+									alt="C#"
+								/>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								style="width: 65px; height: 65px"
+							>
+								<img
+									src="assets/postgres.png"
+									width="50"
+									alt="PostgreSQL"
+								/>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								style="width: 65px; height: 65px"
+							>
+								<img
+									src="assets/git.png"
+									width="50"
+									alt="Git"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- Experience -->
+					<div class="mb-4">
+						<h1 class="mb-3">
+							<span>💼</span>
+							Experience
+						</h1>
+
+						<!-- NTT Data -->
+						<div class="shadow rounded-4 p-3 mb-3">
+							<!-- Header -->
+							<div class="d-flex justify-content-between">
+								<!-- Company -->
+								<div class="mb-2">
+									<h3 class="fw-bold mb-0">NTT Data</h3>
+									<!-- Position -->
+									<p class="mb-0">Software Engineer</p>
+								</div>
+
+								<!-- Location & Date -->
+								<div class="text-end d-flex flex-column">
+									<small class="mb-1">
+										Pisa, Italy
+										<span class="ms-1">📍</span>
+									</small>
+									<small>
+										Mar 2024 - Present
+										<span class="ms-1">🗓️</span>
+									</small>
+								</div>
+							</div>
+
+							<!-- Technologies -->
+							<div class="d-flex align-items-center w-75">
+								<div
+									class="d-flex flex-wrap align-items-center"
+								>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Angular
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										React
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										TypeScript
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Java Spring Boot
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Java
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Git
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Sonatrach -->
+						<div class="shadow rounded-4 p-3 mb-3">
+							<!-- Header -->
+							<div class="d-flex justify-content-between">
+								<!-- Company -->
+								<div class="mb-2">
+									<h3 class="fw-bold mb-0">Sonatrach</h3>
+									<!-- Position -->
+									<p class="mb-0">
+										Full Stack Engineer Intern
+									</p>
+								</div>
+
+								<!-- Location & Date -->
+								<div class="text-end d-flex flex-column">
+									<small class="mb-1">
+										Augusta, Italy
+										<span class="ms-1">📍</span>
+									</small>
+									<small>
+										Jul 2023 - Oct 2023
+										<span class="ms-1">🗓️</span>
+									</small>
+								</div>
+							</div>
+
+							<!-- Technologies -->
+							<div class="d-flex align-items-center w-75">
+								<div
+									class="d-flex flex-wrap align-items-center"
+								>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Angular
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										TypeScript
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										ASP.NET Core
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										C#
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Bootstrap
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Micorosft SQL Server
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Education -->
+					<div class="mb-4">
+						<h1 class="mb-3">
+							<span>🎓</span>
+							Education
+						</h1>
+
+						<!-- Bachelor's Degree -->
+						<div class="shadow rounded-4 p-3 mb-3">
+							<!-- Header -->
+							<div class="d-flex justify-content-between">
+								<!-- Isstitute -->
+								<h3 class="fw-bold">University of Pisa</h3>
+
+								<!-- Location & Date -->
+								<div class="text-end d-flex flex-column">
+									<small class="mb-1">
+										Pisa, Italy
+										<span class="ms-1">📍</span>
+									</small>
+									<small>
+										Sep 2020 - Oct 2023
+										<span class="ms-1">🗓️</span>
+									</small>
+								</div>
+							</div>
+
+							<!-- Title -->
+							<p class="mb-2">
+								Bachelor's Degree in Computer Science
+							</p>
+
+							<!-- Grade -->
+							<span
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								<span class="me-1">🎉</span>
+								100 / 110
+							</span>
+						</div>
+
+						<!-- Diploma -->
+						<div class="shadow rounded-4 p-3 mb-3">
+							<!-- Header -->
+							<div class="d-flex justify-content-between">
+								<!-- Isstitute -->
+								<h3 class="fw-bold">
+									Liceo Scientifico L.Einaudi
+								</h3>
+
+								<!-- Location & Date -->
+								<div class="text-end d-flex flex-column">
+									<small class="mb-1">
+										Siracusa, Italy
+										<span class="ms-1">📍</span>
+									</small>
+									<small>
+										Sep 2015 - Jun 2020
+										<span class="ms-1">🗓️</span>
+									</small>
+								</div>
+							</div>
+
+							<!-- Title -->
+							<p class="mb-2">
+								High School Diploma in Scientific Studies
+							</p>
+
+							<!-- Grade -->
+							<span
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								<span class="me-1">🎉</span>
+								90 / 100
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right Container (Profile) -->
+			<div
+				class="shadow rounded-5 h-100 overflow-hidden"
+				style="width: 35%"
+			>
+				<div
+					class="d-flex flex-column align-items-center w-100 pt-4 px-4 h-100 overflow-y-auto"
+				>
+					<div
+						class="d-flex flex-column align-items-center mb-3 w-100"
+					>
+						<!-- Image & Name -->
+						<img
+							src="assets/profile-pic.jpg"
+							class="rounded-circle object-fit-cover img-fluid mb-3 shadow border border-3"
+							alt="Profile Picture"
+						/>
+						<h1 class="d-none d-xl-block fw-bold">
+							Mario Di Modica
+						</h1>
+						<h3 class="d-block d-xl-none fw-bold">
+							Mario Di Modica
+						</h3>
+
+						<!-- Socials -->
+						<div class="d-flex justify-content-center mb-4">
+							<a
+								href="https://www.linkedin.com/in/mariodimodica/"
+								target="_blank"
+								class="me-3"
+							>
+								<i
+									[ngClass]="{
+										'bi bi-linkedin fs-4': true,
+										'social-dark-mode': theme === 'dark',
+										'social-light-mode': theme === 'light'
+									}"
+								></i>
+							</a>
+							<a
+								href="https://github.com/Mxo01"
+								target="_blank"
+								class="me-3"
+							>
+								<i
+									[ngClass]="{
+										'bi bi-github fs-4 social': true,
+										'social-dark-mode': theme === 'dark',
+										'social-light-mode': theme === 'light'
+									}"
+								></i>
+							</a>
+							<a
+								href="https://www.instagram.com/not_mxo/"
+								target="_blank"
+							>
+								<i
+									[ngClass]="{
+										'bi bi-instagram fs-4 social': true,
+										'social-dark-mode': theme === 'dark',
+										'social-light-mode': theme === 'light'
+									}"
+								></i>
+							</a>
+						</div>
+
+						<div class="w-100">
+							<!-- Position & Location -->
+							<div
+								class="d-flex justify-content-between mb-4"
+							>
+								<div>
+									<p class="mb-0 fw-bold">💼 Job Title</p>
+									<p class="mb-0 d-none d-xl-block">
+										Software Engineer
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Software Engineer
+									</small>
+								</div>
+								<div class="text-end">
+									<p class="mb-0 fw-bold">Location 📍</p>
+									<p class="mb-0 d-none d-xl-block">
+										Pisa, Italy
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Pisa, Italy
+									</small>
+								</div>
+							</div>
+
+							<!-- Open to & Languages  -->
+							<div class="d-flex justify-content-between mb-4">
+								<div>
+									<p class="mb-0 fw-bold">✅ Open to</p>
+									<p class="mb-0 d-none d-xl-block">
+										Hybrid Work
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Hybrid Work
+									</small>
+									<p class="mb-0 d-none d-xl-block">
+										Remote Work
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Remote Work
+									</small>
+								</div>
+								<div class="text-end">
+									<p class="mb-0 fw-bold">Languages 🗣️</p>
+									<p class="mb-0 d-none d-xl-block">
+										English (B1 Cambridge)
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										English (B1 Cambridge)
+									</small>
+									<p class="mb-0 d-none d-xl-block">
+										Italian (Native)
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Italian (Native)
+									</small>
+								</div>
+							</div>
+
+							<!-- Hobby -->
+							<div
+								class="d-flex justify-content-between mb-4"
+							>
+								<div>
+									<p class="mb-0 fw-bold">🤩 Hobby</p>
+									<p class="mb-0 d-none d-xl-block">
+										Gym
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Gym
+									</small>
+									<p class="mb-0 d-none d-xl-block">
+										Music
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Music
+									</small>
+									<p class="mb-0 d-none d-xl-block">
+										Coding
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Coding
+									</small>
+								</div>
+								<div class="text-end">
+									<p class="mb-0 fw-bold">Location 📍</p>
+									<p class="mb-0 d-none d-xl-block">
+										Pisa, Italy
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										Pisa, Italy
+									</small>
+								</div>
+							</div>
+
+							<!-- Contacts  -->
+							<div class="d-flex justify-content-between">
+								<div>
+									<p class="mb-0 fw-bold">📫 Contacts</p>
+									<a
+										href="mailto:mariodimodica.01@gmail.com"
+										[ngClass]="{
+											'mb-0': true,
+											'text-dark': theme === 'light',
+											'text-light': theme === 'dark'
+										}"
+									>
+										<p class="mb-0 d-none d-xl-block">
+											mariodimodica.01&#64;gmail.com
+										</p>
+										<small class="mb-0 d-block d-xl-none">
+											mariodimodica.01&#64;gmail.com
+										</small>
+									</a>
+									<p class="mb-0 d-none d-xl-block">
+										+39 331 *** ** ** (See CV)
+									</p>
+									<small class="mb-0 d-block d-xl-none">
+										+39 331 *** ** ** (See CV)
+									</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Mobile -->
+<div
+	id="aboutMobile"
+	class="pt-3 px-3 d-block d-lg-none w-100"
+	style="transform: translateY(60px)"
+>
+	<div class="d-flex flex-column align-items-between w-100">
+		<div class="h-100 w-100">
+			<!-- About -->
+			<div class="w-100 d-flex flex-column align-items-center mb-4">
+				<h1 class="text-center">
+					Hi!
+					<span class="wave">👋🏻</span>
+				</h1>
+				<p class="w-100 text-center mb-0">
+					I'm currently a Software Engineer at
+					<span class="fw-bold">NTT Data Italia</span>
+					and a Cybersecurity & AI enthusiast gaining proficency in
+					Full Stack Development with Angular, React, C#, Java,
+					PostgreSQL and more.
+				</p>
+			</div>
+
+			<!-- Actions -->
+			<div
+				class="d-flex justify-content-center align-items-center w-100 mb-4"
+			>
+				<a
+					[ngClass]="{
+						'downloadCV d-block d-xl-none btn d rounded-5 btn-sm': true,
+						'btn-light': theme === 'dark',
+						'btn-dark': theme === 'light'
+					}"
+					[ngStyle]="{
+						'box-shadow':
+							theme === 'light'
+								? '0 0 20px 5px rgba(0, 0, 0, 0.2)'
+								: '0 0 20px 5px rgba(255, 255, 255, 0.2)'
+					}"
+					href="assets/CV - Mario_Di_Modica.pdf"
+					download="CV - Mario_Di_Modica.pdf"
+				>
+					<span>
+						Download CV
+						<i class="ms-1 bi bi-download"></i>
+					</span>
+				</a>
+			</div>
+
+			<!-- Tech Stack -->
+			<div>
+				<h3 class="mb-0">👨🏻‍💻 Tech Stack</h3>
+
+				<div class="d-flex w-100">
+					<div
+						[ngClass]="{
+							'shadow rounded-5 me-3 my-1': true,
+							'path-dark': theme === 'light',
+							'path-light': theme === 'dark'
+						}"
+						style="width: 3px; margin-left: 12px"
+					></div>
+
+					<div class="d-flex align-items-center flex-wrap mt-3">
+						<div
+							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							style="width: 45px; height: 45px"
+						>
+							<img
+								src="assets/angular.png"
+								width="25"
+								alt="Angular"
+							/>
+						</div>
+						<div
+							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							style="width: 45px; height: 45px"
+						>
+							<img
+								src="assets/csharp.png"
+								width="30"
+								alt="C#"
+							/>
+						</div>
+						<div
+							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							style="width: 45px; height: 45px"
+						>
+							<img
+								src="assets/postgres.png"
+								width="30"
+								alt="PostgreSQL"
+							/>
+						</div>
+						<div
+							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							style="width: 45px; height: 45px"
+						>
+							<img
+								src="assets/git.png"
+								width="30"
+								alt="Git"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Experience -->
+			<div>
+				<h3 class="mb-0">💼 Experience</h3>
+
+				<div class="d-flex w-100">
+					<div
+						[ngClass]="{
+							'flex-grow-1 shadow rounded-5 me-3 my-1': true,
+							'path-dark': theme === 'light',
+							'path-light': theme === 'dark'
+						}"
+						style="width: 3px; margin-left: 12px"
+					></div>
+
+					<div class="d-flex flex-column w-100 my-3">
+						<!-- NTT Data -->
+						<div class="shadow rounded-4 p-3 mb-3">
+							<!-- Header -->
+							<div class="d-flex flex-column">
+								<!-- Company -->
+								<div class="text-start d-flex flex-column">
+									<h5 class="fw-bold mb-0">NTT Data</h5>
+									<!-- Position -->
+									<small
+										class="mb-2"
+										style="font-size: 12px"
+									>
+										Software Engineer
+									</small>
+									<!-- Location & Date -->
+									<small
+										class="mb-2"
+										style="font-size: 12px"
+									>
+										<span class="me-1">📍</span>
+										Pisa, Italy
+									</small>
+									<small
+										class="mb-2"
+										style="font-size: 12px"
+									>
+										<span class="me-1">🗓️</span>
+										Mar 2024 - Present
+									</small>
+								</div>
+							</div>
+
+							<!-- Technologies -->
+							<div class="d-flex align-items-center w-75">
+								<div
+									class="d-flex flex-wrap align-items-center"
+								>
+									<span
+										style="font-size: 10px"
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Angular
+									</span>
+									<span
+										style="font-size: 10px"
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										React
+									</span>
+									<span
+										style="font-size: 10px"
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										TypeScript
+									</span>
+									<span
+										style="font-size: 10px"
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Java Spring Boot
+									</span>
+									<span
+										[ngClass]="{
+											'badge rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+										style="font-size: 10px"
+									>
+										Java
+									</span>
+									<span
+										style="font-size: 10px"
+										[ngClass]="{
+											'badge rounded-pill mb-2': true,
+											'text-bg-dark': theme === 'light',
+											'text-bg-light': theme === 'dark'
+										}"
+									>
+										Git
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Sonatrach -->
+						<div class="shadow rounded-4 p-3">
+							<!-- Header -->
+							<div class="d-flex flex-column">
+								<!-- Company -->
+								<div class="text-start d-flex flex-column">
+									<h5 class="fw-bold mb-0">Sonatrach</h5>
+									<!-- Position -->
+									<small
+										class="mb-2"
+										style="font-size: 12px"
+									>
+										Full Stack Engineer Intern
+									</small>
+									<!-- Location & Date -->
+									<small
+										class="mb-2"
+										style="font-size: 12px"
+									>
+										<span class="me-1">📍</span>
+										Augusta, Italy
+									</small>
+									<small
+										class="mb-2"
+										style="font-size: 12px"
+									>
+										<span class="me-1">🗓️</span>
+										July 2023 - Oct 2023
+									</small>
+								</div>
+
+								<!-- Technologies -->
+								<div class="d-flex align-items-center w-75">
+									<div
+										class="d-flex flex-wrap align-items-center"
+									>
+										<span
+											style="font-size: 10px"
+											[ngClass]="{
+												'badge rounded-pill me-2 mb-2': true,
+												'text-bg-dark':
+													theme === 'light',
+												'text-bg-light':
+													theme === 'dark'
+											}"
+										>
+											Angular
+										</span>
+										<span
+											style="font-size: 10px"
+											[ngClass]="{
+												'badge rounded-pill me-2 mb-2': true,
+												'text-bg-dark':
+													theme === 'light',
+												'text-bg-light':
+													theme === 'dark'
+											}"
+										>
+											TypeScript
+										</span>
+										<span
+											style="font-size: 10px"
+											[ngClass]="{
+												'badge rounded-pill me-2 mb-2': true,
+												'text-bg-dark':
+													theme === 'light',
+												'text-bg-light':
+													theme === 'dark'
+											}"
+										>
+											ASP.NET Core
+										</span>
+										<span
+											style="font-size: 10px"
+											[ngClass]="{
+												'badge rounded-pill me-2 mb-2': true,
+												'text-bg-dark':
+													theme === 'light',
+												'text-bg-light':
+													theme === 'dark'
+											}"
+										>
+											C#
+										</span>
+										<span
+											style="font-size: 10px"
+											[ngClass]="{
+												'badge rounded-pill me-2 mb-2': true,
+												'text-bg-dark':
+													theme === 'light',
+												'text-bg-light':
+													theme === 'dark'
+											}"
+										>
+											Bootstrap
+										</span>
+										<span
+											style="font-size: 10px"
+											[ngClass]="{
+												'badge rounded-pill me-2 mb-2': true,
+												'text-bg-dark':
+													theme === 'light',
+												'text-bg-light':
+													theme === 'dark'
+											}"
+										>
+											Micorosft SQL Server
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Education -->
+				<div>
+					<h3 class="mb-0">🎓 Education</h3>
+
+					<div class="d-flex w-100">
+						<div
+							[ngClass]="{
+								'flex-grow-1 shadow rounded-5 me-3 my-1': true,
+								'path-dark': theme === 'light',
+								'path-light': theme === 'dark'
+							}"
+							style="width: 3px; margin-left: 12px"
+						></div>
+
+						<div class="d-flex flex-column w-100 my-3">
+							<!-- Bachelor's Degree -->
+							<div class="shadow rounded-4 p-3 mb-3">
+								<!-- Header -->
+								<div class="d-flex flex-column">
+									<div class="text-start d-flex flex-column">
+										<!-- Institute -->
+										<h5 class="fw-bold mb-0">
+											University of Pisa
+										</h5>
+										<!-- Title -->
+										<small
+											class="mb-2"
+											style="font-size: 12px"
+										>
+											Bachelor's Degree in Computer
+											Science
+										</small>
+										<!-- Location & Date -->
+										<small
+											class="mb-2"
+											style="font-size: 12px"
+										>
+											<span class="me-1">📍</span>
+											Pisa, Italy
+										</small>
+										<small
+											class="mb-2"
+											style="font-size: 12px"
+										>
+											<span class="me-1">🗓️</span>
+											Sep 2020 - Oct 2023
+										</small>
+									</div>
+								</div>
+
+								<!-- Grade -->
+								<span
+									style="font-size: 10px"
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									<span class="me-1">🎉</span>
+									100 / 110
+								</span>
+							</div>
+
+							<!-- Diploma -->
+							<div class="shadow rounded-4 p-3">
+								<!-- Header -->
+								<div class="d-flex flex-column">
+									<div class="text-start d-flex flex-column">
+										<!-- Institute -->
+										<h5 class="fw-bold mb-0">Diploma</h5>
+										<!-- Title -->
+										<small
+											class="mb-2"
+											style="font-size: 12px"
+										>
+											High School Diploma in Scientific
+											Studies
+										</small>
+										<!-- Location & Date -->
+										<small
+											class="mb-2"
+											style="font-size: 12px"
+										>
+											<span class="me-1">📍</span>
+											Pisa, Italy
+										</small>
+										<small
+											class="mb-2"
+											style="font-size: 12px"
+										>
+											<span class="me-1">🗓️</span>
+											Sep 2020 - Oct 2023
+										</small>
+									</div>
+								</div>
+
+								<!-- Grade -->
+								<span
+									style="font-size: 10px"
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									<span class="me-1">🎉</span>
+									90 / 100
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

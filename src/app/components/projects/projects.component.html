@@ -1,0 +1,1132 @@
+<app-project-gallery-modal></app-project-gallery-modal>
+
+<!-- Desktop -->
+<div
+	id="projects"
+	class="section p-3 d-none d-lg-block"
+>
+	<div class="d-flex justify-content-center w-100 h-100">
+		<div
+			class="shadow rounded-4 w-100 d-flex flex-column overflow-hidden"
+			style="max-width: 2000px"
+		>
+			<div class="w-100 h-100 overflow-y-auto pt-4 px-4">
+				<h1 class="mb-3">💡 Projects</h1>
+
+				<div
+					class="d-flex flex-column align-items-center flex-wrap w-100"
+				>
+					<!-- GymBro -->
+					<div class="shadow rounded-4 p-3 mb-3 w-100">
+						<!-- Header -->
+						<div
+							class="d-flex justify-content-between align-items-start"
+						>
+							<!-- Name -->
+							<h3 class="fw-bold">🏋🏻 GymBro</h3>
+
+							<!-- Actions -->
+							<div class="d-flex align-items-center">
+								<a
+									href="https://gymbro-ld.web.app/"
+									target="_blank"
+									[ngClass]="{
+										'btn me-2 rounded-3 btn-sm': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
+									[ngStyle]="{
+										'box-shadow':
+											theme === 'light'
+												? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+												: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+									}"
+								>
+									Visit
+									<i
+										class="ms-1 bi bi-box-arrow-up-right"
+									></i>
+								</a>
+								<a
+									href="https://github.com/lorenzoDeriu/gymbro"
+									target="_blank"
+									[ngClass]="{
+										'btn rounded-3 btn-sm': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
+									[ngStyle]="{
+										'box-shadow':
+											theme === 'light'
+												? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+												: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+									}"
+								>
+									Source Code
+									<i class="ms-1 bi bi-code-slash"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Description -->
+						<p class="mb-2 w-75">
+							Fitness tracking web app (PWA) designed for those
+							who work out in the gym. Optimized UX with
+							compatibility across all devices. Share your
+							training programs with your friends, create them
+							from zero and monitor your workouts.
+						</p>
+
+						<!-- Technologies -->
+						<div class="d-flex align-items-center w-75 mb-2">
+							<div class="d-flex flex-wrap align-items-center">
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Angular
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									TypeScript
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Bootstrap
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Firebase
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Git
+								</span>
+							</div>
+						</div>
+
+						<!-- Media -->
+						<h6 class="fw-bold">Media</h6>
+						<div class="d-flex flex-wrap align-items-center mb-2">
+							<div
+								class="rounded-4 shadow media"
+								style="
+									background-image: url(../../../assets/gymbro0.jpg);
+								"
+								(click)="openModal('GymBro')"
+								data-bs-toggle="modal"
+								data-bs-target="#projectGalleryModal"
+							>
+								<div
+									class="images w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+								>
+									<span class="text-light">
+										+5
+										<i class="bi bi-images"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Contributors -->
+						<h6 class="fw-bold">Contributors</h6>
+						<p class="d-flex align-items-center mb-0">
+							<img
+								src="assets/lorenzoderiu.jpeg"
+								width="24"
+								class="rounded-circle"
+								alt="Lorenzo Deriu"
+							/>
+							<span class="ms-2">Lorenzo Deriu</span>
+						</p>
+					</div>
+
+					<!-- LoveJob -->
+					<div class="shadow rounded-4 p-3 mb-3 w-100">
+						<!-- Header -->
+						<div
+							class="d-flex justify-content-between align-items-start"
+						>
+							<!-- Company -->
+							<h3 class="fw-bold">🧐 LoveJob</h3>
+
+							<!-- Actions -->
+							<div class="d-flex align-items-center">
+								<a
+									href="https://github.com/Mxo01/LoveJob"
+									target="_blank"
+									[ngClass]="{
+										'btn rounded-3 btn-sm': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
+									[ngStyle]="{
+										'box-shadow':
+											theme === 'light'
+												? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+												: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+									}"
+								>
+									Source Code
+									<i class="ms-1 bi bi-code-slash"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Description -->
+						<p class="mb-2 w-75">
+							Simplify job seeking. Users can search for their
+							dream job with a map that shows up open positions
+							near them. Company can create open position offers,
+							and users can contact them via chat or add specific
+							position to favorites.
+						</p>
+
+						<!-- Technologies -->
+						<div class="d-flex align-items-center w-75">
+							<div class="d-flex flex-wrap align-items-center">
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Angular
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									TypeScript
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									ASP.NET Core
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									C#
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Microsoft SQL Server
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Bootstrap
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Leaflet
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Git
+								</span>
+							</div>
+						</div>
+
+						<!-- Media -->
+						<h6 class="fw-bold">Media</h6>
+						<div class="d-flex flex-wrap align-items-center">
+							<div
+								class="rounded-4 shadow media"
+								style="
+									background-image: url(../../../assets/lovejob1.jpeg);
+								"
+								(click)="openModal('LoveJob')"
+								data-bs-toggle="modal"
+								data-bs-target="#projectGalleryModal"
+							>
+								<div
+									class="images w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+								>
+									<span class="text-light">
+										+4
+										<i class="bi bi-images"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- MyLibretto -->
+					<div class="shadow rounded-4 p-3 mb-3 w-100">
+						<!-- Header -->
+						<div
+							class="d-flex justify-content-between align-items-start"
+						>
+							<!-- Company -->
+							<h3 class="fw-bold">📚 MyLibretto</h3>
+
+							<!-- Actions -->
+							<div class="d-flex align-items-center">
+								<a
+									href="https://mylibretto.web.app/"
+									target="_blank"
+									[ngClass]="{
+										'btn rounded-3 btn-sm me-2': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
+									[ngStyle]="{
+										'box-shadow':
+											theme === 'light'
+												? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+												: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+									}"
+								>
+									Visit
+									<i
+										class="ms-1 bi bi-box-arrow-up-right"
+									></i>
+								</a>
+								<a
+									href="https://github.com/Mxo01/MyLibrettoPWA"
+									target="_blank"
+									[ngClass]="{
+										'btn rounded-3 btn-sm': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
+									[ngStyle]="{
+										'box-shadow':
+											theme === 'light'
+												? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+												: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+									}"
+								>
+									Source Code
+									<i class="ms-1 bi bi-code-slash"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Description -->
+						<p class="mb-2 w-75">
+							Progressive Web App that works offline and allows
+							you to keep track of your career by saving your
+							grades, taxes e sharing notes or file. You can also
+							see your statistics and some easy-readable charts.
+						</p>
+
+						<!-- Technologies -->
+						<div class="d-flex align-items-center w-75">
+							<div class="d-flex flex-wrap align-items-center">
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									React
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									JavaScript
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Firebase
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Git
+								</span>
+							</div>
+						</div>
+
+						<!-- Media -->
+						<h6 class="fw-bold">Media</h6>
+						<div class="d-flex flex-wrap align-items-center">
+							<div
+								class="rounded-4 shadow media"
+								style="
+									background-image: url(../../../assets/mylibretto1.png);
+								"
+								(click)="openModal('MyLibretto')"
+								data-bs-toggle="modal"
+								data-bs-target="#projectGalleryModal"
+							>
+								<div
+									class="images w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+								>
+									<span class="text-light">
+										+3
+										<i class="bi bi-images"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Crafty -->
+					<div class="shadow rounded-4 p-3 mb-3 w-100">
+						<!-- Header -->
+						<div
+							class="d-flex justify-content-between align-items-start"
+						>
+							<!-- Company -->
+							<h3 class="fw-bold">📊 Crafty</h3>
+
+							<!-- Actions -->
+							<div class="d-flex align-items-center">
+								<a
+									href="https://github.com/Mxo01/CRAFTY"
+									target="_blank"
+									[ngClass]="{
+										'btn rounded-3 btn-sm': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
+									[ngStyle]="{
+										'box-shadow':
+											theme === 'light'
+												? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+												: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+									}"
+								>
+									Source Code
+									<i class="ms-1 bi bi-code-slash"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Description -->
+						<p class="mb-2 w-75">
+							University project that revolves around highly
+							relevant topics such as Web Scraping, Data Analysis,
+							and Data Mining. The project works with a Dataset
+							comprising Bitcoin transactions, specifically those
+							included in blocks between 2009 and 2012.
+						</p>
+
+						<!-- Technologies -->
+						<div class="d-flex align-items-center w-75">
+							<div class="d-flex flex-wrap align-items-center">
+								<span
+									[ngClass]="{
+										'badge rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Python
+								</span>
+								<span
+									[ngClass]="{
+										'badge rounded-pill mb-2': true,
+										'text-bg-dark': theme === 'light',
+										'text-bg-light': theme === 'dark'
+									}"
+								>
+									Git
+								</span>
+							</div>
+						</div>
+
+						<!-- Media -->
+						<h6 class="fw-bold">Media</h6>
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="rounded-4 shadow media">
+								<div
+									class="w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+									style="
+										background-color: rgba(0, 0, 0, 0.393);
+									"
+								>
+									<span class="text-light">
+										<i class="bi bi-image"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="w-100 text-center mb-3">
+					<p>Want to see more? Check out my GitHub profile</p>
+
+					<a
+						href="https://github.com/Mxo01"
+						target="_blank"
+						[ngClass]="{
+							btn: true,
+							'btn-dark': theme === 'light',
+							'btn-light': theme === 'dark'
+						}"
+						[ngStyle]="{
+							'box-shadow':
+								theme === 'light'
+									? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+									: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+						}"
+					>
+						<i class="bi bi-github me-1"></i>
+						Mxo01
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Mobile -->
+<div
+	id="projectsMobile"
+	class="pb-3 px-3 d-block d-lg-none w-100"
+	style="transform: translateY(60px)"
+>
+	<h3 class="mb-0">💡 Projects</h3>
+
+	<div class="d-flex w-100">
+		<div
+			[ngClass]="{'flex-grow-1 shadow rounded-5 me-3 my-1': true, 'path-dark': theme === 'light', 'path-light': theme === 'dark'}"
+			style="width: 3px; margin-left: 12px"
+		></div>
+
+		<div class="d-flex flex-column w-100 my-3">
+			<div class="d-flex flex-column align-items-center flex-wrap w-100">
+				<!-- GymBro -->
+				<div class="shadow rounded-4 p-3 mb-3 w-100">
+					<!-- Header -->
+					<div
+						class="d-flex justify-content-between align-items-start mb-2"
+					>
+						<!-- Name -->
+						<h5 class="fw-bold mb-0">🏋🏻 GymBro</h5>
+
+						<!-- Actions -->
+						<div class="d-flex align-items-center">
+							<a
+								href="https://gymbro-ld.web.app/"
+								target="_blank"
+								[ngClass]="{
+									'btn btn-sm me-2 rounded-3 btn-sm': true,
+									'btn-dark': theme === 'light',
+									'btn-light': theme === 'dark'
+								}"
+								[ngStyle]="{
+									'box-shadow':
+										theme === 'light'
+											? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+											: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+								}"
+								style="font-size: 12px"
+							>
+								<span class="project-action-text me-1">
+									Visit
+								</span>
+								<i class="bi bi-box-arrow-up-right"></i>
+							</a>
+							<a
+								href="https://github.com/lorenzoDeriu/gymbro"
+								target="_blank"
+								[ngClass]="{
+									'btn btn-sm rounded-3 btn-sm': true,
+									'btn-dark': theme === 'light',
+									'btn-light': theme === 'dark'
+								}"
+								[ngStyle]="{
+									'box-shadow':
+										theme === 'light'
+											? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+											: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+								}"
+								style="font-size: 12px"
+							>
+								<span class="project-action-text me-1">
+									Code
+								</span>
+								<i class="bi bi-code-slash"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Description -->
+					<p class="mb-2">
+						<small>
+							Fitness tracking web app (PWA) designed for those
+							who work out in the gym. Optimized UX with
+							compatibility across all devices. Share your
+							training programs with your friends, create them
+							from zero and monitor your workouts.
+						</small>
+					</p>
+
+					<!-- Technologies -->
+					<div class="d-flex align-items-center w-100 mb-2">
+						<div class="d-flex flex-wrap align-items-center">
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Angular
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								TypeScript
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Bootstrap
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Firebase
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Git
+							</span>
+						</div>
+					</div>
+
+					<!-- Media -->
+					<h6 class="fw-bold">Media</h6>
+					<div class="d-flex flex-wrap align-items-center mb-2">
+						<div
+							class="rounded-4 shadow mediaMobile"
+							style="
+								background-image: url(../../../assets/gymbro0.jpg);
+							"
+							(click)="openModal('GymBro')"
+							data-bs-toggle="modal"
+							data-bs-target="#projectGalleryModal"
+						>
+							<div
+								class="images w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+							>
+								<span class="text-light">
+									+5
+									<i class="bi bi-images"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Contributors -->
+					<h6 class="fw-bold">Contributors</h6>
+					<p class="d-flex align-items-center mb-0">
+						<img
+							src="assets/lorenzoderiu.jpeg"
+							width="24"
+							class="rounded-circle"
+							alt="Lorenzo Deriu"
+						/>
+						<span class="ms-2"><small>Lorenzo Deriu</small></span>
+					</p>
+				</div>
+
+				<!-- LoveJob -->
+				<div class="shadow rounded-4 p-3 mb-3 w-100">
+					<!-- Header -->
+					<div
+						class="d-flex justify-content-between align-items-start mb-2"
+					>
+						<!-- Company -->
+						<h5 class="fw-bold mb-0">🧐 LoveJob</h5>
+
+						<!-- Actions -->
+						<div class="d-flex align-items-center">
+							<a
+								href="https://github.com/Mxo01/LoveJob"
+								target="_blank"
+								[ngClass]="{
+									'btn rounded-3 btn-sm': true,
+									'btn-dark': theme === 'light',
+									'btn-light': theme === 'dark'
+								}"
+								[ngStyle]="{
+									'box-shadow':
+										theme === 'light'
+											? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+											: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+								}"
+								style="font-size: 12px"
+							>
+								<span class="project-action-text me-1">
+									Code
+								</span>
+								<i class="bi bi-code-slash"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Description -->
+					<p class="mb-2">
+						<small>
+							Simplify job seeking. Users can search for their
+							dream job with a map that shows up open positions
+							near them. Company can create open position offers,
+							and users can contact them via chat or add specific
+							position to favorites.
+						</small>
+					</p>
+
+					<!-- Technologies -->
+					<div class="d-flex align-items-center w-100">
+						<div class="d-flex flex-wrap align-items-center">
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Angular
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								TypeScript
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								ASP.NET Core
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								C#
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Microsoft SQL Server
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Bootstrap
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Leaflet
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Git
+							</span>
+						</div>
+					</div>
+
+					<!-- Media -->
+					<h6 class="fw-bold">Media</h6>
+					<div class="d-flex flex-wrap align-items-center">
+						<div
+							class="rounded-4 shadow mediaMobile"
+							style="
+								background-image: url(../../../assets/lovejob1.jpeg);
+							"
+							(click)="openModal('LoveJob')"
+							data-bs-toggle="modal"
+							data-bs-target="#projectGalleryModal"
+						>
+							<div
+								class="images w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+							>
+								<span class="text-light">
+									+4
+									<i class="bi bi-images"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- MyLibretto -->
+				<div class="shadow rounded-4 p-3 mb-3 w-100">
+					<!-- Header -->
+					<div
+						class="d-flex justify-content-between align-items-start mb-2"
+					>
+						<!-- Company -->
+						<h5 class="fw-bold mb-0">📚 MyLibretto</h5>
+
+						<!-- Actions -->
+						<div class="d-flex align-items-center">
+							<a
+								href="https://mylibretto.web.app/"
+								target="_blank"
+								[ngClass]="{
+									'btn rounded-3 btn-sm me-2': true,
+									'btn-dark': theme === 'light',
+									'btn-light': theme === 'dark'
+								}"
+								[ngStyle]="{
+									'box-shadow':
+										theme === 'light'
+											? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+											: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+								}"
+								style="font-size: 12px"
+							>
+								<span class="project-action-text me-1">
+									Visit
+								</span>
+								<i class="bi bi-box-arrow-up-right"></i>
+							</a>
+							<a
+								href="https://github.com/Mxo01/MyLibrettoPWA"
+								target="_blank"
+								[ngClass]="{
+									'btn rounded-3 btn-sm': true,
+									'btn-dark': theme === 'light',
+									'btn-light': theme === 'dark'
+								}"
+								[ngStyle]="{
+									'box-shadow':
+										theme === 'light'
+											? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+											: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+								}"
+								style="font-size: 12px"
+							>
+								<span class="project-action-text me-1">
+									Code
+								</span>
+								<i class="bi bi-code-slash"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Description -->
+					<p class="mb-2">
+						<small>
+							Progressive Web App that works offline and allows
+							you to keep track of your career by saving your
+							grades, taxes e sharing notes or file. You can also
+							see your statistics and some easy-readable charts.
+						</small>
+					</p>
+
+					<!-- Technologies -->
+					<div class="d-flex align-items-center w-100">
+						<div class="d-flex flex-wrap align-items-center">
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								React
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								JavaScript
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Firebase
+							</span>
+							<span
+								style="font-size: 10px"
+								[ngClass]="{
+									'badge rounded-pill mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+							>
+								Git
+							</span>
+						</div>
+					</div>
+
+					<!-- Media -->
+					<h6 class="fw-bold">Media</h6>
+					<div class="d-flex flex-wrap align-items-center">
+						<div
+							class="rounded-4 shadow mediaMobile"
+							style="
+								background-image: url(../../../assets/mylibretto1.png);
+							"
+							(click)="openModal('MyLibretto')"
+							data-bs-toggle="modal"
+							data-bs-target="#projectGalleryModal"
+						>
+							<div
+								class="images w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+							>
+								<span class="text-light">
+									+3
+									<i class="bi bi-images"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Crafty -->
+				<div class="shadow rounded-4 p-3 mb-3 w-100">
+					<!-- Header -->
+					<div
+						class="d-flex justify-content-between align-items-start mb-2"
+					>
+						<!-- Company -->
+						<h5 class="fw-bold mb-0">📊 Crafty</h5>
+
+						<!-- Actions -->
+						<div class="d-flex align-items-center">
+							<a
+								href="https://github.com/Mxo01/CRAFTY"
+								target="_blank"
+								[ngClass]="{
+									'btn rounded-3 btn-sm': true,
+									'btn-dark': theme === 'light',
+									'btn-light': theme === 'dark'
+								}"
+								[ngStyle]="{
+									'box-shadow':
+										theme === 'light'
+											? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+											: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+								}"
+								style="font-size: 12px"
+							>
+								<span class="project-action-text me-1">
+									Code
+								</span>
+								<i class="bi bi-code-slash"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Description -->
+					<p class="mb-2">
+						<small>
+							University project that revolves around highly
+							relevant topics such as Web Scraping, Data Analysis,
+							and Data Mining. The project works with a Dataset
+							comprising Bitcoin transactions, specifically those
+							included in blocks between 2009 and 2012.
+						</small>
+					</p>
+
+					<!-- Technologies -->
+					<div class="d-flex align-items-center w-100">
+						<div class="d-flex flex-wrap align-items-center">
+							<span
+								[ngClass]="{
+									'badge rounded-pill me-2 mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+								style="font-size: 10px"
+							>
+								Python
+							</span>
+							<span
+								[ngClass]="{
+									'badge rounded-pill mb-2': true,
+									'text-bg-dark': theme === 'light',
+									'text-bg-light': theme === 'dark'
+								}"
+								style="font-size: 10px"
+							>
+								Git
+							</span>
+						</div>
+					</div>
+
+					<!-- Media -->
+					<h6 class="fw-bold">Media</h6>
+					<div class="d-flex flex-wrap align-items-center">
+						<div class="rounded-4 shadow mediaMobile">
+							<div
+								class="w-100 h-100 rounded-4 d-flex align-items-center justify-content-center"
+								style="background-color: rgba(0, 0, 0, 0.393)"
+							>
+								<span class="text-light">
+									<i class="bi bi-image"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="w-100 text-center">
+				<p class="mb-1">
+					<small>Want to see more? Check out my GitHub profile</small>
+				</p>
+
+				<a
+					href="https://github.com/Mxo01"
+					target="_blank"
+					[ngClass]="{
+						'btn btn-sm': true,
+						'btn-dark': theme === 'light',
+						'btn-light': theme === 'dark'
+					}"
+					[ngStyle]="{
+						'box-shadow':
+							theme === 'light'
+								? '0 0 10px 2px rgba(0, 0, 0, 0.2)'
+								: '0 0 10px 2px rgba(255, 255, 255, 0.2)'
+					}"
+					style="font-size: 12px"
+				>
+					<i class="bi bi-github me-1"></i>
+					Mxo01
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<h3 class="mb-0 d-flex align-items-center">🙏🏻 <span class="h6 mb-0 ms-2">Hire Me please</span></h3>
+</div>

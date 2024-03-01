@@ -1,0 +1,128 @@
+<div
+	class="offcanvas offcanvas-end"
+	tabindex="-1"
+	id="infoOffcanvas"
+	aria-labelledby="infoOffcanvasLabel"
+>
+	<div class="offcanvas-header">
+		<h5
+			class="offcanvas-title"
+			id="infoOffcanvasLabel"
+		>
+			Mario Di Modica
+		</h5>
+		<button
+			style="box-shadow: none"
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="offcanvas"
+			aria-label="Close"
+		></button>
+	</div>
+	<div class="offcanvas-body">
+		<!-- Image -->
+		<img
+			src="assets/profile-pic.jpg"
+			class="rounded-circle object-fit-cover img-fluid mb-3 shadow border border-3"
+			alt="Profile Picture"
+		/>
+		<p class="w-100 text-center">Connect with me:</p>
+		<!-- Socials -->
+		<div class="d-flex justify-content-center mb-4">
+			<a
+				href="https://www.linkedin.com/in/mariodimodica/"
+				target="_blank"
+				class="me-4"
+			>
+				<i
+					[ngClass]="{
+						'bi bi-linkedin fs-4': true,
+						'text-light': theme === 'dark',
+						'text-dark': theme === 'light'
+					}"
+				></i>
+			</a>
+			<a
+				href="https://github.com/Mxo01"
+				target="_blank"
+				class="me-4"
+			>
+				<i
+					[ngClass]="{
+						'bi bi-github fs-4 social': true,
+						'text-light': theme === 'dark',
+						'text-dark': theme === 'light'
+					}"
+				></i>
+			</a>
+			<a
+				href="https://www.instagram.com/not_mxo/"
+				target="_blank"
+			>
+				<i
+					[ngClass]="{
+						'bi bi-instagram fs-4 social': true,
+						'text-light': theme === 'dark',
+						'text-dark': theme === 'light'
+					}"
+				></i>
+			</a>
+		</div>
+
+		<div class="w-100">
+			<!-- Position & Location -->
+			<div class="d-flex justify-content-between mb-4">
+				<div>
+					<p class="mb-0 fw-bold">💼 Job Title</p>
+					<small class="mb-0 d-block d-xl-none">
+						Software Engineer
+					</small>
+				</div>
+				<div class="text-end">
+					<p class="mb-0 fw-bold">Location 📍</p>
+					<small class="mb-0 d-block d-xl-none">Pisa, Italy</small>
+				</div>
+			</div>
+
+			<!-- Open to & Languages  -->
+			<div class="d-flex justify-content-between mb-4">
+				<div>
+					<p class="mb-0 fw-bold">✅ Open to</p>
+					<small class="mb-0 d-block d-xl-none">Hybrid Work</small>
+					<small class="mb-0 d-block d-xl-none">Remote Work</small>
+				</div>
+				<div class="text-end">
+					<p class="mb-0 fw-bold">Languages 🗣️</p>
+					<small class="mb-0 d-block d-xl-none">
+						English (B1 Cambridge)
+					</small>
+					<small class="mb-0 d-block d-xl-none">
+						Italian (Native)
+					</small>
+				</div>
+			</div>
+
+			<!-- Contacts  -->
+			<div class="d-flex justify-content-between">
+				<div>
+					<p class="mb-0 fw-bold">📫 Contacts</p>
+					<a
+						href="mailto:mariodimodica.01@gmail.com"
+						[ngClass]="{
+							'mb-0': true,
+							'text-dark': theme === 'light',
+							'text-light': theme === 'dark'
+						}"
+					>
+						<small class="mb-0 d-block d-xl-none">
+							mariodimodica.01&#64;gmail.com
+						</small>
+					</a>
+					<small class="mb-0 d-block d-xl-none">
+						+39 331 *** ** ** (See CV)
+					</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

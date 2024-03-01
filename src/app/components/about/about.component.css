@@ -1,0 +1,54 @@
+.wave {
+	animation-name: wave-animation;
+	animation-duration: 2.5s;
+	animation-iteration-count: infinite;
+	transform-origin: 70% 70%;
+	display: inline-block;
+}
+
+@keyframes wave-animation {
+	0% {
+		transform: rotate(0deg);
+	}
+	10% {
+		transform: rotate(14deg);
+	}
+	20% {
+		transform: rotate(-8deg);
+	}
+	30% {
+		transform: rotate(14deg);
+	}
+	40% {
+		transform: rotate(-4deg);
+	}
+	50% {
+		transform: rotate(10deg);
+	}
+	60% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+.social-dark-mode {
+	color: #bfbfbf;
+	transition: 0.3s;
+}
+
+.social-light-mode {
+	color: #525252;
+	transition: 0.3s;
+}
+
+.social-dark-mode:hover {
+	color: #ffffff;
+	text-shadow: #ffffff89 1px 0 5px;
+}
+
+.social-light-mode:hover {
+	color: #000000;
+	text-shadow: #0000006a 1px 0 5px;
+}

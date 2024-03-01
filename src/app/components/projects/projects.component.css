@@ -1,0 +1,35 @@
+.media {
+	background-size: cover;
+	background-position: center;
+	height: 100px;
+	width: 200px;
+}
+
+.mediaMobile {
+	background-size: cover;
+	background-position: center;
+	height: 90px;
+	width: 160px;
+}
+
+.images {
+	background-color: rgba(0, 0, 0, 0.363);
+	transition: 0.2s;
+}
+
+.images:hover {
+	background-color: rgba(0, 0, 0, 0.72);
+	cursor: pointer;
+}
+
+@media (max-width: 400px) {
+	.project-action-text {
+		display: none;
+	}
+}
+
+@media (mix-width: 400px) {
+	.project-action-text {
+		display: block;
+	}
+}
