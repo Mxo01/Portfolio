@@ -7,7 +7,7 @@
 	<div class="container-fluid d-none d-lg-flex">
 		<ul class="nav justify-content-center">
 			<li class="nav-item">
-				<a
+				<button
 					[ngClass]="{
 						'nav-link': true,
 						'link-dark-mode': theme === 'dark',
@@ -18,10 +18,10 @@
 					(click)="toAbout()"
 				>
 					About
-				</a>
+				</button>
 			</li>
 			<li class="nav-item">
-				<a
+				<button
 					[ngClass]="{
 						'nav-link': true,
 						'link-dark-mode': theme === 'dark',
@@ -32,7 +32,7 @@
 					(click)="toProjects()"
 				>
 					Projects
-				</a>
+				</button>
 			</li>
 		</ul>
 

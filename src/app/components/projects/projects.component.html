@@ -157,8 +157,9 @@
 							<img
 								src="assets/lorenzoderiu.jpeg"
 								width="24"
+								height="24"
 								class="rounded-circle"
-								alt="Lorenzo Deriu"
+								alt="Lorenzo Deriu Picture"
 							/>
 							<span class="ms-2">Lorenzo Deriu</span>
 						</p>
@@ -554,7 +555,11 @@
 
 	<div class="d-flex w-100">
 		<div
-			[ngClass]="{'flex-grow-1 shadow rounded-5 me-3 my-1': true, 'path-dark': theme === 'light', 'path-light': theme === 'dark'}"
+			[ngClass]="{
+				'flex-grow-1 shadow rounded-5 me-3 my-1': true,
+				'path-dark': theme === 'light',
+				'path-light': theme === 'dark'
+			}"
 			style="width: 3px; margin-left: 12px"
 		></div>
 
@@ -712,8 +717,9 @@
 						<img
 							src="assets/lorenzoderiu.jpeg"
 							width="24"
+							height="24"
 							class="rounded-circle"
-							alt="Lorenzo Deriu"
+							alt="Lorenzo Deriu Picture"
 						/>
 						<span class="ms-2"><small>Lorenzo Deriu</small></span>
 					</p>
@@ -1128,5 +1134,8 @@
 		</div>
 	</div>
 
-	<h3 class="mb-0 d-flex align-items-center">🙏🏻 <span class="h6 mb-0 ms-2">Hire Me please</span></h3>
+	<h3 class="mb-0 d-flex align-items-center">
+		🙏🏻
+		<span class="h6 mb-0 ms-2">Hire Me please</span>
+	</h3>
 </div>
