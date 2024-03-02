@@ -8,12 +8,12 @@
 
 .link-dark-mode {
 	color: #bfbfbf;
-  transition: 0.3s;
+	transition: 0.3s;
 }
 
 .link-light-mode {
 	color: #525252;
-  transition: 0.3s;
+	transition: 0.3s;
 }
 
 .link-dark-mode:hover {
@@ -23,5 +23,5 @@
 
 .link-light-mode:hover {
 	color: #000000;
-  text-shadow: #0000006a 1px 0 5px;
+	text-shadow: #0000006a 1px 0 5px;
 }
