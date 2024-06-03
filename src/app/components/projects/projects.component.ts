@@ -1,5 +1,5 @@
 import { NgClass, NgStyle } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, Signal, computed } from "@angular/core";
 import { Theme } from "../../models/theme.model";
 import { ThemeService } from "../../services/theme.service";
 import { Project } from "../../models/project.model";
@@ -14,20 +14,14 @@ import { SharedService } from "../../services/shared.service";
 	styleUrls: ["./projects.component.css", "../../../styles.css"],
 })
 export class ProjectsComponent {
-	public theme: Theme = "light";
+	theme: Signal<Theme> = computed(() => this.themeService.theme());
 
 	constructor(
 		private themeService: ThemeService,
 		private sharedService: SharedService
 	) {}
 
-	public ngOnInit(): void {
-		this.themeService.themeObs.subscribe((theme: Theme) => {
-			this.theme = theme;
-		});
-	}
-
-	public openModal(project: Project): void {
+	openModal(project: Project): void {
 		this.sharedService.setProject(project);
 	}
 }

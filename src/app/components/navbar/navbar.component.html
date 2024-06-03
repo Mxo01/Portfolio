@@ -10,8 +10,8 @@
 				<button
 					[ngClass]="{
 						'nav-link': true,
-						'link-dark-mode': theme === 'dark',
-						'link-light-mode': theme === 'light'
+						'link-dark-mode': theme() === 'dark',
+						'link-light-mode': theme() === 'light'
 					}"
 					style="cursor: pointer"
 					aria-current="page"
@@ -24,8 +24,8 @@
 				<button
 					[ngClass]="{
 						'nav-link': true,
-						'link-dark-mode': theme === 'dark',
-						'link-light-mode': theme === 'light'
+						'link-dark-mode': theme() === 'dark',
+						'link-light-mode': theme() === 'light'
 					}"
 					style="cursor: pointer"
 					aria-current="page"
@@ -39,8 +39,8 @@
 		<div class="d-flex align-items-center">
 			<i
 				[ngClass]="{
-					'bi bi-sun-fill link-dark-mode': theme === 'dark',
-					'bi bi-moon-fill link-light-mode': theme === 'light'
+					'bi bi-sun-fill link-dark-mode': theme() === 'dark',
+					'bi bi-moon-fill link-light-mode': theme() === 'light'
 				}"
 				(click)="toggleTheme()"
 				style="cursor: pointer"
@@ -52,8 +52,8 @@
 		<div class="d-flex align-items-center">
 			<i
 				[ngClass]="{
-					'bi bi-sun-fill link-dark-mode': theme === 'dark',
-					'bi bi-moon-fill link-light-mode': theme === 'light'
+					'bi bi-sun-fill link-dark-mode': theme() === 'dark',
+					'bi bi-moon-fill link-light-mode': theme() === 'light'
 				}"
 				(click)="toggleTheme()"
 				style="cursor: pointer"
@@ -69,7 +69,7 @@
 				aria-controls="infoOffcanvas"
 				[ngStyle]="{
 					'box-shadow':
-						theme === 'light'
+						theme() === 'light'
 							? '0 0 5px 3px rgba(0, 0, 0, 0.2)'
 							: '0 0 5px 3px rgba(255, 255, 255, 0.2)'
 				}"

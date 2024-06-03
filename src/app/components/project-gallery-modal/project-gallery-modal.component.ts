@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Signal, computed } from "@angular/core";
 import { SharedService } from "../../services/shared.service";
 import { Project } from "../../models/project.model";
 
@@ -10,15 +10,7 @@ import { Project } from "../../models/project.model";
 	styleUrl: "./project-gallery-modal.component.css",
 })
 export class ProjectGalleryModalComponent {
-	public project: Project = "GymBro";
+	project: Signal<Project> = computed(() => this.sharedService.project());
 
 	constructor(private sharedService: SharedService) {}
-
-	public ngOnInit(): void {
-		this.sharedService.projectObs.subscribe({
-			next: (project: Project) => {
-				this.project = project;
-			}
-		});
-	}
 }

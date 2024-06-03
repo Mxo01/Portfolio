@@ -1,5 +1,5 @@
 <div
-	class="offcanvas offcanvas-end"
+	class="offcanvas offcanvas-end bg-body-secondary"
 	tabindex="-1"
 	id="infoOffcanvas"
 	aria-labelledby="infoOffcanvasLabel"
@@ -37,8 +37,8 @@
 				<i
 					[ngClass]="{
 						'bi bi-linkedin fs-4': true,
-						'text-light': theme === 'dark',
-						'text-dark': theme === 'light'
+						'text-light': theme() === 'dark',
+						'text-dark': theme() === 'light'
 					}"
 				></i>
 			</a>
@@ -50,8 +50,8 @@
 				<i
 					[ngClass]="{
 						'bi bi-github fs-4 social': true,
-						'text-light': theme === 'dark',
-						'text-dark': theme === 'light'
+						'text-light': theme() === 'dark',
+						'text-dark': theme() === 'light'
 					}"
 				></i>
 			</a>
@@ -62,8 +62,8 @@
 				<i
 					[ngClass]="{
 						'bi bi-instagram fs-4 social': true,
-						'text-light': theme === 'dark',
-						'text-dark': theme === 'light'
+						'text-light': theme() === 'dark',
+						'text-dark': theme() === 'light'
 					}"
 				></i>
 			</a>
@@ -110,8 +110,8 @@
 						href="mailto:mariodimodica.01@gmail.com"
 						[ngClass]="{
 							'mb-0': true,
-							'text-dark': theme === 'light',
-							'text-light': theme === 'dark'
+							'text-dark': theme() === 'light',
+							'text-light': theme() === 'dark'
 						}"
 					>
 						<small class="mb-0 d-block d-xl-none">

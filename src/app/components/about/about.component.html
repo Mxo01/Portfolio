@@ -1,6 +1,6 @@
 <div
 	id="about"
-	class="section p-3 d-none d-lg-block"
+	class="section p-3 d-none d-lg-block bg-body-secondary"
 >
 	<!-- Container -->
 	<div class="d-flex justify-content-center w-100 h-100">
@@ -11,7 +11,7 @@
 		>
 			<!-- Left Container (CV) -->
 			<div
-				class="shadow rounded-5 h-100 me-3 d-flex flex-column align-items-between overflow-hidden"
+				class="bg-body rounded-5 h-100 me-3 d-flex flex-column align-items-between overflow-hidden"
 				style="width: 65%"
 			>
 				<div class="h-100 w-100 overflow-y-auto pt-4 px-4">
@@ -39,12 +39,12 @@
 						<a
 							[ngClass]="{
 								'downloadCV d-none d-xl-block btn rounded-5 w-25': true,
-								'btn-light': theme === 'dark',
-								'btn-dark': theme === 'light'
+								'btn-light': theme() === 'dark',
+								'btn-dark': theme() === 'light'
 							}"
 							[ngStyle]="{
 								'box-shadow':
-									theme === 'light'
+									theme() === 'light'
 										? '0 0 20px 5px rgba(0, 0, 0, 0.2)'
 										: '0 0 20px 5px rgba(255, 255, 255, 0.2)'
 							}"
@@ -60,12 +60,12 @@
 						<a
 							[ngClass]="{
 								'downloadCV d-block d-xl-none btn d rounded-5 w-50': true,
-								'btn-light': theme === 'dark',
-								'btn-dark': theme === 'light'
+								'btn-light': theme() === 'dark',
+								'btn-dark': theme() === 'light'
 							}"
 							[ngStyle]="{
 								'box-shadow':
-									theme === 'light'
+									theme() === 'light'
 										? '0 0 20px 5px rgba(0, 0, 0, 0.2)'
 										: '0 0 20px 5px rgba(255, 255, 255, 0.2)'
 							}"
@@ -88,57 +88,57 @@
 
 						<div class="d-flex align-items-center">
 							<div
-								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary border p-2 me-4"
 								style="width: 65px; height: 65px"
 							>
 								<img
 									src="assets/angular.png"
-									width="42.3"
-									height="45"
+									width="37.3"
+									height="40"
 									alt="Angular"
 								/>
 							</div>
 							<div
-								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary border p-2 me-4"
 								style="width: 65px; height: 65px"
 							>
 								<img
 									src="assets/springboot.webp"
-									width="50"
-									height="45"
+									width="45"
+									height="40"
 									alt="Spring Boot"
 								/>
 							</div>
 							<div
-								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary border p-2 me-4"
 								style="width: 65px; height: 65px"
 							>
 								<img
 									src="assets/csharp.png"
-									width="50"
-									height="50"
+									width="45"
+									height="45"
 									alt="C#"
 								/>
 							</div>
 							<div
-								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary border p-2 me-4"
 								style="width: 65px; height: 65px"
 							>
 								<img
 									src="assets/postgres.png"
-									width="50"
-									height="50"
+									width="40"
+									height="40"
 									alt="PostgreSQL"
 								/>
 							</div>
 							<div
-								class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-4"
+								class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary border p-2 me-4"
 								style="width: 65px; height: 65px"
 							>
 								<img
 									src="assets/git.png"
-									width="50"
-									height="50"
+									width="45"
+									height="45"
 									alt="Git"
 								/>
 							</div>
@@ -149,18 +149,22 @@
 					<div class="mb-4">
 						<h1 class="mb-3">
 							<span>💼</span>
-							Experience
+							Experience ({{ totalExperience() }})
 						</h1>
 
 						<!-- NTT Data -->
-						<div class="shadow rounded-4 p-3 mb-3">
+						<div class="bg-body-tertiary border rounded-4 p-3 mb-3">
 							<!-- Header -->
 							<div class="d-flex justify-content-between">
 								<!-- Company -->
 								<div class="mb-2">
-									<h3 class="fw-bold mb-0">NTT Data</h3>
+									<h4 class="fw-bold mb-0">
+										NTT DATA Italia
+									</h4>
 									<!-- Position -->
-									<p class="mb-0">Software Engineer</p>
+									<p class="mb-0 job-role">
+										Software Engineer
+									</p>
 								</div>
 
 								<!-- Location & Date -->
@@ -184,8 +188,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Angular
@@ -193,8 +197,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										React
@@ -202,8 +206,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										TypeScript
@@ -211,8 +215,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Java Spring Boot
@@ -220,8 +224,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Java
@@ -229,8 +233,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Git
@@ -238,8 +242,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										PostgreSQL
@@ -249,15 +253,15 @@
 						</div>
 
 						<!-- Sonatrach -->
-						<div class="shadow rounded-4 p-3 mb-3">
+						<div class="bg-body-tertiary border rounded-4 p-3 mb-3">
 							<!-- Header -->
 							<div class="d-flex justify-content-between">
 								<!-- Company -->
 								<div class="mb-2">
-									<h3 class="fw-bold mb-0">Sonatrach</h3>
+									<h4 class="fw-bold mb-0">Sonatrach</h4>
 									<!-- Position -->
-									<p class="mb-0">
-										Full Stack Engineer Intern
+									<p class="mb-0 job-role">
+										Software Engineer Intern
 									</p>
 								</div>
 
@@ -282,8 +286,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Angular
@@ -291,8 +295,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										TypeScript
@@ -300,8 +304,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										ASP.NET Core
@@ -309,8 +313,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										C#
@@ -318,8 +322,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Bootstrap
@@ -327,8 +331,8 @@
 									<span
 										[ngClass]="{
 											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Micorosft SQL Server
@@ -346,11 +350,19 @@
 						</h1>
 
 						<!-- Bachelor's Degree -->
-						<div class="shadow rounded-4 p-3 mb-3">
+						<div class="bg-body-tertiary border rounded-4 p-3 mb-3">
 							<!-- Header -->
 							<div class="d-flex justify-content-between">
-								<!-- Isstitute -->
-								<h3 class="fw-bold">University of Pisa</h3>
+								<div class="mb-2">
+									<!-- Institute -->
+									<h4 class="fw-bold mb-0">
+										University of Pisa
+									</h4>
+									<!-- Position -->
+									<p class="mb-0 job-role">
+										Bachelor's Degree in Computer Science
+									</p>
+								</div>
 
 								<!-- Location & Date -->
 								<div class="text-end d-flex flex-column">
@@ -365,17 +377,12 @@
 								</div>
 							</div>
 
-							<!-- Title -->
-							<p class="mb-2">
-								Bachelor's Degree in Computer Science
-							</p>
-
 							<!-- Grade -->
 							<span
 								[ngClass]="{
 									'badge rounded-pill me-2 mb-2': true,
-									'text-bg-dark': theme === 'light',
-									'text-bg-light': theme === 'dark'
+									'text-bg-dark': theme() === 'light',
+									'text-bg-light': theme() === 'dark'
 								}"
 							>
 								<span class="me-1">🎉</span>
@@ -384,13 +391,20 @@
 						</div>
 
 						<!-- Diploma -->
-						<div class="shadow rounded-4 p-3 mb-3">
+						<div class="bg-body-tertiary border rounded-4 p-3 mb-3">
 							<!-- Header -->
 							<div class="d-flex justify-content-between">
-								<!-- Isstitute -->
-								<h3 class="fw-bold">
-									Liceo Scientifico L.Einaudi
-								</h3>
+								<div class="mb-2">
+									<!-- Institute -->
+									<h4 class="fw-bold mb-0">
+										Liceo Scientifico L.Einaudi
+									</h4>
+									<!-- Position -->
+									<p class="mb-0 job-role">
+										High School Diploma in Scientific
+										Studies
+									</p>
+								</div>
 
 								<!-- Location & Date -->
 								<div class="text-end d-flex flex-column">
@@ -405,17 +419,12 @@
 								</div>
 							</div>
 
-							<!-- Title -->
-							<p class="mb-2">
-								High School Diploma in Scientific Studies
-							</p>
-
 							<!-- Grade -->
 							<span
 								[ngClass]="{
 									'badge rounded-pill me-2 mb-2': true,
-									'text-bg-dark': theme === 'light',
-									'text-bg-light': theme === 'dark'
+									'text-bg-dark': theme() === 'light',
+									'text-bg-light': theme() === 'dark'
 								}"
 							>
 								<span class="me-1">🎉</span>
@@ -428,7 +437,7 @@
 
 			<!-- Right Container (Profile) -->
 			<div
-				class="shadow rounded-5 h-100 overflow-hidden"
+				class="bg-body rounded-5 h-100 overflow-hidden"
 				style="width: 35%"
 			>
 				<div
@@ -460,8 +469,8 @@
 								<i
 									[ngClass]="{
 										'bi bi-linkedin fs-4': true,
-										'social-dark-mode': theme === 'dark',
-										'social-light-mode': theme === 'light'
+										'social-dark-mode': theme() === 'dark',
+										'social-light-mode': theme() === 'light'
 									}"
 								></i>
 							</a>
@@ -473,8 +482,8 @@
 								<i
 									[ngClass]="{
 										'bi bi-github fs-4 social': true,
-										'social-dark-mode': theme === 'dark',
-										'social-light-mode': theme === 'light'
+										'social-dark-mode': theme() === 'dark',
+										'social-light-mode': theme() === 'light'
 									}"
 								></i>
 							</a>
@@ -485,8 +494,8 @@
 								<i
 									[ngClass]="{
 										'bi bi-instagram fs-4 social': true,
-										'social-dark-mode': theme === 'dark',
-										'social-light-mode': theme === 'light'
+										'social-dark-mode': theme() === 'dark',
+										'social-light-mode': theme() === 'light'
 									}"
 								></i>
 							</a>
@@ -494,9 +503,7 @@
 
 						<div class="w-100">
 							<!-- Position & Location -->
-							<div
-								class="d-flex justify-content-between mb-4"
-							>
+							<div class="d-flex justify-content-between mb-4">
 								<div>
 									<p class="mb-0 fw-bold">💼 Job Title</p>
 									<p class="mb-0 d-none d-xl-block">
@@ -559,8 +566,8 @@
 										href="mailto:mariodimodica.01@gmail.com"
 										[ngClass]="{
 											'mb-0': true,
-											'text-dark': theme === 'light',
-											'text-light': theme === 'dark'
+											'text-dark': theme() === 'light',
+											'text-light': theme() === 'dark'
 										}"
 									>
 										<p class="mb-0 d-none d-xl-block">
@@ -589,7 +596,7 @@
 <!-- Mobile -->
 <div
 	id="aboutMobile"
-	class="pt-3 px-3 d-block d-lg-none w-100"
+	class="pt-3 px-3 d-block d-lg-none w-100 bg-body-secondary"
 	style="transform: translateY(60px)"
 >
 	<div class="d-flex flex-column align-items-between w-100">
@@ -615,13 +622,13 @@
 			>
 				<a
 					[ngClass]="{
-						'downloadCV d-block d-xl-none btn d rounded-5 btn-sm': true,
-						'btn-light': theme === 'dark',
-						'btn-dark': theme === 'light'
+						'downloadCV d-block d-xl-none btn px-3 rounded-5 btn-sm': true,
+						'btn-light': theme() === 'dark',
+						'btn-dark': theme() === 'light'
 					}"
 					[ngStyle]="{
 						'box-shadow':
-							theme === 'light'
+							theme() === 'light'
 								? '0 0 20px 5px rgba(0, 0, 0, 0.2)'
 								: '0 0 20px 5px rgba(255, 255, 255, 0.2)'
 					}"
@@ -643,65 +650,65 @@
 					<div
 						[ngClass]="{
 							'shadow rounded-5 me-3 my-1': true,
-							'path-dark': theme === 'light',
-							'path-light': theme === 'dark'
+							'path-dark': theme() === 'light',
+							'path-light': theme() === 'dark'
 						}"
 						style="width: 3px; margin-left: 12px"
 					></div>
 
 					<div class="d-flex align-items-center flex-wrap mt-3">
 						<div
-							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary p-2 me-3 mb-3"
 							style="width: 45px; height: 45px"
 						>
 							<img
 								src="assets/angular.png"
-								width="22.3"
-								height="25"
+								width="20.3"
+								height="23"
 								alt="Angular"
 							/>
 						</div>
 						<div
-							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary p-2 me-3 mb-3"
 							style="width: 45px; height: 45px"
 						>
 							<img
 								src="assets/springboot.webp"
-								width="30"
+								width="28"
+								height="26"
+								alt="C#"
+							/>
+						</div>
+						<div
+							class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary p-2 me-3 mb-3"
+							style="width: 45px; height: 45px"
+						>
+							<img
+								src="assets/csharp.png"
+								width="28"
 								height="28"
 								alt="C#"
 							/>
 						</div>
 						<div
-							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
-							style="width: 45px; height: 45px"
-						>
-							<img
-								src="assets/csharp.png"
-								width="30"
-								height="30"
-								alt="C#"
-							/>
-						</div>
-						<div
-							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary p-2 me-3 mb-3"
 							style="width: 45px; height: 45px"
 						>
 							<img
 								src="assets/postgres.png"
-								width="30"
-								height="30"
+								width="25"
+								height="25"
 								alt="PostgreSQL"
 							/>
 						</div>
 						<div
-							class="d-flex justify-content-center align-items-center rounded-4 shadow p-2 me-3 mb-3"
+							class="d-flex justify-content-center align-items-center rounded-circle bg-body-tertiary p-2 me-3 mb-3"
 							style="width: 45px; height: 45px"
 						>
 							<img
 								src="assets/git.png"
-								width="30"
-								height="30"
+								width="28"
+								height="28"
 								alt="Git"
 							/>
 						</div>
@@ -717,38 +724,37 @@
 					<div
 						[ngClass]="{
 							'flex-grow-1 shadow rounded-5 me-3 my-1': true,
-							'path-dark': theme === 'light',
-							'path-light': theme === 'dark'
+							'path-dark': theme() === 'light',
+							'path-light': theme() === 'dark'
 						}"
 						style="width: 3px; margin-left: 12px"
 					></div>
 
 					<div class="d-flex flex-column w-100 my-3">
 						<!-- NTT Data -->
-						<div class="shadow rounded-4 p-3 mb-3">
+						<div class="bg-body-tertiary rounded-4 p-3 mb-3">
 							<!-- Header -->
 							<div class="d-flex flex-column">
-								<!-- Company -->
 								<div class="text-start d-flex flex-column">
+									<!-- Company -->
 									<h5 class="fw-bold mb-0">NTT Data</h5>
+
 									<!-- Position -->
-									<small
-										class="mb-2"
-										style="font-size: 12px"
-									>
+									<small class="mb-2 job-role-sm">
 										Software Engineer
 									</small>
+
 									<!-- Location & Date -->
 									<small
-										class="mb-2"
-										style="font-size: 12px"
+										class="mb-1"
+										style="font-size: 10px"
 									>
 										<span class="me-1">📍</span>
 										Pisa, Italy
 									</small>
 									<small
-										class="mb-2"
-										style="font-size: 12px"
+										class="mb-3"
+										style="font-size: 10px"
 									>
 										<span class="me-1">🗓️</span>
 										Mar 2024 - Present
@@ -762,71 +768,64 @@
 									class="d-flex flex-wrap align-items-center"
 								>
 									<span
-										style="font-size: 10px"
 										[ngClass]="{
-											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Angular
 									</span>
 									<span
-										style="font-size: 10px"
 										[ngClass]="{
-											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										React
 									</span>
 									<span
-										style="font-size: 10px"
 										[ngClass]="{
-											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										TypeScript
 									</span>
 									<span
-										style="font-size: 10px"
 										[ngClass]="{
-											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Java Spring Boot
 									</span>
 									<span
 										[ngClass]="{
-											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
-										style="font-size: 10px"
 									>
 										Java
 									</span>
 									<span
-										style="font-size: 10px"
 										[ngClass]="{
-											'badge rounded-pill me-2 mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill me-2 mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										Git
 									</span>
 									<span
-										style="font-size: 10px"
 										[ngClass]="{
-											'badge rounded-pill mb-2': true,
-											'text-bg-dark': theme === 'light',
-											'text-bg-light': theme === 'dark'
+											'badge badge-sm rounded-pill mb-2': true,
+											'text-bg-dark': theme() === 'light',
+											'text-bg-light': theme() === 'dark'
 										}"
 									>
 										PostgreSQL
@@ -836,30 +835,29 @@
 						</div>
 
 						<!-- Sonatrach -->
-						<div class="shadow rounded-4 p-3">
+						<div class="bg-body-tertiary rounded-4 p-3">
 							<!-- Header -->
 							<div class="d-flex flex-column">
-								<!-- Company -->
 								<div class="text-start d-flex flex-column">
+									<!-- Company -->
 									<h5 class="fw-bold mb-0">Sonatrach</h5>
+
 									<!-- Position -->
-									<small
-										class="mb-2"
-										style="font-size: 12px"
-									>
+									<small class="mb-2 job-role-sm">
 										Full Stack Engineer Intern
 									</small>
+
 									<!-- Location & Date -->
 									<small
-										class="mb-2"
-										style="font-size: 12px"
+										class="mb-1"
+										style="font-size: 10px"
 									>
 										<span class="me-1">📍</span>
 										Augusta, Italy
 									</small>
 									<small
-										class="mb-2"
-										style="font-size: 12px"
+										class="mb-3"
+										style="font-size: 10px"
 									>
 										<span class="me-1">🗓️</span>
 										July 2023 - Oct 2023
@@ -872,73 +870,67 @@
 										class="d-flex flex-wrap align-items-center"
 									>
 										<span
-											style="font-size: 10px"
 											[ngClass]="{
-												'badge rounded-pill me-2 mb-2': true,
+												'badge badge-sm rounded-pill me-2 mb-2': true,
 												'text-bg-dark':
-													theme === 'light',
+													theme() === 'light',
 												'text-bg-light':
-													theme === 'dark'
+													theme() === 'dark'
 											}"
 										>
 											Angular
 										</span>
 										<span
-											style="font-size: 10px"
 											[ngClass]="{
-												'badge rounded-pill me-2 mb-2': true,
+												'badge badge-sm rounded-pill me-2 mb-2': true,
 												'text-bg-dark':
-													theme === 'light',
+													theme() === 'light',
 												'text-bg-light':
-													theme === 'dark'
+													theme() === 'dark'
 											}"
 										>
 											TypeScript
 										</span>
 										<span
-											style="font-size: 10px"
 											[ngClass]="{
-												'badge rounded-pill me-2 mb-2': true,
+												'badge badge-sm rounded-pill me-2 mb-2': true,
 												'text-bg-dark':
-													theme === 'light',
+													theme() === 'light',
 												'text-bg-light':
-													theme === 'dark'
+													theme() === 'dark'
 											}"
 										>
 											ASP.NET Core
 										</span>
 										<span
-											style="font-size: 10px"
 											[ngClass]="{
-												'badge rounded-pill me-2 mb-2': true,
+												'badge badge-sm rounded-pill me-2 mb-2': true,
 												'text-bg-dark':
-													theme === 'light',
+													theme() === 'light',
 												'text-bg-light':
-													theme === 'dark'
+													theme() === 'dark'
 											}"
 										>
 											C#
 										</span>
 										<span
-											style="font-size: 10px"
 											[ngClass]="{
-												'badge rounded-pill me-2 mb-2': true,
+												'badge badge-sm rounded-pill me-2 mb-2': true,
 												'text-bg-dark':
-													theme === 'light',
+													theme() === 'light',
 												'text-bg-light':
-													theme === 'dark'
+													theme() === 'dark'
 											}"
 										>
 											Bootstrap
 										</span>
 										<span
-											style="font-size: 10px"
 											[ngClass]="{
-												'badge rounded-pill me-2 mb-2': true,
+												'badge badge-sm rounded-pill me-2 mb-2': true,
 												'text-bg-dark':
-													theme === 'light',
+													theme() === 'light',
 												'text-bg-light':
-													theme === 'dark'
+													theme() === 'dark'
 											}"
 										>
 											Micorosft SQL Server
@@ -958,15 +950,15 @@
 						<div
 							[ngClass]="{
 								'flex-grow-1 shadow rounded-5 me-3 my-1': true,
-								'path-dark': theme === 'light',
-								'path-light': theme === 'dark'
+								'path-dark': theme() === 'light',
+								'path-light': theme() === 'dark'
 							}"
 							style="width: 3px; margin-left: 12px"
 						></div>
 
 						<div class="d-flex flex-column w-100 my-3">
 							<!-- Bachelor's Degree -->
-							<div class="shadow rounded-4 p-3 mb-3">
+							<div class="bg-body-tertiary rounded-4 p-3 mb-3">
 								<!-- Header -->
 								<div class="d-flex flex-column">
 									<div class="text-start d-flex flex-column">
@@ -974,25 +966,24 @@
 										<h5 class="fw-bold mb-0">
 											University of Pisa
 										</h5>
+
 										<!-- Title -->
-										<small
-											class="mb-2"
-											style="font-size: 12px"
-										>
+										<small class="mb-2 job-role-sm">
 											Bachelor's Degree in Computer
 											Science
 										</small>
+
 										<!-- Location & Date -->
 										<small
-											class="mb-2"
-											style="font-size: 12px"
+											class="mb-1"
+											style="font-size: 10px"
 										>
 											<span class="me-1">📍</span>
 											Pisa, Italy
 										</small>
 										<small
-											class="mb-2"
-											style="font-size: 12px"
+											class="mb-3"
+											style="font-size: 10px"
 										>
 											<span class="me-1">🗓️</span>
 											Sep 2020 - Oct 2023
@@ -1002,11 +993,10 @@
 
 								<!-- Grade -->
 								<span
-									style="font-size: 10px"
 									[ngClass]="{
-										'badge rounded-pill me-2 mb-2': true,
-										'text-bg-dark': theme === 'light',
-										'text-bg-light': theme === 'dark'
+										'badge badge-sm rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme() === 'light',
+										'text-bg-light': theme() === 'dark'
 									}"
 								>
 									<span class="me-1">🎉</span>
@@ -1015,31 +1005,30 @@
 							</div>
 
 							<!-- Diploma -->
-							<div class="shadow rounded-4 p-3">
+							<div class="bg-body-tertiary rounded-4 p-3">
 								<!-- Header -->
 								<div class="d-flex flex-column">
 									<div class="text-start d-flex flex-column">
 										<!-- Institute -->
 										<h5 class="fw-bold mb-0">Diploma</h5>
+
 										<!-- Title -->
-										<small
-											class="mb-2"
-											style="font-size: 12px"
-										>
+										<small class="mb-2 job-role-sm">
 											High School Diploma in Scientific
 											Studies
 										</small>
+
 										<!-- Location & Date -->
 										<small
 											class="mb-2"
-											style="font-size: 12px"
+											style="font-size: 10px"
 										>
 											<span class="me-1">📍</span>
 											Pisa, Italy
 										</small>
 										<small
 											class="mb-2"
-											style="font-size: 12px"
+											style="font-size: 10px"
 										>
 											<span class="me-1">🗓️</span>
 											Sep 2020 - Oct 2023
@@ -1049,11 +1038,10 @@
 
 								<!-- Grade -->
 								<span
-									style="font-size: 10px"
 									[ngClass]="{
-										'badge rounded-pill me-2 mb-2': true,
-										'text-bg-dark': theme === 'light',
-										'text-bg-light': theme === 'dark'
+										'badge badge-sm rounded-pill me-2 mb-2': true,
+										'text-bg-dark': theme() === 'light',
+										'text-bg-light': theme() === 'dark'
 									}"
 								>
 									<span class="me-1">🎉</span>

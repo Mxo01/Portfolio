@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Signal, computed } from '@angular/core';
 import { Theme } from '../../models/theme.model';
 import { ThemeService } from '../../services/theme.service';
 
@@ -11,15 +11,9 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './info-offcanvas.component.css'
 })
 export class InfoOffcanvasComponent {
-    public theme: Theme = "light";
+    public theme: Signal<Theme> = computed(() => this.themeService.theme());
 
     constructor(
       private themeService: ThemeService
     ) {}
-
-    public ngOnInit(): void {
-      this.themeService.themeObs.subscribe((theme: Theme) => {
-        this.theme = theme;
-      });
-    }
 }
