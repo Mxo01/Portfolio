@@ -28,7 +28,7 @@
 	}
 }
 
-@media (mix-width: 400px) {
+@media (min-width: 400px) {
 	.project-action-text {
 		display: block;
 	}
