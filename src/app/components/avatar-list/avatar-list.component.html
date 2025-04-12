@@ -1,0 +1,33 @@
+<div class="avatar-list">
+	<span class="description">
+		{{ description() }}
+	</span>
+
+	<p-avatar-group>
+		@if (isCollapsed()) {
+			@for (avatar of collapsedAvatars(); track $index) {
+				<p-avatar
+					shape="circle"
+					[image]="'images/' + avatar.name + '.' + avatar.extension"
+					[size]="isMobile() ? 'normal' : 'large'"
+				/>
+			}
+
+			@if (avatars().length - collapsedAvatars().length > 0; as remainingAvatars) {
+				<p-avatar
+					[label]="'+' + remainingAvatars"
+					shape="circle"
+					[size]="isMobile() ? 'normal' : 'large'"
+				/>
+			}
+		} @else {
+			@for (avatar of avatars(); track $index) {
+				<p-avatar
+					shape="circle"
+					[image]="'images/' + avatar.name + '.' + avatar.extension"
+					[size]="isMobile() ? 'normal' : 'large'"
+				/>
+			}
+		}
+	</p-avatar-group>
+</div>

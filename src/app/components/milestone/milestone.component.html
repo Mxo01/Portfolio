@@ -1,0 +1,59 @@
+<span class="milestone-date">
+	<span class="pi pi-calendar"></span>
+
+	{{ milestone().milestoneDate }}
+</span>
+
+<div class="milestone-container">
+	<div class="timeline"></div>
+
+	<div class="milestone">
+		<span class="title">{{ milestone().title }}</span>
+
+		<span class="description">{{ milestone().description }}</span>
+
+		<div class="location-period">
+			<span class="location">
+				<span class="pi pi-map-marker"></span>
+
+				<span>{{ milestone().location }}</span>
+			</span>
+
+			<span class="period">
+				<span class="pi pi-calendar"></span>
+
+				<span>{{ milestone().period }}</span>
+			</span>
+		</div>
+
+		<div class="tags">
+			@for (tag of milestone().tags; track $index) {
+				<p-tag
+					[value]="tag"
+					severity="contrast"
+				/>
+			}
+		</div>
+
+		@if (milestone().updates?.length) {
+			<div class="updates">
+				@for (update of milestone().updates; track $index) {
+					<div class="milestone-update">
+						<span class="title">
+							<div class="circle"></div>
+
+							{{ update.title }}
+						</span>
+
+						<span
+							class="duration"
+							[ngClass]="{ 'has-border': !$last }"
+						>
+							{{ update.duration }}
+						</span>
+					</div>
+				}
+			</div>
+		}
+	</div>
+</div>

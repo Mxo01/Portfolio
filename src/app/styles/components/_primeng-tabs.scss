@@ -1,0 +1,19 @@
+@import "utils/variables";
+
+:root {
+	--p-tabs-tab-padding: 0.75rem 0.5rem !important
+;
+}
+
+p-tab {
+	justify-content: center;
+	flex: 1;
+
+	.tab-label {
+		font-size: 0.75rem;
+
+		@media (min-width: $mobile-breakpoint) {
+			font-size: 1rem;
+		}
+	}
+}
