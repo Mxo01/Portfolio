@@ -546,7 +546,7 @@ export const primengTheme = definePreset(Aura, {
 					950: "#09090b"
 				},
 				primary: {
-					color: "{primary.0}",
+					color: "{surface.0}",
 					contrastColor: "{surface.950}",
 					hoverColor: "{primary.300}",
 					activeColor: "{primary.200}"

@@ -11,29 +11,37 @@ import { isMobileDevice } from "./utils/utils";
 import { StateService } from "./services/state.service";
 import { TabsModule } from "primeng/tabs";
 import { Subscription } from "rxjs";
+import { DrawerModule } from "primeng/drawer";
+import { MessageService } from "primeng/api";
+import { Toast } from "primeng/toast";
 @Component({
 	selector: "portfolio-root",
 	standalone: true,
 	imports: [
 		RouterOutlet,
 		RouterLink,
+		DrawerModule,
 		Avatar,
+		Toast,
 		ButtonModule,
 		TabsModule,
 		KpiComponent,
 		AvatarListComponent
 	],
 	templateUrl: "./app.component.html",
-	styleUrl: "./app.component.scss"
+	styleUrl: "./app.component.scss",
+	providers: [MessageService]
 })
 export class AppComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
+	private _messageService = inject(MessageService);
 	private _router = inject(Router);
 
 	public paths = PATHS;
 	public kpis: Kpi[] = KPIS;
 	public techStackList: Picture[] = TECH_STACK_LIST;
 	public companies: Picture[] = COMPANIES;
+	public isMailDrawerVisible = false;
 	public isMobile = computed(() => this._stateService.isMobile());
 	public isDarkMode = computed(() => {
 		const isDarkMode = this._stateService.isDarkMode();
@@ -62,6 +70,32 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this._routeSub?.unsubscribe();
+	}
+
+	public sendEmail() {
+		this.isMailDrawerVisible = false;
+		window.open("mailto:mariodimodica.01@gmail.com");
+	}
+
+	public copyEmail() {
+		navigator.clipboard
+			.writeText("mariodimodica.01@gmail.com")
+			.then(() => {
+				this._messageService.add({
+					severity: "success",
+					summary: "Success",
+					detail: "Email copied to clipboard"
+				});
+
+				this.isMailDrawerVisible = false;
+			})
+			.catch(() =>
+				this._messageService.add({
+					severity: "error",
+					summary: "Error",
+					detail: "Failed to copy email"
+				})
+			);
 	}
 
 	public toggleDarkMode() {

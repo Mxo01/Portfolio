@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MilestoneComponent } from "../../components/milestone/milestone.component";
-import { DIPLOMA_MILESTONE, UNIVERSITY_OF_PISA_MILESTONE } from "../../utils/constants";
+import { EDUCATION_MILESTONES } from "../../utils/constants";
 
 @Component({
 	selector: "portfolio-education",
@@ -10,6 +10,5 @@ import { DIPLOMA_MILESTONE, UNIVERSITY_OF_PISA_MILESTONE } from "../../utils/con
 	styleUrl: "./education.component.scss"
 })
 export class EducationComponent {
-	public universityOfPisaMilestone = UNIVERSITY_OF_PISA_MILESTONE;
-	public diplomaMilestone = DIPLOMA_MILESTONE;
+	public educationMilestones = EDUCATION_MILESTONES;
 }

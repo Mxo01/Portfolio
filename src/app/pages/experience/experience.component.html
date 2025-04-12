@@ -1,4 +1,5 @@
 <section class="tab-content">
-	<portfolio-milestone [milestone]="nttDataMilestone" />
-	<portfolio-milestone [milestone]="sonatrachMilestone" />
+	@for (milestone of experienceMilestones; track $index) {
+		<portfolio-milestone [milestone]="milestone" />
+	}
 </section>

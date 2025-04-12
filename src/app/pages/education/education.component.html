@@ -1,4 +1,5 @@
 <section class="tab-content">
-	<portfolio-milestone [milestone]="universityOfPisaMilestone" />
-	<portfolio-milestone [milestone]="diplomaMilestone" />
+	@for (milestone of educationMilestones; track $index) {
+		<portfolio-milestone [milestone]="milestone" />
+	}
 </section>

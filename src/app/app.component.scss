@@ -58,12 +58,6 @@ main {
 			}
 		}
 
-		.actions {
-			display: flex;
-			align-items: center;
-			gap: 1rem;
-		}
-
 		@media (max-width: $mobile-breakpoint) {
 			gap: 1rem;
 		}
@@ -72,5 +66,45 @@ main {
 	@media (min-width: $mobile-breakpoint) {
 		max-width: $mobile-breakpoint;
 		width: 100%;
+	}
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.contacts-drawer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+
+	div {
+		p {
+			&.description {
+				font-size: 0.85rem;
+			}
+
+			small {
+				opacity: 0.7;
+			}
+		}
+	}
+
+	.socials {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+
+		a {
+			text-decoration: none !important;
+
+			i {
+				font-size: 1.5rem !important;
+			}
+		}
 	}
 }

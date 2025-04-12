@@ -8,8 +8,10 @@
 			@for (avatar of collapsedAvatars(); track $index) {
 				<p-avatar
 					shape="circle"
-					[image]="'images/' + avatar.name + '.' + avatar.extension"
+					[image]="'images/' + avatar.picName + '.' + avatar.extension"
 					[size]="isMobile() ? 'normal' : 'large'"
+					[pTooltip]="avatar.name"
+					tooltipPosition="bottom"
 				/>
 			}
 
@@ -24,8 +26,10 @@
 			@for (avatar of avatars(); track $index) {
 				<p-avatar
 					shape="circle"
-					[image]="'images/' + avatar.name + '.' + avatar.extension"
+					[image]="'images/' + avatar.picName + '.' + avatar.extension"
 					[size]="isMobile() ? 'normal' : 'large'"
+					[pTooltip]="avatar.name"
+					tooltipPosition="bottom"
 				/>
 			}
 		}

@@ -50,6 +50,7 @@
 				[fluid]="true"
 				[size]="isMobile() ? 'small' : 'large'"
 				[outlined]="true"
+				(onClick)="isMailDrawerVisible = !isMailDrawerVisible"
 			/>
 		</div>
 	</section>
@@ -97,3 +98,69 @@
 		(onClick)="toggleDarkMode()"
 	/>
 </main>
+
+<p-toast />
+
+<p-drawer
+	header="How to reach me"
+	[(visible)]="isMailDrawerVisible"
+	position="right"
+>
+	<div class="contacts-drawer">
+		<div>
+			<p>This is my email address: <small>mariodimodica.01&#64;gmail.com</small></p>
+
+			<p class="description">
+				You can either copy it or open your default mail app and send me an email!
+			</p>
+
+			<div class="actions">
+				<p-button
+					label="Send"
+					icon="pi pi-envelope"
+					[fluid]="true"
+					[size]="isMobile() ? 'small' : 'large'"
+					(onClick)="sendEmail()"
+				/>
+
+				<p-button
+					label="Copy"
+					icon="pi pi-copy"
+					[fluid]="true"
+					[outlined]="true"
+					[size]="isMobile() ? 'small' : 'large'"
+					(onClick)="copyEmail()"
+				/>
+			</div>
+		</div>
+
+		<div class="socials">
+			<a
+				href="https://www.instagram.com/not_mxo/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="p-button p-button-text"
+			>
+				<i class="pi pi-instagram"></i>
+			</a>
+
+			<a
+				href="https://www.linkedin.com/in/mariodimodica/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="p-button p-button-text"
+			>
+				<i class="pi pi-linkedin"></i>
+			</a>
+
+			<a
+				href="https://github.com/Mxo01"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="p-button p-button-text"
+			>
+				<i class="pi pi-github"></i>
+			</a>
+		</div>
+	</div>
+</p-drawer>
