@@ -1,5 +1,6 @@
 import { Milestone } from "../models/milestone.model";
 import { Picture } from "../models/picture.model";
+import { MONTHS_MAPPING } from "./constants";
 
 export function isMobileDevice(width: number): boolean {
 	return width <= 768;
@@ -11,15 +12,15 @@ export function calculateExperience(experiences: Milestone[]): string {
 
 	const months = periods.reduce((sum, period) => {
 		const [start, end] = period.split(" - ");
-		const startDate = new Date(start).getTime();
-		const endDate = end === "Present" ? now : new Date(end).getTime();
+		const [startMonth, startYear] = start.split(" ");
+		const [endMonth, endYear] = end.split(" ");
+		const startDate = new Date(+startYear, MONTHS_MAPPING[startMonth]).getTime();
+		const endDate =
+			end === "Present" ? now : new Date(+endYear, MONTHS_MAPPING[endMonth]).getTime();
 		const months = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24 * 30)) + 1;
-		alert(JSON.stringify(start));
-		alert(JSON.stringify(end));
 		alert(JSON.stringify(startDate));
 		alert(JSON.stringify(endDate));
 		alert(JSON.stringify(months));
-		alert(JSON.stringify(sum));
 		alert(JSON.stringify(sum + months));
 
 		return sum + months;
@@ -27,14 +28,6 @@ export function calculateExperience(experiences: Milestone[]): string {
 
 	const years = Math.floor(months / 12);
 	const remainingMonths = months % 12;
-
-	alert(JSON.stringify(months));
-	alert(JSON.stringify(years));
-	alert(JSON.stringify(remainingMonths));
-
-	alert(
-		[years && `${years}y`, remainingMonths && `${remainingMonths}m`].filter(Boolean).join(" ")
-	);
 
 	return [years && `${years}y`, remainingMonths && `${remainingMonths}m`]
 		.filter(Boolean)
