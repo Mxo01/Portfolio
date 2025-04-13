@@ -94,13 +94,13 @@
 					height: 100% !important;
 
 					--p-button-border-radius: 0.5rem;
-					--p-button-primary-background: #00000071;
+					--p-button-primary-background: #000000a7;
 					--p-button-primary-border-color: transparent;
-					--p-button-primary-hover-background: #1c1c1c71;
+					--p-button-primary-hover-background: #1c1c1c88;
 					--p-button-primary-hover-border-color: transparent;
-					--p-button-primary-focus-background: #1e1e1e71;
+					--p-button-primary-focus-background: #1e1e1e83;
 					--p-button-primary-focus-border-color: transparent;
-					--p-button-primary-active-background: #4e4e4e71;
+					--p-button-primary-active-background: #4e4e4e8f;
 					--p-button-primary-active-border-color: transparent;
 
 					span {
@@ -108,6 +108,7 @@
 						align-items: center;
 						gap: 0.5rem;
 						font-size: 1rem;
+						color: #ffffff !important;
 
 						i {
 							font-size: 1.5rem;
