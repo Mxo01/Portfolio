@@ -18,10 +18,6 @@ export function calculateExperience(experiences: Milestone[]): string {
 		const endDate =
 			end === "Present" ? now : new Date(+endYear, MONTHS_MAPPING[endMonth]).getTime();
 		const months = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24 * 30)) + 1;
-		alert(JSON.stringify(startDate));
-		alert(JSON.stringify(endDate));
-		alert(JSON.stringify(months));
-		alert(JSON.stringify(sum + months));
 
 		return sum + months;
 	}, 0);
