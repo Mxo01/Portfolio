@@ -6,6 +6,7 @@ export function isMobileDevice(width: number): boolean {
 }
 
 export function calculateExperience(experiences: Milestone[]): string {
+	alert(JSON.stringify(experiences));
 	const periods = experiences.map(experience => experience.period);
 	const now = Date.now();
 
