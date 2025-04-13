@@ -163,7 +163,7 @@ export const PROJECTS_MILESTONES: Milestone[] = [
 ];
 
 export const KPIS: Kpi[] = [
-	{ label: "Experience", value: calculateExperience() },
+	{ label: "Experience", value: calculateExperience(EXPERIENCE_MILESTONES) },
 	{ label: "English", value: "B1" },
 	{ label: "Nationality", value: "Italian" }
 ];
