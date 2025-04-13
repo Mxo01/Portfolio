@@ -140,9 +140,9 @@ export const PROJECTS_MILESTONES: Milestone[] = [
 		tags: ["Angular", ".NET Core", "Micorsoft SQL Server", "Git"],
 		media: [
 			{ name: "lovejob-1", picName: "lovejob-1", extension: "jpeg" },
-			{ name: "lovejob-2", picName: "lovejob-2", extension: "png" },
-			{ name: "lovejob-3", picName: "lovejob-3", extension: "png" },
-			{ name: "lovejob-4", picName: "lovejob-4", extension: "png" }
+			{ name: "lovejob-2", picName: "lovejob-2", extension: "jpeg" },
+			{ name: "lovejob-3", picName: "lovejob-3", extension: "jpeg" },
+			{ name: "lovejob-4", picName: "lovejob-4", extension: "jpeg" }
 		],
 		milestoneDate: "Oct 2023",
 		period: "Jun 2023 - Aug 2023"

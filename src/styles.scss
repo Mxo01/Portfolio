@@ -29,3 +29,21 @@ body {
 	bottom: 1rem;
 	right: 1rem;
 }
+
+::-webkit-scrollbar {
+	width: 0.25rem;
+	background: light-dark(var(--p-surface-200), var(--p-surface-800));
+
+	@media (min-width: $mobile-breakpoint) {
+		width: 0.5rem;
+	}
+}
+
+::-webkit-scrollbar-thumb {
+	background: light-dark(var(--p-surface-800), var(--p-surface-200));
+	border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-corner {
+	background-color: transparent;
+}

@@ -40,9 +40,11 @@
 
 		<div class="actions">
 			<p-button
-				label="Download CV"
+				label="View CV"
 				[fluid]="true"
 				[size]="isMobile() ? 'small' : 'large'"
+				(onClick)="viewCV()"
+				icon="pi pi-external-link"
 			/>
 
 			<p-button

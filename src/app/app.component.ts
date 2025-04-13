@@ -102,6 +102,10 @@ export class AppComponent implements OnInit, OnDestroy {
 		this._stateService.isDarkMode.set(!this.isDarkMode());
 	}
 
+	public viewCV() {
+		window.open("CV_Mario_Di_Modica.pdf", "_blank");
+	}
+
 	public onTabChange(tab: string | number) {
 		this.selectedTab = tab as string;
 	}
