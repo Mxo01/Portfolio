@@ -8,6 +8,7 @@ export function isMobileDevice(width: number): boolean {
 export function calculateExperience(experiences: Milestone[]): string {
 	alert(JSON.stringify(experiences));
 	const periods = experiences.map(experience => experience.period);
+	alert(JSON.stringify(periods));
 	const now = Date.now();
 
 	const months = periods.reduce((sum, period) => {
@@ -21,6 +22,14 @@ export function calculateExperience(experiences: Milestone[]): string {
 
 	const years = Math.floor(months / 12);
 	const remainingMonths = months % 12;
+
+	alert(JSON.stringify(months));
+	alert(JSON.stringify(years));
+	alert(JSON.stringify(remainingMonths));
+
+	alert(
+		[years && `${years}y`, remainingMonths && `${remainingMonths}m`].filter(Boolean).join(" ")
+	);
 
 	return [years && `${years}y`, remainingMonths && `${remainingMonths}m`]
 		.filter(Boolean)
