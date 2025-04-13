@@ -1,12 +1,11 @@
+import { Milestone } from "../models/milestone.model";
 import { Picture } from "../models/picture.model";
-import { EXPERIENCE_MILESTONES } from "./constants";
 
 export function isMobileDevice(width: number): boolean {
 	return width <= 768;
 }
 
-export function calculateExperience() {
-	const experiences = EXPERIENCE_MILESTONES;
+export function calculateExperience(experiences: Milestone[]): string {
 	const periods = experiences.map(experience => experience.period);
 	const now = Date.now();
 
