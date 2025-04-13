@@ -85,10 +85,14 @@
 		}
 
 		@if (milestone().contributors; as contributors) {
-			<portfolio-avatar-list
-				[avatars]="contributors"
-				[isCollapsed]="true"
-			/>
+			<div class="contributors">
+				<span>Contributors</span>
+
+				<portfolio-avatar-list
+					[avatars]="contributors"
+					[isCollapsed]="true"
+				/>
+			</div>
 		}
 	</div>
 </div>
