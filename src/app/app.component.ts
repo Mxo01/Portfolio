@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public sendEmail() {
 		this.isMailDrawerVisible = false;
-		window.open("mailto:mariodimodica.01@gmail.com");
+		window.location.href = "mailto:mariodimodica.01@gmail.com";
 	}
 
 	public copyEmail() {
