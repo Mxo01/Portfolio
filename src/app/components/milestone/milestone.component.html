@@ -13,11 +13,13 @@
 		<span class="description">{{ milestone().description }}</span>
 
 		<div class="location-period">
-			<span class="location">
-				<span class="pi pi-map-marker"></span>
+			@if (milestone().location; as location) {
+				<span class="location">
+					<span class="pi pi-map-marker"></span>
 
-				<span>{{ milestone().location }}</span>
-			</span>
+					<span>{{ location }}</span>
+				</span>
+			}
 
 			<span class="period">
 				<span class="pi pi-calendar"></span>
@@ -35,9 +37,35 @@
 			}
 		</div>
 
-		@if (milestone().updates?.length) {
+		@if (milestone().media; as media) {
+			<div class="media">
+				<span>Media</span>
+
+				<div
+					class="image"
+					[ngStyle]="{
+						'background-image':
+							'url(images/' + media[0].picName + '.' + media[0].extension + ')'
+					}"
+				>
+					@if (media.length > 1) {
+						<p-button
+							[fluid]="true"
+							(onClick)="isGalleriaVisible = true"
+						>
+							<span>
+								+{{ media.length - 1 }}
+								<i class="pi pi-images"></i>
+							</span>
+						</p-button>
+					}
+				</div>
+			</div>
+		}
+
+		@if (milestone().updates; as updates) {
 			<div class="updates">
-				@for (update of milestone().updates; track $index) {
+				@for (update of updates; track $index) {
 					<div class="milestone-update">
 						<span class="title">
 							<div class="circle"></div>
@@ -55,5 +83,36 @@
 				}
 			</div>
 		}
+
+		@if (milestone().contributors; as contributors) {
+			<portfolio-avatar-list
+				[avatars]="contributors"
+				[isCollapsed]="true"
+			/>
+		}
 	</div>
 </div>
+
+<p-galleria
+	[value]="galleriaImages()"
+	[(visible)]="isGalleriaVisible"
+	[activeIndex]="0"
+	[responsiveOptions]="responsiveOptions"
+	[containerStyle]="{ 'max-width': '850px', 'max-height': '500px', 'object-fit': 'contain' }"
+	[numVisible]="7"
+	[circular]="true"
+	[fullScreen]="true"
+	[showItemNavigators]="true"
+	[showThumbnails]="false"
+>
+	<ng-template
+		pTemplate="item"
+		let-item
+	>
+		<img
+			[src]="item.itemImageSrc"
+			[alt]="item.altText || 'Image'"
+			style="width: 100%; display: block"
+		/>
+	</ng-template>
+</p-galleria>

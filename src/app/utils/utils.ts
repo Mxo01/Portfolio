@@ -1,3 +1,4 @@
+import { Picture } from "../models/picture.model";
 import { EXPERIENCE_MILESTONES } from "./constants";
 
 export function isMobileDevice(width: number): boolean {
@@ -24,4 +25,13 @@ export function calculateExperience() {
 	return [years && `${years}y`, remainingMonths && `${remainingMonths}m`]
 		.filter(Boolean)
 		.join(" ");
+}
+
+export function mapMilestoneMediaToGalleriaImages(media: Picture[] | undefined) {
+	return (media || []).map(media => ({
+		itemImageSrc: "images/" + media.picName + "." + media.extension,
+		thumbnailImageSrc: "images/" + media.picName + "." + media.extension,
+		alt: media.name,
+		title: media.name
+	}));
 }

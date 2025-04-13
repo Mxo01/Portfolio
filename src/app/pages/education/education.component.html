@@ -1,5 +1,10 @@
 <section class="tab-content">
 	@for (milestone of educationMilestones; track $index) {
 		<portfolio-milestone [milestone]="milestone" />
+	} @empty {
+		<portfolio-empty-list
+			title="No eduction yet"
+			description="I have not added any eduction yet."
+		/>
 	}
 </section>
