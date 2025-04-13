@@ -1,12 +1,14 @@
-name: Deploy to Firebase Hosting on PR
-on: pull_request
+name: Deploy to Firebase Hosting
+on:
+    pull_request:
+        types: [opened, synchronize, closed]
 permissions:
     checks: write
     contents: read
     pull-requests: write
 jobs:
     build_and_preview:
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.merged != true }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -16,3 +18,15 @@ jobs:
                   repoToken: ${{ secrets.GITHUB_TOKEN }}
                   firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARIODIMODICA_PORTFOLIO }}
                   projectId: mariodimodica-portfolio
+    deploy_to_live:
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.merged == true && github.ref == 'refs/heads/main' }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - run: npm i && npm run build
+            - uses: FirebaseExtended/action-hosting-deploy@v0
+              with:
+                  repoToken: ${{ secrets.GITHUB_TOKEN }}
+                  firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARIODIMODICA_PORTFOLIO }}
+                  projectId: mariodimodica-portfolio
+                  channelId: live
