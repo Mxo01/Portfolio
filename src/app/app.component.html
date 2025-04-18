@@ -89,7 +89,12 @@
 			</p-tablist>
 		</p-tabs>
 
-		<router-outlet />
+		<div
+			[@routeAnimations]="getRouteAnimationData(outlet)"
+			class="outlet-wrapper"
+		>
+			<router-outlet #outlet="outlet" />
+		</div>
 	</section>
 
 	<p-button

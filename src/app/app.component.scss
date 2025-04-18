@@ -63,6 +63,14 @@ main {
 		}
 	}
 
+	section.tabs {
+		.outlet-wrapper {
+			position: relative;
+			overflow: hidden;
+			min-height: calc(100svh - 100%);
+		}
+	}
+
 	@media (min-width: $mobile-breakpoint) {
 		max-width: $mobile-breakpoint;
 		width: 100%;

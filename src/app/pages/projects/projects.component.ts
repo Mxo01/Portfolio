@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { EmptyListComponent } from "../../components/empty-list/empty-list.component";
-import { PROJECTS_MILESTONES } from "../../utils/constants";
-import { MilestoneComponent } from "../../components/milestone/milestone.component";
+import { EmptyListComponent } from "../../shared/components/empty-list/empty-list.component";
+import { PROJECTS_MILESTONES } from "../../shared/utils/constants";
+import { MilestoneComponent } from "../../shared/components/milestone/milestone.component";
 
 @Component({
 	selector: "portfolio-projects",

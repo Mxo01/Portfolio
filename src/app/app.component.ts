@@ -2,18 +2,19 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from "@angular/router
 import { ButtonModule } from "primeng/button";
 import { Component, computed, HostListener, inject, OnInit, OnDestroy } from "@angular/core";
 import { Avatar } from "primeng/avatar";
-import { Kpi } from "./models/kpi.model";
-import { KPIS, TECH_STACK_LIST, COMPANIES, PATHS } from "./utils/constants";
-import { KpiComponent } from "./components/kpi/kpi.component";
-import { AvatarListComponent } from "./components/avatar-list/avatar-list.component";
-import { Picture } from "./models/picture.model";
-import { isMobileDevice } from "./utils/utils";
-import { StateService } from "./services/state.service";
+import { Kpi } from "./shared/models/kpi.model";
+import { KpiComponent } from "./shared/components/kpi/kpi.component";
+import { AvatarListComponent } from "./shared/components/avatar-list/avatar-list.component";
+import { Picture } from "./shared/models/picture.model";
+import { StateService } from "./shared/services/state.service";
 import { TabsModule } from "primeng/tabs";
 import { Subscription } from "rxjs";
 import { DrawerModule } from "primeng/drawer";
 import { MessageService } from "primeng/api";
 import { Toast } from "primeng/toast";
+import { COMPANIES, KPIS, PATHS, TECH_STACK_LIST } from "./shared/utils/constants";
+import { isMobileDevice } from "./shared/utils/utils";
+import { slideInAnimation } from "./shared/animations/fade-slide.animation";
 @Component({
 	selector: "portfolio-root",
 	standalone: true,
@@ -30,7 +31,8 @@ import { Toast } from "primeng/toast";
 	],
 	templateUrl: "./app.component.html",
 	styleUrl: "./app.component.scss",
-	providers: [MessageService]
+	providers: [MessageService],
+	animations: [slideInAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
@@ -108,6 +110,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public onTabChange(tab: string | number) {
 		this.selectedTab = tab as string;
+	}
+
+	public getRouteAnimationData(outlet: RouterOutlet) {
+		return outlet?.activatedRouteData?.["animation"];
 	}
 
 	private _updateIsMobile() {

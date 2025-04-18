@@ -26,7 +26,12 @@ export const MONTHS_MAPPING: Record<string, number> = {
 
 export const EXPERIENCE_MILESTONES: Milestone[] = [
 	{
-		title: "NTT DATA Italy",
+		logo: {
+			picName: "ntt",
+			name: "NTT DATA",
+			extension: "png"
+		},
+		title: "NTT DATA",
 		description: "Software Engineer",
 		location: "Pisa, Italy",
 		period: "Mar 2024 - Present",
@@ -34,8 +39,13 @@ export const EXPERIENCE_MILESTONES: Milestone[] = [
 		milestoneDate: "Now"
 	},
 	{
+		logo: {
+			picName: "sonatrach",
+			name: "Sonatrach",
+			extension: "png"
+		},
 		title: "Sonatrach",
-		description: "Software Engineer",
+		description: "Software Engineer Intern",
 		location: "Augusta, Italy",
 		period: "Jul 2023 - Sep 2023",
 		tags: ["Angular", ".NET Core", "Microsoft SQL Server", "Git"],
@@ -190,7 +200,6 @@ export const TECH_STACK_LIST: Picture[] = [
 	{ picName: "git", name: "Git", extension: "png" }
 ];
 
-export const COMPANIES: Picture[] = [
-	{ picName: "ntt", name: "NTT DATA", extension: "png" },
-	{ picName: "sonatrach", name: "Sonatrach", extension: "png" }
-];
+export const COMPANIES = EXPERIENCE_MILESTONES.map(milestone => milestone.logo).filter(
+	Boolean
+) as Picture[];

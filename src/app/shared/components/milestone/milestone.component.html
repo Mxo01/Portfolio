@@ -8,7 +8,16 @@
 	<div class="timeline"></div>
 
 	<div class="milestone">
-		<span class="title">{{ milestone().title }}</span>
+		<span class="title">
+			@if (milestone().logo; as logo) {
+				<p-avatar
+					shape="circle"
+					[image]="'images/' + logo.picName + '.' + logo.extension"
+				/>
+			}
+
+			{{ milestone().title }}
+		</span>
 
 		<span class="description">{{ milestone().description }}</span>
 
