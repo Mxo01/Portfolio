@@ -1,3 +1,4 @@
+import { query, style, group, animate } from "@angular/animations";
 import { Milestone } from "../models/milestone.model";
 import { Picture } from "../models/picture.model";
 import { MONTHS_MAPPING } from "./constants";
@@ -37,4 +38,33 @@ export function mapMilestoneMediaToGalleriaImages(media: Picture[] | undefined) 
 		alt: media.name,
 		title: media.name
 	}));
+}
+
+export function slideTo(direction: "left" | "right") {
+	const translate = direction === "left" ? "100%" : "-100%";
+	const translateOpposite = direction === "left" ? "-100%" : "100%";
+
+	return [
+		query(":enter, :leave", style({ position: "absolute", width: "100%" }), {
+			optional: true
+		}),
+		query(":enter", style({ transform: `translateX(${translate})` }), {
+			optional: true
+		}),
+		group([
+			query(
+				":leave",
+				[
+					animate(
+						"300ms ease-out",
+						style({ transform: `translateX(${translateOpposite})` })
+					)
+				],
+				{ optional: true }
+			),
+			query(":enter", [animate("300ms ease-out", style({ transform: "translateX(0%)" }))], {
+				optional: true
+			})
+		])
+	];
 }

@@ -1,17 +1,26 @@
 import { Component, computed, input } from "@angular/core";
 import { TagModule } from "primeng/tag";
 import { NgClass } from "@angular/common";
-import { Milestone } from "../../models/milestone.model";
 import { GalleriaModule, GalleriaResponsiveOptions } from "primeng/galleria";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
 import { ImageModule } from "primeng/image";
 import { ButtonModule } from "primeng/button";
+import { Avatar } from "primeng/avatar";
+import { Milestone } from "../../models/milestone.model";
 import { mapMilestoneMediaToGalleriaImages } from "../../utils/utils";
 
 @Component({
 	selector: "portfolio-milestone",
 	standalone: true,
-	imports: [TagModule, ButtonModule, ImageModule, NgClass, GalleriaModule, AvatarListComponent],
+	imports: [
+		TagModule,
+		Avatar,
+		ButtonModule,
+		ImageModule,
+		NgClass,
+		GalleriaModule,
+		AvatarListComponent
+	],
 	templateUrl: "./milestone.component.html",
 	styleUrl: "./milestone.component.scss"
 })
