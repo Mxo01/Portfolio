@@ -27,6 +27,19 @@ export const MONTHS_MAPPING: Record<string, number> = {
 export const EXPERIENCE_MILESTONES: Milestone[] = [
 	{
 		logo: {
+			picName: "onetag",
+			name: "OneTag",
+			extension: "png"
+		},
+		title: "OneTag",
+		description: "Software Engineer",
+		location: "Pisa, Italy",
+		period: "Jul 2025 - Present",
+		tags: ["Angular", "Java Spring Boot", "AWS", "Git"],
+		milestoneDate: "Now"
+	},
+	{
+		logo: {
 			picName: "ntt",
 			name: "NTT DATA",
 			extension: "png"
@@ -34,9 +47,9 @@ export const EXPERIENCE_MILESTONES: Milestone[] = [
 		title: "NTT DATA",
 		description: "Software Engineer",
 		location: "Pisa, Italy",
-		period: "Mar 2024 - Present",
+		period: "Mar 2024 - Jul 2025",
 		tags: ["Angular", "Java Spring Boot", "PostgreSQL", "Git"],
-		milestoneDate: "Now"
+		milestoneDate: "Jul 2025"
 	},
 	{
 		logo: {
