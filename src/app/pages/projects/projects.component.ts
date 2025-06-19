@@ -1,7 +1,8 @@
+import { PROJECTS_MILESTONES } from "./../../shared/utils/constants";
 import { Component } from "@angular/core";
 import { EmptyListComponent } from "../../shared/components/empty-list/empty-list.component";
-import { PROJECTS_MILESTONES } from "../../shared/utils/constants";
 import { MilestoneComponent } from "../../shared/components/milestone/milestone.component";
+import { Milestone } from "../../shared/models/milestone.model";
 
 @Component({
 	selector: "portfolio-projects",
@@ -11,5 +12,5 @@ import { MilestoneComponent } from "../../shared/components/milestone/milestone.
 	styleUrl: "./projects.component.scss"
 })
 export class ProjectsComponent {
-	public projectsMilestones = PROJECTS_MILESTONES;
+	public projectsMilestones: Milestone[] = structuredClone(PROJECTS_MILESTONES);
 }
