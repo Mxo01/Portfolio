@@ -1,6 +1,6 @@
-@import "utils/variables";
+@use "../utils/variables";
 
-@media (max-width: $mobile-breakpoint) {
+@media (max-width: variables.$mobile-breakpoint) {
 	:root {
 		--p-toast-width: 18rem !important;
 	}

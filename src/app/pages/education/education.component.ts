@@ -5,7 +5,6 @@ import { EmptyListComponent } from "../../shared/components/empty-list/empty-lis
 
 @Component({
 	selector: "portfolio-education",
-	standalone: true,
 	imports: [MilestoneComponent, EmptyListComponent],
 	templateUrl: "./education.component.html",
 	styleUrl: "./education.component.scss"
