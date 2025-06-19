@@ -67,7 +67,7 @@ main {
 		.outlet-wrapper {
 			position: relative;
 			overflow: hidden;
-			min-height: 100svh;
+			min-height: calc(100svh - 100%);
 		}
 	}
 

@@ -202,18 +202,17 @@ export const PROJECTS_MILESTONES: Milestone[] = [
 
 export const KPIS: Kpi[] = [
 	{ label: "Experience", value: calculateExperience(EXPERIENCE_MILESTONES) },
-	{ label: "English", value: "B2" },
+	{ label: "English", value: "B1" },
 	{ label: "Nationality", value: "Italian" }
 ];
 
 export const TECH_STACK_LIST: Picture[] = [
-	{ picName: "git", name: "Git", extension: "png" },
-	{ picName: "postgresql", name: "PostgreSQL", extension: "png" },
+	{ picName: "angular", name: "Angular", extension: "png" },
 	{ picName: "spring", name: "Spring Boot", extension: "png" },
-	{ picName: "angular", name: "Angular", extension: "png" }
+	{ picName: "postgresql", name: "PostgreSQL", extension: "png" },
+	{ picName: "git", name: "Git", extension: "png" }
 ];
 
-export const COMPANIES = [...EXPERIENCE_MILESTONES]
-	.reverse()
-	.map(milestone => milestone.logo)
-	.filter(Boolean) as Picture[];
+export const COMPANIES = EXPERIENCE_MILESTONES.map(milestone => milestone.logo).filter(
+	Boolean
+) as Picture[];

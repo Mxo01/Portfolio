@@ -17,9 +17,9 @@
 				/>
 			}
 
-			@if (remainingAvatars() > 0) {
+			@if (avatars().length - collapsedAvatars().length > 0; as remainingAvatars) {
 				<p-avatar
-					[label]="'+' + remainingAvatars()"
+					[label]="'+' + remainingAvatars"
 					shape="circle"
 					[size]="isMobile() ? 'normal' : 'large'"
 				/>

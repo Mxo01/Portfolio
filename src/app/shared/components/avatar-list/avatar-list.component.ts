@@ -21,8 +21,5 @@ export class AvatarListComponent {
 	public description = input<string>("");
 
 	public collapsedAvatars = computed(() => this.avatars().splice(0, this.max()));
-	public remainingAvatars = computed(
-		() => this.avatars().length - this.collapsedAvatars().length
-	);
 	public isMobile = computed(() => this._stateService.isMobile());
 }
