@@ -17,6 +17,7 @@ import { isMobileDevice } from "./shared/utils/utils";
 import { slideInAnimation } from "./shared/animations/fade-slide.animation";
 @Component({
 	selector: "portfolio-root",
+	standalone: true,
 	imports: [
 		RouterOutlet,
 		RouterLink,

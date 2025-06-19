@@ -3,6 +3,7 @@ import { Component, input } from "@angular/core";
 
 @Component({
 	selector: "portfolio-empty-list",
+	standalone: true,
 	imports: [NgClass],
 	templateUrl: "./empty-list.component.html",
 	styleUrl: "./empty-list.component.scss"

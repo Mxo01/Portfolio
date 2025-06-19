@@ -2,6 +2,7 @@ import { Component, input } from "@angular/core";
 
 @Component({
 	selector: "portfolio-kpi",
+	standalone: true,
 	imports: [],
 	templateUrl: "./kpi.component.html",
 	styleUrl: "./kpi.component.scss"

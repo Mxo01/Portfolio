@@ -7,6 +7,7 @@ import { Picture } from "../../models/picture.model";
 
 @Component({
 	selector: "portfolio-avatar-list",
+	standalone: true,
 	imports: [Avatar, AvatarGroup, TooltipModule],
 	templateUrl: "./avatar-list.component.html",
 	styleUrl: "./avatar-list.component.scss"

@@ -6,6 +6,7 @@ import { Milestone } from "../../shared/models/milestone.model";
 
 @Component({
 	selector: "portfolio-projects",
+	standalone: true,
 	imports: [EmptyListComponent, MilestoneComponent],
 	templateUrl: "./projects.component.html",
 	styleUrl: "./projects.component.scss"
