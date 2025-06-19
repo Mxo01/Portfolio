@@ -1,4 +1,4 @@
-@import "utils/variables";
+@use "../utils/variables";
 
 :root {
 	--p-tabs-tab-padding: 0.75rem 0.5rem !important;
@@ -12,7 +12,7 @@ p-tab {
 	.tab-label {
 		font-size: 0.75rem;
 
-		@media (min-width: $mobile-breakpoint) {
+		@media (min-width: variables.$mobile-breakpoint) {
 			font-size: 1rem;
 		}
 	}

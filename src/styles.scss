@@ -1,6 +1,9 @@
+@use "sass:meta";
+@use "app/styles/utils/variables";
+
 @import "primeicons/primeicons.css";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import "../src/app/styles/root.scss";
+@include meta.load-css("../src/app/styles/root.scss");
 
 * {
 	font-family: "Poppins", sans-serif;
@@ -19,7 +22,7 @@ body {
 .tab-content {
 	padding: 1rem 1rem calc(2rem + 40px) 1rem;
 
-	@media (max-width: $mobile-breakpoint) {
+	@media (max-width: variables.$mobile-breakpoint) {
 		padding: 1rem 1rem calc(2rem + 40px) 1rem;
 	}
 }
@@ -34,7 +37,7 @@ body {
 	width: 0.25rem;
 	background: light-dark(var(--p-surface-200), var(--p-surface-800));
 
-	@media (min-width: $mobile-breakpoint) {
+	@media (min-width: variables.$mobile-breakpoint) {
 		width: 0.5rem;
 	}
 }
