@@ -26,10 +26,11 @@ import { mapMilestoneMediaToGalleriaImages } from "../../utils/utils";
 })
 export class MilestoneComponent {
 	public milestone = input.required<Milestone>();
-	public isGalleriaVisible = false;
+
 	public galleriaImages = computed(() =>
 		mapMilestoneMediaToGalleriaImages(this.milestone().media)
 	);
+	public isGalleriaVisible = false;
 	public responsiveOptions: GalleriaResponsiveOptions[] = [
 		{ breakpoint: "1024px", numVisible: 5 },
 		{ breakpoint: "768px", numVisible: 3 },
