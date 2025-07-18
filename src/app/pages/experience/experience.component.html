@@ -1,5 +1,5 @@
 <section class="tab-content">
-	@for (milestone of experienceMilestones; track $index) {
+	@for (milestone of experiences$ | async; track $index) {
 		<portfolio-milestone [milestone]="milestone" />
 	} @empty {
 		<portfolio-empty-list

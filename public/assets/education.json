@@ -1,0 +1,20 @@
+{
+	"education": [
+		{
+			"title": "University of Pisa",
+			"description": "Bachelor's Degree in Computer Science",
+			"location": "Pisa, Italy",
+			"period": "Sep 2020 - Oct 2023",
+			"tags": ["100/110"],
+			"milestoneDate": "Now"
+		},
+		{
+			"title": "Diploma",
+			"description": "High School Diploma in Scientific Studies",
+			"location": "Siracusa, Italy",
+			"period": "Sep 2015 - Jun 2019",
+			"tags": ["90/100"],
+			"milestoneDate": "Sep 2020"
+		}
+	]
+}

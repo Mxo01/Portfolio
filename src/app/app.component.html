@@ -11,7 +11,7 @@
 				<span class="name">Mario Di Modica</span>
 
 				<div class="kpis">
-					@for (kpi of kpis; track $index) {
+					@for (kpi of kpis$ | async; track $index) {
 						<portfolio-kpi
 							[label]="kpi.label"
 							[value]="kpi.value"
@@ -28,12 +28,12 @@
 		</span>
 
 		<portfolio-avatar-list
-			[avatars]="techStackList"
+			[avatars]="(techStack$ | async) || []"
 			description="Tech Stack"
 		/>
 
 		<portfolio-avatar-list
-			[avatars]="companies"
+			[avatars]="(companies$ | async) || []"
 			description="Companies where I worked"
 			[isCollapsed]="true"
 		/>

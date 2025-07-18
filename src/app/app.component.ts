@@ -8,13 +8,15 @@ import { AvatarListComponent } from "./shared/components/avatar-list/avatar-list
 import { Picture } from "./shared/models/picture.model";
 import { StateService } from "./shared/services/state.service";
 import { TabsModule } from "primeng/tabs";
-import { Subscription } from "rxjs";
+import { Observable, of, Subscription } from "rxjs";
 import { DrawerModule } from "primeng/drawer";
 import { MessageService } from "primeng/api";
 import { Toast } from "primeng/toast";
-import { COMPANIES, KPIS, PATHS, TECH_STACK_LIST } from "./shared/utils/constants";
+import { PATHS } from "./shared/utils/constants";
 import { isMobileDevice } from "./shared/utils/utils";
 import { slideInAnimation } from "./shared/animations/fade-slide.animation";
+import { AboutService } from "./shared/services/http/about.service";
+import { AsyncPipe } from "@angular/common";
 @Component({
 	selector: "portfolio-root",
 	standalone: true,
@@ -27,7 +29,8 @@ import { slideInAnimation } from "./shared/animations/fade-slide.animation";
 		ButtonModule,
 		TabsModule,
 		KpiComponent,
-		AvatarListComponent
+		AvatarListComponent,
+		AsyncPipe
 	],
 	templateUrl: "./app.component.html",
 	styleUrl: "./app.component.scss",
@@ -37,12 +40,13 @@ import { slideInAnimation } from "./shared/animations/fade-slide.animation";
 export class AppComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
 	private _messageService = inject(MessageService);
+	private _aboutService = inject(AboutService);
 	private _router = inject(Router);
 
 	public paths = PATHS;
-	public kpis: Kpi[] = KPIS;
-	public techStackList: Picture[] = TECH_STACK_LIST;
-	public companies: Picture[] = COMPANIES;
+	public kpis$: Observable<Kpi[]> = of([]);
+	public techStack$: Observable<Picture[]> = of([]);
+	public companies$: Observable<Picture[]> = of([]);
 	public isMailDrawerVisible = false;
 	public isMobile = computed(() => this._stateService.isMobile());
 	public isDarkMode = computed(() => {
@@ -62,10 +66,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this._routeSub = this._router.events.subscribe(event => {
-			if (event instanceof NavigationEnd) {
+			if (event instanceof NavigationEnd)
 				this.selectedTab = event.url.split("/").pop() || "experience";
-			}
 		});
+
+		this.companies$ = this._aboutService.getCompanies();
+		this.kpis$ = this._aboutService.getKpis();
+		this.techStack$ = this._aboutService.getTechStack();
 
 		this._updateIsMobile();
 	}

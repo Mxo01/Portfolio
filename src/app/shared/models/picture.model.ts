@@ -3,3 +3,7 @@ export interface Picture {
 	picName: string;
 	extension: string;
 }
+
+export interface TechStackResponse {
+	stack: Picture[];
+}
