@@ -1,6 +1,5 @@
-import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { Observable, map } from "rxjs";
+import { httpResource, HttpResourceRef } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Milestone, ProjectsResponse } from "../../models/milestone.model";
 import { environment } from "../../../../environments/environment.development";
 
@@ -8,11 +7,16 @@ import { environment } from "../../../../environments/environment.development";
 	providedIn: "root"
 })
 export class ProjectsService {
-	private _http = inject(HttpClient);
-
-	public getProjects(): Observable<Milestone[]> {
-		return this._http
-			.get<ProjectsResponse>(`${environment.apiUrl}/projects.json`)
-			.pipe(map(({ projects }) => projects));
+	public getProjects(): HttpResourceRef<Milestone[]> {
+		return httpResource<Milestone[]>(
+			() => ({
+				url: `${environment.apiUrl}/projects.json`,
+				method: "GET"
+			}),
+			{
+				defaultValue: [],
+				parse: response => (response as ProjectsResponse)?.projects || []
+			}
+		);
 	}
 }

@@ -1,24 +1,17 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { MilestoneComponent } from "../../shared/components/milestone/milestone.component";
 import { EmptyListComponent } from "../../shared/components/empty-list/empty-list.component";
 import { ExperienceService } from "../../shared/services/http/experience.service";
-import { Observable, of } from "rxjs";
-import { Milestone } from "../../shared/models/milestone.model";
-import { AsyncPipe } from "@angular/common";
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-experience",
-	standalone: true,
-	imports: [MilestoneComponent, EmptyListComponent, AsyncPipe],
+	imports: [MilestoneComponent, EmptyListComponent],
 	templateUrl: "./experience.component.html",
 	styleUrl: "./experience.component.scss"
 })
-export class ExperienceComponent implements OnInit {
+export class ExperienceComponent {
 	private _experienceService = inject(ExperienceService);
 
-	public experiences$: Observable<Milestone[]> = of([]);
-
-	ngOnInit() {
-		this.experiences$ = this._experienceService.getExperience();
-	}
+	public experiences = this._experienceService.getExperience();
 }

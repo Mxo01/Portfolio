@@ -1,14 +1,20 @@
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from "@angular/router";
 import { ButtonModule } from "primeng/button";
-import { Component, computed, HostListener, inject, OnInit, OnDestroy } from "@angular/core";
+import {
+	Component,
+	computed,
+	HostListener,
+	inject,
+	OnInit,
+	OnDestroy,
+	ChangeDetectionStrategy
+} from "@angular/core";
 import { Avatar } from "primeng/avatar";
-import { Kpi } from "./shared/models/kpi.model";
 import { KpiComponent } from "./shared/components/kpi/kpi.component";
 import { AvatarListComponent } from "./shared/components/avatar-list/avatar-list.component";
-import { Picture } from "./shared/models/picture.model";
 import { StateService } from "./shared/services/state.service";
 import { TabsModule } from "primeng/tabs";
-import { Observable, of, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { DrawerModule } from "primeng/drawer";
 import { MessageService } from "primeng/api";
 import { Toast } from "primeng/toast";
@@ -16,10 +22,9 @@ import { PATHS } from "./shared/utils/constants";
 import { isMobileDevice } from "./shared/utils/utils";
 import { slideInAnimation } from "./shared/animations/fade-slide.animation";
 import { AboutService } from "./shared/services/http/about.service";
-import { AsyncPipe } from "@angular/common";
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-root",
-	standalone: true,
 	imports: [
 		RouterOutlet,
 		RouterLink,
@@ -29,8 +34,7 @@ import { AsyncPipe } from "@angular/common";
 		ButtonModule,
 		TabsModule,
 		KpiComponent,
-		AvatarListComponent,
-		AsyncPipe
+		AvatarListComponent
 	],
 	templateUrl: "./app.component.html",
 	styleUrl: "./app.component.scss",
@@ -44,9 +48,9 @@ export class AppComponent implements OnInit, OnDestroy {
 	private _router = inject(Router);
 
 	public paths = PATHS;
-	public kpis$: Observable<Kpi[]> = of([]);
-	public techStack$: Observable<Picture[]> = of([]);
-	public companies$: Observable<Picture[]> = of([]);
+	public kpis = this._aboutService.getKpis();
+	public techStack = this._aboutService.getTechStack();
+	public companies = this._aboutService.getCompanies();
 	public isMailDrawerVisible = false;
 	public isMobile = computed(() => this._stateService.isMobile());
 	public isDarkMode = computed(() => {
@@ -65,14 +69,12 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this._routeSub = this._router.events.subscribe(event => {
-			if (event instanceof NavigationEnd)
-				this.selectedTab = event.url.split("/").pop() || "experience";
+		this._routeSub = this._router.events.subscribe({
+			next: event => {
+				if (event instanceof NavigationEnd)
+					this.selectedTab = event.url.split("/").pop() || "experience";
+			}
 		});
-
-		this.companies$ = this._aboutService.getCompanies();
-		this.kpis$ = this._aboutService.getKpis();
-		this.techStack$ = this._aboutService.getTechStack();
 
 		this._updateIsMobile();
 	}

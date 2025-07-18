@@ -1,10 +1,9 @@
 // Components
-@import "components/primeng-avatar";
-@import "components/primeng-button";
-@import "components/primeng-tabs";
-@import "components/primeng-tag";
-@import "components/primeng-toast";
+@forward "components/primeng-avatar";
+@forward "components/primeng-button";
+@forward "components/primeng-tabs";
+@forward "components/primeng-tag";
+@forward "components/primeng-toast";
 
 // Utils
-@import "utils/mixins";
-@import "utils/variables";
+@forward "utils/variables";
