@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Milestone, ProjectsResponse } from "../../models/milestone.model";
-import { API_URL } from "../../utils/constants";
+import { environment } from "../../../../environments/environment.development";
 
 @Injectable({
 	providedIn: "root"
@@ -12,7 +12,7 @@ export class ProjectsService {
 
 	public getProjects(): Observable<Milestone[]> {
 		return this._http
-			.get<ProjectsResponse>(`${API_URL}/projects.json`)
+			.get<ProjectsResponse>(`${environment.apiUrl}/projects.json`)
 			.pipe(map(({ projects }) => projects));
 	}
 }
