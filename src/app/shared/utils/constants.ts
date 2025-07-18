@@ -1,5 +1,3 @@
-export const API_URL = "http://localhost:4200/assets";
-
 export const PATHS = {
 	EXPERIENCE: "experience",
 	EDUCATION: "education",
