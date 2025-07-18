@@ -1,4 +1,6 @@
-export const API_URL = "http://localhost:4200/assets";
+import { environment } from "../../../environments/environment.development";
+
+export const API_URL = environment.apiUrl;
 
 export const PATHS = {
 	EXPERIENCE: "experience",
