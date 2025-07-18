@@ -1,0 +1,124 @@
+{
+	"projects": [
+		{
+			"title": "GymBro",
+			"description": "Fitness tracking app re-builded natively, with a custom UI component library with a modern look and improved UX. Designed a new backend infrastructure in Go (made by the other team member), containerized with Docker and connected to PostgreSQL, enabling better performance, scalability, and local development setup",
+			"tags": ["React Native", "Go", "PostgreSQL", "Docker", "Git"],
+			"contributors": [
+				{
+					"name": "Lorenzo Deriu",
+					"picName": "lorenzo_deriu",
+					"extension": "jpeg"
+				}
+			],
+			"media": [
+				{ "name": "gymbro-login", "picName": "gymbro-login", "extension": "jpeg" },
+				{ "name": "gymbro-signup", "picName": "gymbro-signup", "extension": "jpeg" },
+				{ "name": "gymbro-home", "picName": "gymbro-home", "extension": "jpeg" },
+				{ "name": "gymbro-home-tp", "picName": "gymbro-home-tp", "extension": "jpeg" },
+				{ "name": "gymbro-history", "picName": "gymbro-history", "extension": "jpeg" },
+				{ "name": "gymbro-gymbros", "picName": "gymbro-gymbros", "extension": "jpeg" },
+				{
+					"name": "gymbro-gymbros-history",
+					"picName": "gymbro-gymbros-history",
+					"extension": "jpeg"
+				},
+				{ "name": "gymbro-settings", "picName": "gymbro-settings", "extension": "jpeg" },
+				{
+					"name": "gymbro-settings-exercises",
+					"picName": "gymbro-settings-exercises",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-settings-lang",
+					"picName": "gymbro-settings-lang",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-settings-feedback",
+					"picName": "gymbro-settings-feedback",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-settings-pic",
+					"picName": "gymbro-settings-pic",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-settings-notifications",
+					"picName": "gymbro-settings-notifications",
+					"extension": "jpeg"
+				},
+				{ "name": "gymbro-workout", "picName": "gymbro-workout", "extension": "jpeg" },
+				{
+					"name": "gymbro-workout-rest",
+					"picName": "gymbro-workout-rest",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-workout-exercise",
+					"picName": "gymbro-workout-exercise",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-workout-exercise-rest",
+					"picName": "gymbro-workout-exercise-rest",
+					"extension": "jpeg"
+				},
+				{
+					"name": "gymbro-workout-exercise-history",
+					"picName": "gymbro-workout-exercise-history",
+					"extension": "jpeg"
+				}
+			],
+			"milestoneDate": "Now",
+			"period": "Mar 2024 - Present"
+		},
+		{
+			"title": "GymBro PWA",
+			"description": "Fitness tracking web app (PWA) designed for those who work out in the gym. Optimized UX with compatibility across all devices. Share your training programs with your friends, create them from zero and monitor your workouts",
+			"tags": ["Angular", "Firebase", "Git"],
+			"contributors": [
+				{
+					"name": "Lorenzo Deriu",
+					"picName": "lorenzo_deriu",
+					"extension": "jpeg"
+				}
+			],
+			"media": [
+				{ "name": "gymbro-pwa-1", "picName": "gymbro-pwa-1", "extension": "jpg" },
+				{ "name": "gymbro-pwa-2", "picName": "gymbro-pwa-2", "extension": "png" },
+				{ "name": "gymbro-pwa-3", "picName": "gymbro-pwa-3", "extension": "png" },
+				{ "name": "gymbro-pwa-4", "picName": "gymbro-pwa-4", "extension": "png" },
+				{ "name": "gymbro-pwa-5", "picName": "gymbro-pwa-5", "extension": "png" }
+			],
+			"milestoneDate": "Mar 2024",
+			"period": "Oct 2023 - Feb 2024"
+		},
+		{
+			"title": "LoveJob",
+			"description": "Simplify job seeking. Users can search for their dream job with a map that shows up open positions near them. Company can create open position offers, and users can contact them via chat or add specific position to favorites",
+			"tags": ["Angular", ".NET Core", "Micorsoft SQL Server", "Git"],
+			"media": [
+				{ "name": "lovejob-1", "picName": "lovejob-1", "extension": "jpeg" },
+				{ "name": "lovejob-2", "picName": "lovejob-2", "extension": "jpeg" },
+				{ "name": "lovejob-3", "picName": "lovejob-3", "extension": "jpeg" },
+				{ "name": "lovejob-4", "picName": "lovejob-4", "extension": "jpeg" }
+			],
+			"milestoneDate": "Oct 2023",
+			"period": "Jun 2023 - Aug 2023"
+		},
+		{
+			"title": "MyLibretto",
+			"description": "Keep track of your career by saving your grades, taxes e sharing notes or file. You can also see your statistics and some easy-readable charts",
+			"tags": ["React", "Firebase", "Git"],
+			"media": [
+				{ "name": "mylibretto-1", "picName": "mylibretto-1", "extension": "png" },
+				{ "name": "mylibretto-2", "picName": "mylibretto-2", "extension": "png" },
+				{ "name": "mylibretto-3", "picName": "mylibretto-3", "extension": "png" }
+			],
+			"milestoneDate": "Jun 2023",
+			"period": "Mar 2023 - May 2023"
+		}
+	]
+}

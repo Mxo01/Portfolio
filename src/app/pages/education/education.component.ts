@@ -1,15 +1,24 @@
-import { Component } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { MilestoneComponent } from "../../shared/components/milestone/milestone.component";
-import { EDUCATION_MILESTONES } from "../../shared/utils/constants";
 import { EmptyListComponent } from "../../shared/components/empty-list/empty-list.component";
+import { AsyncPipe } from "@angular/common";
+import { EducationService } from "../../shared/services/http/education.service";
+import { Observable, of } from "rxjs";
+import { Milestone } from "../../shared/models/milestone.model";
 
 @Component({
 	selector: "portfolio-education",
 	standalone: true,
-	imports: [MilestoneComponent, EmptyListComponent],
+	imports: [MilestoneComponent, EmptyListComponent, AsyncPipe],
 	templateUrl: "./education.component.html",
 	styleUrl: "./education.component.scss"
 })
-export class EducationComponent {
-	public educationMilestones = EDUCATION_MILESTONES;
+export class EducationComponent implements OnInit {
+	private _educationService = inject(EducationService);
+
+	public education$: Observable<Milestone[]> = of([]);
+
+	ngOnInit() {
+		this.education$ = this._educationService.getEducation();
+	}
 }

@@ -15,3 +15,15 @@ export interface Milestone {
 	media?: Picture[];
 	contributors?: Picture[];
 }
+
+export interface ExperienceResponse {
+	experience: Milestone[];
+}
+
+export interface EducationResponse {
+	education: Milestone[];
+}
+
+export interface ProjectsResponse {
+	projects: Milestone[];
+}
