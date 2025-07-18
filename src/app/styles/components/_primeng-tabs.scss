@@ -1,4 +1,4 @@
-@import "utils/variables";
+@use "utils/variables" as *;
 
 :root {
 	--p-tabs-tab-padding: 0.75rem 0.5rem !important;
