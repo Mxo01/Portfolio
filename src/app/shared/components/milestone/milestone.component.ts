@@ -11,7 +11,6 @@ import { mapMilestoneMediaToGalleriaImages } from "../../utils/utils";
 
 @Component({
 	selector: "portfolio-milestone",
-	standalone: true,
 	imports: [
 		TagModule,
 		Avatar,

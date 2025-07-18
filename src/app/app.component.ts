@@ -19,7 +19,6 @@ import { AboutService } from "./shared/services/http/about.service";
 import { AsyncPipe } from "@angular/common";
 @Component({
 	selector: "portfolio-root",
-	standalone: true,
 	imports: [
 		RouterOutlet,
 		RouterLink,

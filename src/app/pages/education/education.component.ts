@@ -8,7 +8,6 @@ import { Milestone } from "../../shared/models/milestone.model";
 
 @Component({
 	selector: "portfolio-education",
-	standalone: true,
 	imports: [MilestoneComponent, EmptyListComponent, AsyncPipe],
 	templateUrl: "./education.component.html",
 	styleUrl: "./education.component.scss"

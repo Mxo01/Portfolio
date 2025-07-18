@@ -8,7 +8,6 @@ import { AsyncPipe } from "@angular/common";
 
 @Component({
 	selector: "portfolio-experience",
-	standalone: true,
 	imports: [MilestoneComponent, EmptyListComponent, AsyncPipe],
 	templateUrl: "./experience.component.html",
 	styleUrl: "./experience.component.scss"
