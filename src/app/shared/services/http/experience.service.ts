@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Milestone, ExperienceResponse } from "../../models/milestone.model";
-import { API_URL } from "../../utils/constants";
+import { environment } from "../../../../environments/environment.development";
 
 @Injectable({
 	providedIn: "root"
@@ -12,7 +12,7 @@ export class ExperienceService {
 
 	public getExperience(): Observable<Milestone[]> {
 		return this._http
-			.get<ExperienceResponse>(`${API_URL}/experience.json`)
+			.get<ExperienceResponse>(`${environment.apiUrl}/experience.json`)
 			.pipe(map(({ experience }) => experience));
 	}
 }
