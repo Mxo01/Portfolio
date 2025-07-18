@@ -11,10 +11,12 @@ export class EducationService {
 		return httpResource<Milestone[]>(
 			() => ({
 				url: `${environment.apiUrl}/education.json`,
-				method: "GET",
-				parse: ({ education }: EducationResponse) => education || []
+				method: "GET"
 			}),
-			{ defaultValue: [] }
+			{
+				defaultValue: [],
+				parse: response => (response as EducationResponse)?.education || []
+			}
 		);
 	}
 }

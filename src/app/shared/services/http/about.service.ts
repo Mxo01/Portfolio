@@ -41,10 +41,12 @@ export class AboutService {
 		return httpResource<Picture[]>(
 			() => ({
 				url: `${environment.apiUrl}/stack.json`,
-				method: "GET",
-				parse: ({ stack }: TechStackResponse) => stack || []
+				method: "GET"
 			}),
-			{ defaultValue: [] }
+			{
+				defaultValue: [],
+				parse: response => (response as TechStackResponse)?.stack || []
+			}
 		);
 	}
 
@@ -52,14 +54,16 @@ export class AboutService {
 		return httpResource(
 			() => ({
 				url: `${environment.apiUrl}/experience.json`,
-				method: "GET",
-				parse: ({ experience }: ExperienceResponse) =>
-					(experience || [])
+				method: "GET"
+			}),
+			{
+				defaultValue: [],
+				parse: response =>
+					((response as ExperienceResponse)?.experience
 						.reverse()
 						.map(milestone => milestone.logo)
-						.filter(Boolean) as Picture[]
-			}),
-			{ defaultValue: [] }
+						.filter(Boolean) || []) as Picture[]
+			}
 		);
 	}
 }

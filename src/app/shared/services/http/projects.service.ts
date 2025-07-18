@@ -11,10 +11,12 @@ export class ProjectsService {
 		return httpResource<Milestone[]>(
 			() => ({
 				url: `${environment.apiUrl}/projects.json`,
-				method: "GET",
-				parse: ({ projects }: ProjectsResponse) => projects || []
+				method: "GET"
 			}),
-			{ defaultValue: [] }
+			{
+				defaultValue: [],
+				parse: response => (response as ProjectsResponse)?.projects || []
+			}
 		);
 	}
 }

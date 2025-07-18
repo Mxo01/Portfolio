@@ -11,10 +11,12 @@ export class ExperienceService {
 		return httpResource<Milestone[]>(
 			() => ({
 				url: `${environment.apiUrl}/experience.json`,
-				method: "GET",
-				parse: ({ experience }: ExperienceResponse) => experience || []
+				method: "GET"
 			}),
-			{ defaultValue: [] }
+			{
+				defaultValue: [],
+				parse: response => (response as ExperienceResponse)?.experience || []
+			}
 		);
 	}
 }
