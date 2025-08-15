@@ -1,10 +1,5 @@
-<section class="tab-content">
-	@for (milestone of experiences(); track $index) {
-		<portfolio-milestone [milestone]="milestone" />
-	} @empty {
-		<portfolio-empty-list
-			title="No experience yet"
-			description="I have not added any experience yet."
-		/>
-	}
-</section>
+<portfolio-tab-content
+	[milestones]="experiences()"
+	emptyTitle="No experience yet"
+	emptyDescription="I have not added any experience yet."
+/>

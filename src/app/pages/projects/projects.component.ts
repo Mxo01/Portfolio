@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { EmptyListComponent } from "../../shared/components/empty-list/empty-list.component";
-import { MilestoneComponent } from "../../shared/components/milestone/milestone.component";
 import { ProjectsService } from "../../shared/services/http/projects.service";
+import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-projects",
-	imports: [EmptyListComponent, MilestoneComponent],
+	imports: [TabContentComponent],
 	templateUrl: "./projects.component.html",
 	styleUrl: "./projects.component.scss"
 })
