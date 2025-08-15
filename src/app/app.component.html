@@ -28,12 +28,12 @@
 		</span>
 
 		<portfolio-avatar-list
-			[avatars]="techStack.value()"
+			[avatars]="techStack()"
 			description="Tech Stack"
 		/>
 
 		<portfolio-avatar-list
-			[avatars]="companies.value()"
+			[avatars]="companies()"
 			description="Companies where I worked"
 			[isCollapsed]="true"
 		/>
