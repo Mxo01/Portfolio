@@ -2,6 +2,7 @@ import { MilestoneUpdate } from "./milestone-update.model";
 import { Picture } from "./picture.model";
 
 export interface Milestone {
+	isExperience?: boolean;
 	logo?: Picture;
 	title: string;
 	location?: string;

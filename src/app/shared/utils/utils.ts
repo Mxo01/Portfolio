@@ -1,5 +1,4 @@
 import { query, style, group, animate } from "@angular/animations";
-import { Milestone } from "../models/milestone.model";
 import { Picture } from "../models/picture.model";
 import { MONTHS_MAPPING } from "./constants";
 
@@ -7,11 +6,10 @@ export function isMobileDevice(width: number): boolean {
 	return width <= 768;
 }
 
-export function calculateExperience(experiences: Milestone[]): string {
-	const periods = experiences.map(experience => experience.period);
+export function calculateExperience(experiencePeriods: string[]): string {
 	const now = Date.now();
 
-	const months = periods.reduce((sum, period) => {
+	const months = experiencePeriods.reduce((sum, period) => {
 		const [start, end] = period.split(" - ");
 		const [startMonth, startYear] = start.split(" ");
 		const [endMonth, endYear] = end.split(" ");

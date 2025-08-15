@@ -1,6 +1,7 @@
 {
 	"experience": [
 		{
+			"isExperience": true,
 			"logo": {
 				"picName": "onetag",
 				"name": "OneTag",
@@ -14,6 +15,7 @@
 			"milestoneDate": "Now"
 		},
 		{
+			"isExperience": true,
 			"logo": {
 				"picName": "ntt",
 				"name": "NTT DATA",
@@ -27,6 +29,7 @@
 			"milestoneDate": "Jul 2025"
 		},
 		{
+			"isExperience": true,
 			"logo": {
 				"picName": "sonatrach",
 				"name": "Sonatrach",

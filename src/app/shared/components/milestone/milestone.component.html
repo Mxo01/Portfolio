@@ -34,6 +34,12 @@
 				<span class="pi pi-calendar"></span>
 
 				<span>{{ milestone().period }}</span>
+
+				@if (milestone().isExperience) {
+					<span>·</span>
+
+					<span>{{ experienceDuration() }}</span>
+				}
 			</span>
 		</div>
 
@@ -119,7 +125,7 @@
 	[showThumbnails]="false"
 >
 	<ng-template
-		pTemplate="item"
+		#item
 		let-item
 	>
 		<img
