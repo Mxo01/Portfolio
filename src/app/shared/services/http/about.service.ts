@@ -26,7 +26,8 @@ export class AboutService {
 		return toSignal(
 			forkJoin({ experience: experience$, kpis: kpis$ }).pipe(
 				map(({ experience, kpis }) => {
-					const experienceValue = calculateExperience(experience);
+					const experiencePeriods = experience.map(milestone => milestone.period);
+					const experienceValue = calculateExperience(experiencePeriods);
 
 					return (kpis || []).map(kpi =>
 						kpi.label === "Experience" ? { ...kpi, value: experienceValue } : kpi
