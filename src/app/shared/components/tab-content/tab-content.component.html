@@ -1,0 +1,10 @@
+<section class="tab-content">
+	@for (milestone of milestones(); track $index) {
+		<portfolio-milestone [milestone]="milestone" />
+	} @empty {
+		<portfolio-empty-list
+			[title]="emptyTitle()"
+			[description]="emptyDescription()"
+		/>
+	}
+</section>

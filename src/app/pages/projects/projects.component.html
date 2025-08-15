@@ -1,12 +1,5 @@
-<section class="tab-content">
-	<div class="projects">
-		@for (milestone of projects(); track $index) {
-			<portfolio-milestone [milestone]="milestone" />
-		} @empty {
-			<portfolio-empty-list
-				title="No projects yet"
-				description="I have not added any projects yet."
-			/>
-		}
-	</div>
-</section>
+<portfolio-tab-content
+	[milestones]="projects()"
+	emptyTitle="No projects yet"
+	emptyDescription="I have not added any projects yet."
+/>

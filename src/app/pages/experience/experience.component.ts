@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { MilestoneComponent } from "../../shared/components/milestone/milestone.component";
-import { EmptyListComponent } from "../../shared/components/empty-list/empty-list.component";
 import { ExperienceService } from "../../shared/services/http/experience.service";
+import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-experience",
-	imports: [MilestoneComponent, EmptyListComponent],
+	imports: [TabContentComponent],
 	templateUrl: "./experience.component.html",
 	styleUrl: "./experience.component.scss"
 })
