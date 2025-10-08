@@ -8,5 +8,6 @@
 	"trailingComma": "none",
 	"arrowParens": "avoid",
 	"useTabs": true,
-	"bracketSpacing": true
+	"bracketSpacing": true,
+	"htmlWhitespaceSensitivity": "ignore"
 }
