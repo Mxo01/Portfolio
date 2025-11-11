@@ -1,4 +1,4 @@
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { ApplicationConfig, provideZonelessChangeDetection } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { providePrimeNG } from "primeng/config";
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
 				apiKey: "AIzaSyCbz4jvYzywpPERvmg47e5NCFlUFvX7nTA",
 				authDomain: "mariodimodica-portfolio.firebaseapp.com",
 				messagingSenderId: "529770258928",
-				measurementId: "G-FJ7W4XF9W5",
+				measurementId: "G-FJ7W4XF9W5"
 			})
 		),
 		provideFirestore(() => getFirestore())
