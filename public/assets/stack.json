@@ -1,8 +1,0 @@
-{
-	"stack": [
-		{ "picName": "git", "name": "Git", "extension": "png" },
-		{ "picName": "postgresql", "name": "PostgreSQL", "extension": "png" },
-		{ "picName": "spring", "name": "Spring Boot", "extension": "png" },
-		{ "picName": "angular", "name": "Angular", "extension": "png" }
-	]
-}

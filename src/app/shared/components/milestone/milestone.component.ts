@@ -6,7 +6,7 @@ import { AvatarListComponent } from "../avatar-list/avatar-list.component";
 import { ImageModule } from "primeng/image";
 import { ButtonModule } from "primeng/button";
 import { Avatar } from "primeng/avatar";
-import { Milestone } from "../../models/milestone.model";
+import { Milestone, MilestoneEnum } from "../../models/milestone.model";
 import { calculateExperience, mapMilestoneMediaToGalleriaImages } from "../../utils/utils";
 
 @Component({
@@ -25,6 +25,8 @@ import { calculateExperience, mapMilestoneMediaToGalleriaImages } from "../../ut
 })
 export class MilestoneComponent {
 	public milestone = input.required<Milestone>();
+
+	protected readonly MilestoneEnum = MilestoneEnum;
 
 	public experienceDuration = computed(() => calculateExperience([this.milestone().period]));
 	public galleriaImages = computed(() =>

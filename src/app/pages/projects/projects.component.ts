@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { ProjectsService } from "../../shared/services/http/projects.service";
+import { ProjectsService } from "../../shared/services/projects.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
 @Component({
@@ -12,5 +12,5 @@ import { TabContentComponent } from "../../shared/components/tab-content/tab-con
 export class ProjectsComponent {
 	private _projectsService = inject(ProjectsService);
 
-	public projects = this._projectsService.getProjects();
+	public projects = this._projectsService.getProjectsMilestones();
 }
