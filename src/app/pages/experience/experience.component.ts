@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { ExperienceService } from "../../shared/services/http/experience.service";
+import { ExperienceService } from "../../shared/services/experience.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
 @Component({
@@ -12,5 +12,5 @@ import { TabContentComponent } from "../../shared/components/tab-content/tab-con
 export class ExperienceComponent {
 	private _experienceService = inject(ExperienceService);
 
-	public experiences = this._experienceService.getExperience();
+	public experiences = this._experienceService.getExperienceMilestones();
 }

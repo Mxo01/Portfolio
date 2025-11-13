@@ -21,7 +21,7 @@ import { Toast } from "primeng/toast";
 import { PATHS } from "./shared/utils/constants";
 import { isMobileDevice } from "./shared/utils/utils";
 import { slideInAnimation } from "./shared/animations/fade-slide.animation";
-import { AboutService } from "./shared/services/http/about.service";
+import { AboutService } from "./shared/services/about.service";
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-root",
@@ -45,12 +45,14 @@ export class AppComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
 	private _messageService = inject(MessageService);
 	private _aboutService = inject(AboutService);
+
 	private _router = inject(Router);
 
 	public paths = PATHS;
-	public kpis = this._aboutService.getKpis();
-	public techStack = this._aboutService.getTechStack();
-	public companies = this._aboutService.getCompanies();
+	public aboutInfo = this._aboutService.getAboutInfo();
+	public kpis = computed(() => this.aboutInfo().kpis);
+	public techStack = computed(() => this.aboutInfo().techStack);
+	public companies = computed(() => this.aboutInfo().companies);
 	public isMailDrawerVisible = false;
 	public isMobile = computed(() => this._stateService.isMobile());
 	public isDarkMode = computed(() => {

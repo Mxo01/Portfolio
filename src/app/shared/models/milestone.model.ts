@@ -1,8 +1,14 @@
 import { MilestoneUpdate } from "./milestone-update.model";
 import { Picture } from "./picture.model";
 
+export enum MilestoneEnum {
+	EXPERIENCE = "EXPERIENCE",
+	EDUCATION = "EDUCATION",
+	PROJECT = "PROJECT"
+}
 export interface Milestone {
-	isExperience?: boolean;
+	id?: string;
+	type: MilestoneEnum;
 	logo?: Picture;
 	title: string;
 	location?: string;
@@ -11,8 +17,6 @@ export interface Milestone {
 	period: string;
 	updates?: MilestoneUpdate[];
 	milestoneDate: string;
-	websiteLink?: string;
-	sourceCodeLink?: string;
 	media?: Picture[];
 	contributors?: Picture[];
 }

@@ -35,7 +35,7 @@
 
 				<span>{{ milestone().period }}</span>
 
-				@if (milestone().isExperience) {
+				@if (milestone().type === MilestoneEnum.EXPERIENCE) {
 					<span>·</span>
 
 					<span>{{ experienceDuration() }}</span>
