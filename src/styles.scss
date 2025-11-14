@@ -25,7 +25,10 @@ body {
 	}
 }
 
-.floating-btn {
+.floating-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 	position: fixed;
 	bottom: 1rem;
 	right: 1rem;

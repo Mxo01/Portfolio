@@ -1,0 +1,55 @@
+@if (isMobile()) {
+	<p-drawer
+		header="Sign In"
+		[closable]="false"
+		[closeOnEscape]="false"
+		[visible]="isSignInVisible"
+		position="bottom"
+		[style]="{ height: 'auto' }"
+	>
+		<span class="description">
+			This authentication is used to sign in as an admin user to make changes to the website.
+			Please go back to the
+			<a routerLink="/">homepage</a>
+			.
+		</span>
+
+		<ng-template #footer>
+			<p-button
+				label="Continue with Google"
+				icon="pi pi-google"
+				(onClick)="signInWithGoogle()"
+			/>
+		</ng-template>
+	</p-drawer>
+} @else {
+	<p-dialog
+		[modal]="true"
+		[focusOnShow]="false"
+		[closable]="false"
+		[closeOnEscape]="false"
+		[visible]="isSignInVisible"
+		[style]="{ width: '25rem' }"
+	>
+		<ng-template #header>
+			<h1 class="header">Sign In</h1>
+		</ng-template>
+
+		<span class="description">
+			This authentication is used to sign in as an admin user to make changes to the website.
+			Please go back to the
+			<a routerLink="/">homepage</a>
+			.
+		</span>
+
+		<ng-template #footer>
+			<div class="actions">
+				<p-button
+					label="Continue with Google"
+					icon="pi pi-google"
+					(onClick)="signInWithGoogle()"
+				/>
+			</div>
+		</ng-template>
+	</p-dialog>
+}

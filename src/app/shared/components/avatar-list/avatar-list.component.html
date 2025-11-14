@@ -5,35 +5,43 @@
 		</span>
 	}
 
-	<p-avatar-group>
-		@if (isCollapsed()) {
-			@for (avatar of collapsedAvatars(); track $index) {
-				<p-avatar
-					shape="circle"
-					[image]="'images/' + avatar.picName + '.' + avatar.extension"
-					[size]="isMobile() ? 'normal' : 'large'"
-					[pTooltip]="avatar.name"
-					tooltipPosition="bottom"
-				/>
-			}
+	@if ((isCollapsed() && !collapsedAvatars().length) || (!isCollapsed() && !avatars().length)) {
+		<p-skeleton
+			shape="circle"
+			[size]="isMobile() ? '2rem' : '3rem'"
+			style="margin-right: -0.5rem"
+		/>
+	} @else {
+		<p-avatar-group>
+			@if (isCollapsed()) {
+				@for (avatar of collapsedAvatars(); track $index) {
+					<p-avatar
+						shape="circle"
+						[image]="'images/' + avatar.picName + '.' + avatar.extension"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="avatar.name"
+						tooltipPosition="bottom"
+					/>
+				}
 
-			@if (remainingAvatars() > 0) {
-				<p-avatar
-					[label]="'+' + remainingAvatars()"
-					shape="circle"
-					[size]="isMobile() ? 'normal' : 'large'"
-				/>
+				@if (remainingAvatars() > 0) {
+					<p-avatar
+						[label]="'+' + remainingAvatars()"
+						shape="circle"
+						[size]="isMobile() ? 'normal' : 'large'"
+					/>
+				}
+			} @else {
+				@for (avatar of avatars(); track $index) {
+					<p-avatar
+						shape="circle"
+						[image]="'images/' + avatar.picName + '.' + avatar.extension"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="avatar.name"
+						tooltipPosition="bottom"
+					/>
+				}
 			}
-		} @else {
-			@for (avatar of avatars(); track $index) {
-				<p-avatar
-					shape="circle"
-					[image]="'images/' + avatar.picName + '.' + avatar.extension"
-					[size]="isMobile() ? 'normal' : 'large'"
-					[pTooltip]="avatar.name"
-					tooltipPosition="bottom"
-				/>
-			}
-		}
-	</p-avatar-group>
+		</p-avatar-group>
+	}
 </div>

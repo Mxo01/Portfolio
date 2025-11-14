@@ -1,7 +1,10 @@
 export const PATHS = {
+	HOME: "home",
 	EXPERIENCE: "experience",
 	EDUCATION: "education",
-	PROJECTS: "projects"
+	PROJECTS: "projects",
+	ADMIN: "admin",
+	AUTH: "auth"
 };
 
 export const MONTHS_MAPPING: Record<string, number> = {

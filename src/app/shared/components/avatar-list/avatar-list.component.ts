@@ -4,10 +4,11 @@ import { Avatar } from "primeng/avatar";
 import { AvatarGroup } from "primeng/avatargroup";
 import { TooltipModule } from "primeng/tooltip";
 import { Picture } from "../../models/picture.model";
+import { Skeleton } from "primeng/skeleton";
 
 @Component({
 	selector: "portfolio-avatar-list",
-	imports: [Avatar, AvatarGroup, TooltipModule],
+	imports: [Avatar, AvatarGroup, TooltipModule, Skeleton],
 	templateUrl: "./avatar-list.component.html",
 	styleUrl: "./avatar-list.component.scss"
 })
@@ -24,4 +25,5 @@ export class AvatarListComponent {
 		() => this.avatars().length - this.collapsedAvatars().length
 	);
 	public isMobile = computed(() => this._stateService.isMobile());
+	public skeletonArray = Array.from({ length: 3 });
 }
