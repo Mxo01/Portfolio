@@ -1,6 +1,7 @@
 import { query, style, group, animate } from "@angular/animations";
 import { Picture } from "../models/picture.model";
 import { MONTHS_MAPPING } from "./constants";
+import { Milestone } from "../models/milestone.model";
 
 export function isMobileDevice(width: number): boolean {
 	return width <= 768;
@@ -65,4 +66,28 @@ export function slideTo(direction: "left" | "right") {
 			})
 		])
 	];
+}
+
+export function sortMilestonesByPeriod(milestones: Milestone[]): Milestone[] {
+	return milestones.sort((milestone1, milestone2) => {
+		const [milestone1PeriodStart, milestone1PeriodEnd] = milestone1.period.split(" - ");
+		const [milestone2PeriodStart, milestone2PeriodEnd] = milestone2.period.split(" - ");
+
+		const milestone1StartTimestamp = new Date(milestone1PeriodStart).getTime();
+		const milestone1EndTimestamp =
+			milestone1PeriodEnd === "Present"
+				? Date.now()
+				: new Date(milestone1PeriodEnd).getTime();
+
+		const milestone2StartTimestamp = new Date(milestone2PeriodStart).getTime();
+		const milestone2EndTimestamp =
+			milestone2PeriodEnd === "Present"
+				? Date.now()
+				: new Date(milestone2PeriodEnd).getTime();
+
+		const startDifference = milestone2StartTimestamp - milestone1StartTimestamp;
+		const endDifference = milestone2EndTimestamp - milestone1EndTimestamp;
+
+		return endDifference === 0 ? startDifference : endDifference;
+	});
 }
