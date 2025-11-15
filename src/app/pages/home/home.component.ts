@@ -1,28 +1,49 @@
+import { TabEnum } from "./../../shared/models/tab.model";
+import { Milestone, MilestoneEnum } from "./../../shared/models/milestone.model";
 import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
 	HostListener,
 	inject,
+	linkedSignal,
 	OnDestroy,
 	OnInit
 } from "@angular/core";
 import { RouterOutlet, RouterLink, Router, NavigationEnd, NavigationStart } from "@angular/router";
-import { MessageService } from "primeng/api";
+import { MessageService, SelectItem } from "primeng/api";
 import { Avatar } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
 import { DrawerModule } from "primeng/drawer";
 import { TabsModule } from "primeng/tabs";
-import { Toast } from "primeng/toast";
 import { Subscription } from "rxjs";
 import { AvatarListComponent } from "../../shared/components/avatar-list/avatar-list.component";
 import { KpiComponent } from "../../shared/components/kpi/kpi.component";
 import { AboutService } from "../../shared/services/about.service";
 import { StateService } from "../../shared/services/state.service";
-import { PATHS } from "../../shared/utils/constants";
-import { isMobileDevice } from "../../shared/utils/utils";
+import { PATHS, TAB_TO_MILESTONE_TYPE_MAPPING } from "../../shared/utils/constants";
+import { convertFileToBase64, isMobileDevice } from "../../shared/utils/utils";
 import { slideInAnimation } from "../../shared/animations/fade-slide.animation";
 import { AuthService } from "../../shared/services/auth.service";
+import { NgTemplateOutlet } from "@angular/common";
+import { Dialog } from "primeng/dialog";
+import {
+	FormControl,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators
+} from "@angular/forms";
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { FloatLabel } from "primeng/floatlabel";
+import { InputTextModule } from "primeng/inputtext";
+import { Picture } from "../../shared/models/picture.model";
+import { MilestoneUpdate } from "../../shared/models/milestone-update.model";
+import { Select } from "primeng/select";
+import { MilestoneService } from "../../shared/services/milestone.service";
+import { Tooltip } from "primeng/tooltip";
+import { FileUpload, FileUploadEvent } from "primeng/fileupload";
+import { AboutInfo } from "../../shared/models/about.model";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,11 +53,21 @@ import { AuthService } from "../../shared/services/auth.service";
 		RouterLink,
 		DrawerModule,
 		Avatar,
-		Toast,
 		ButtonModule,
 		TabsModule,
 		KpiComponent,
-		AvatarListComponent
+		AvatarListComponent,
+		Avatar,
+		NgTemplateOutlet,
+		Dialog,
+		ReactiveFormsModule,
+		FormsModule,
+		InputTextModule,
+		AutoCompleteModule,
+		FloatLabel,
+		Select,
+		Tooltip,
+		FileUpload
 	],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
@@ -47,16 +78,48 @@ export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
 	private _aboutService = inject(AboutService);
 	private _authService = inject(AuthService);
+	private _milestoneService = inject(MilestoneService);
 	private _messageService = inject(MessageService);
 
 	private _router = inject(Router);
 
+	protected readonly MilestoneEnum = MilestoneEnum;
+	protected readonly TabEnum = TabEnum;
+
+	public selectedTab: TabEnum = (this._router.url.split("/").pop() as TabEnum) || TabEnum;
+
+	public milestoneForm = new FormGroup({
+		type: new FormControl<MilestoneEnum>(TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab], [
+			Validators.required
+		]),
+		logo: new FormControl<Picture | null>(null),
+		title: new FormControl<string>("", [Validators.required, Validators.maxLength(100)]),
+		location: new FormControl<string>(""),
+		description: new FormControl<string>("", [Validators.required, Validators.maxLength(1000)]),
+		tags: new FormControl<string[]>([]),
+		period: new FormControl<string>(""),
+		milestoneDate: new FormControl<string>("", [Validators.required]),
+		media: new FormControl<Picture[]>([]),
+		contributors: new FormControl<Picture[]>([])
+	});
+
+	public milestoneTypes: SelectItem<MilestoneEnum>[] = Object.values(MilestoneEnum).map(
+		enumValue => ({
+			label: enumValue,
+			value: enumValue
+		})
+	);
+	public milestoneUpdates: MilestoneUpdate[] = [];
 	public paths = PATHS;
 	public aboutInfo = this._aboutService.getAboutInfo();
-	public kpis = computed(() => this.aboutInfo().kpis);
-	public techStack = computed(() => this.aboutInfo().techStack);
-	public companies = computed(() => this.aboutInfo().companies);
+	public kpis = linkedSignal(() => this.aboutInfo().kpis);
+	public techStack = linkedSignal(() => this.aboutInfo().techStack);
+	public companies = linkedSignal(() => this.aboutInfo().companies);
 	public isMailDrawerVisible = false;
+	public isAddMilestoneLoading = false;
+	public isAddMilestoneVisible = false;
+	public isEditTechStackVisible = false;
+	public isSaveTechStackEditsLoading = false;
 	public isAdmin = computed(() => !!this._authService.user());
 	public isMobile = computed(() => this._stateService.isMobile());
 	public isDarkMode = computed(() => {
@@ -65,7 +128,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 		return isDarkMode;
 	});
-	public selectedTab = this._router.url.split("/").pop() || "experience";
 
 	private _routeSub: Subscription;
 
@@ -78,7 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._routeSub = this._router.events.subscribe({
 			next: event => {
 				if (event instanceof NavigationEnd || event instanceof NavigationStart)
-					this.selectedTab = event.url.split("/").pop() || "experience";
+					this.selectedTab = (this._router.url.split("/").pop() as TabEnum) || TabEnum;
 			}
 		});
 
@@ -115,6 +177,100 @@ export class HomeComponent implements OnInit, OnDestroy {
 			);
 	}
 
+	public addMilestone() {
+		this.isAddMilestoneVisible = true;
+	}
+
+	public createMilestone() {
+		const {
+			type,
+			logo,
+			title,
+			location,
+			description,
+			tags,
+			period,
+			milestoneDate,
+			media,
+			contributors
+		} = this.milestoneForm.value;
+
+		if (
+			this.milestoneForm.invalid ||
+			!type ||
+			!title ||
+			!description ||
+			!period ||
+			!milestoneDate ||
+			!tags
+		)
+			return;
+
+		this.isAddMilestoneLoading = true;
+
+		const milestone: Milestone = {
+			type,
+			...(type === MilestoneEnum.EXPERIENCE && logo && { logo }),
+			title,
+			...(type !== MilestoneEnum.PROJECT && location && { location }),
+			description,
+			tags: tags,
+			period: period,
+			...(type === MilestoneEnum.EXPERIENCE && { updates: this.milestoneUpdates }),
+			milestoneDate,
+			...(type === MilestoneEnum.PROJECT && media && { media }),
+			...(type === MilestoneEnum.PROJECT && contributors && { contributors })
+		};
+
+		this._milestoneService
+			.createMilestone(milestone)
+			.then(() => {
+				this._messageService.add({
+					severity: "success",
+					summary: "Success",
+					detail: "Milestone added",
+					life: 3000
+				});
+
+				this.closeAddMilestone();
+			})
+			.catch(() =>
+				this._messageService.add({
+					severity: "error",
+					summary: "Error",
+					detail: "Failed to add the milestone",
+					life: 3000
+				})
+			)
+			.finally(() => (this.isAddMilestoneLoading = false));
+	}
+
+	public closeAddMilestone() {
+		this.isAddMilestoneVisible = false;
+	}
+
+	public async onMilestoneLogoUpload(event: FileUploadEvent) {
+		const file: File = event.files[0];
+		const formValue = this.milestoneForm.value;
+		const { title } = formValue;
+
+		if (!file || !title) return;
+
+		const base64 = await convertFileToBase64(file);
+
+		this.milestoneForm.patchValue({
+			logo: {
+				name: title,
+				url: base64
+			}
+		});
+	}
+
+	public onAddMilestoneHide() {
+		this.milestoneUpdates = [];
+		this.milestoneForm.reset();
+	}
+
 	public toggleDarkMode() {
 		this._stateService.isDarkMode.set(!this.isDarkMode());
 	}
@@ -128,11 +284,121 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public onTabChange(tab: string | number) {
-		this.selectedTab = tab as string;
+		this.selectedTab = tab as TabEnum;
+		this.milestoneForm.patchValue({
+			type: TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab]
+		});
 	}
 
 	public getRouteAnimationData(outlet: RouterOutlet) {
 		return outlet?.activatedRouteData?.["animation"];
+	}
+
+	public addMilestoneUpdate() {
+		this.milestoneUpdates = [
+			{
+				title: "",
+				duration: ""
+			},
+			...this.milestoneUpdates
+		];
+	}
+
+	public removeMilestoneUpdate(index: number) {
+		this.milestoneUpdates?.splice(index, 1);
+	}
+
+	public moveMilestoneUpdateUp(index: number, isFirst: boolean) {
+		if (isFirst) return;
+
+		const temp = this.milestoneUpdates[index - 1];
+		this.milestoneUpdates[index - 1] = this.milestoneUpdates[index];
+		this.milestoneUpdates[index] = temp;
+	}
+
+	public moveMilestoneUpdateDown(index: number, isLast: boolean) {
+		if (isLast) return;
+
+		const temp = this.milestoneUpdates[index + 1];
+		this.milestoneUpdates[index + 1] = this.milestoneUpdates[index];
+		this.milestoneUpdates[index] = temp;
+	}
+
+	public moveTechUp(index: number, isFirst: boolean) {
+		if (isFirst) return;
+
+		const temp = this.techStack()[index - 1];
+		this.techStack()[index - 1] = this.techStack()[index];
+		this.techStack()[index] = temp;
+	}
+
+	public moveTechDown(index: number, isLast: boolean) {
+		if (isLast) return;
+
+		const temp = this.techStack()[index + 1];
+		this.techStack()[index + 1] = this.techStack()[index];
+		this.techStack()[index] = temp;
+	}
+
+	public async onTechUpload(event: FileUploadEvent, index: number) {
+		const file: File = event.files[0];
+
+		if (!file) return;
+
+		const base64 = await convertFileToBase64(file);
+
+		this.techStack.set(
+			this.techStack().map((tech, techIndex) => {
+				if (techIndex === index)
+					return {
+						...tech,
+						url: base64
+					};
+
+				return tech;
+			})
+		);
+	}
+
+	public removeTech(index: number) {
+		this.techStack.set(this.techStack().filter((_, techIndex) => index !== techIndex));
+	}
+
+	public onTechStackEdit() {
+		this.isEditTechStackVisible = true;
+	}
+
+	public closeEditTechStack() {
+		this.isEditTechStackVisible = false;
+	}
+
+	public saveTechStackEdits() {
+		const aboutInfo: Omit<AboutInfo, "companies"> = {
+			kpis: this.kpis(),
+			techStack: this.techStack()
+		};
+
+		this._aboutService
+			.saveAboutInfo(aboutInfo)
+			.then(() => {
+				this._messageService.add({
+					severity: "success",
+					summary: "Success",
+					detail: "Tech Stack edited",
+					life: 3000
+				});
+
+				this.closeEditTechStack();
+			})
+			.catch(() =>
+				this._messageService.add({
+					severity: "error",
+					summary: "Error",
+					detail: "Failed to edit the Tech Stack",
+					life: 3000
+				})
+			)
+			.finally(() => (this.isSaveTechStackEditsLoading = false));
 	}
 
 	private _updateIsMobile() {

@@ -32,8 +32,8 @@ export function calculateExperience(experiencePeriods: string[]): string {
 
 export function mapMilestoneMediaToGalleriaImages(media: Picture[] | undefined) {
 	return (media || []).map(media => ({
-		itemImageSrc: "images/" + media.picName + "." + media.extension,
-		thumbnailImageSrc: "images/" + media.picName + "." + media.extension,
+		itemImageSrc: /* "images/" + media.picName + "." + media.extension */ "",
+		thumbnailImageSrc: /* "images/" + media.picName + "." + media.extension */ "",
 		alt: media.name,
 		title: media.name
 	}));
@@ -89,5 +89,22 @@ export function sortMilestonesByPeriod(milestones: Milestone[]): Milestone[] {
 		const endDifference = milestone2EndTimestamp - milestone1EndTimestamp;
 
 		return endDifference === 0 ? startDifference : endDifference;
+	});
+}
+
+export function convertFileToBase64(file: File): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			resolve(reader.result as string);
+		};
+
+		reader.onerror = error => {
+			console.error("FileReader failed to read the file:", error);
+			reject(new Error("Failed to convert file to Base64."));
+		};
+
+		reader.readAsDataURL(file);
 	});
 }

@@ -48,9 +48,9 @@ export class AuthService {
 	}
 
 	private _validateUser(user: User | null, unauthorized = false) {
-		const email = user?.email;
+		const uid = user?.uid;
 
-		if (email !== "mariodimodica.01@gmail.com") this.signOut(unauthorized);
+		if (uid !== "iumT57pQOrXneO6fpmbWjgmoige2") this.signOut(unauthorized);
 		else this.user.set(user);
 	}
 }

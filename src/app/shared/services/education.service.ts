@@ -10,7 +10,7 @@ export class EducationService {
 	private _milestoneService = inject(MilestoneService);
 
 	public getEducationMilestones(): Signal<Milestone[]> {
-		return toSignal(this._milestoneService.getMilestonesByTpe(MilestoneEnum.EDUCATION), {
+		return toSignal(this._milestoneService.getMilestonesByType(MilestoneEnum.EDUCATION), {
 			initialValue: []
 		});
 	}

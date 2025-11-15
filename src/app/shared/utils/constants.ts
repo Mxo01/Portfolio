@@ -1,3 +1,6 @@
+import { MilestoneEnum } from "../models/milestone.model";
+import { TabEnum } from "../models/tab.model";
+
 export const PATHS = {
 	HOME: "home",
 	EXPERIENCE: "experience",
@@ -21,3 +24,9 @@ export const MONTHS_MAPPING: Record<string, number> = {
 	Nov: 10,
 	Dec: 11
 };
+
+export const TAB_TO_MILESTONE_TYPE_MAPPING: Record<TabEnum, MilestoneEnum> = {
+	[TabEnum.EXPERIENCE]: MilestoneEnum.EXPERIENCE,
+	[TabEnum.EDUCATION]: MilestoneEnum.EDUCATION,
+	[TabEnum.PROJECTS]: MilestoneEnum.PROJECT
+}

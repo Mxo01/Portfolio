@@ -8,10 +8,12 @@ import { provideHttpClient, withFetch } from "@angular/common/http";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { getAuth, provideAuth } from "@angular/fire/auth";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
+		MessageService,
+		ConfirmationService,
 		provideRouter(routes),
 		provideHttpClient(withFetch()),
 		provideZonelessChangeDetection(),
@@ -31,7 +33,6 @@ export const appConfig: ApplicationConfig = {
 			})
 		),
 		provideFirestore(() => getFirestore()),
-		provideAuth(() => getAuth()),
-		MessageService
+		provideAuth(() => getAuth())
 	]
 };

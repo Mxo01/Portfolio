@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { Toast } from "primeng/toast";
+import { ConfirmPopup } from "primeng/confirmpopup";
 @Component({
 	selector: "portfolio-root",
-	imports: [RouterOutlet],
+	imports: [RouterOutlet, Toast, ConfirmPopup],
 	templateUrl: "./app.component.html",
 	styleUrl: "./app.component.scss"
 })

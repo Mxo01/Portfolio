@@ -10,7 +10,7 @@ export class ExperienceService {
 	private _milestoneService = inject(MilestoneService);
 
 	public getExperienceMilestones(): Signal<Milestone[]> {
-		return toSignal(this._milestoneService.getMilestonesByTpe(MilestoneEnum.EXPERIENCE), {
+		return toSignal(this._milestoneService.getMilestonesByType(MilestoneEnum.EXPERIENCE), {
 			initialValue: []
 		});
 	}

@@ -1,8 +1,18 @@
 <div class="avatar-list">
 	@if (description(); as description) {
-		<span class="description">
-			{{ description }}
-		</span>
+		<div class="description">
+			<span class="description">
+				{{ description }}
+			</span>
+
+			@if (isEditable()) {<p-button
+				label="Edit"
+				icon="pi pi-pencil"
+				severity="secondary"
+				size="small"
+				(onClick)="edit.emit()"
+			/>}
+		</div>
 	}
 
 	@if ((isCollapsed() && !collapsedAvatars().length) || (!isCollapsed() && !avatars().length)) {
@@ -17,7 +27,7 @@
 				@for (avatar of collapsedAvatars(); track $index) {
 					<p-avatar
 						shape="circle"
-						[image]="'images/' + avatar.picName + '.' + avatar.extension"
+						[image]="avatar.url"
 						[size]="isMobile() ? 'normal' : 'large'"
 						[pTooltip]="avatar.name"
 						tooltipPosition="bottom"
@@ -35,7 +45,7 @@
 				@for (avatar of avatars(); track $index) {
 					<p-avatar
 						shape="circle"
-						[image]="'images/' + avatar.picName + '.' + avatar.extension"
+						[image]="avatar.url"
 						[size]="isMobile() ? 'normal' : 'large'"
 						[pTooltip]="avatar.name"
 						tooltipPosition="bottom"
