@@ -5,13 +5,15 @@
 				{{ description }}
 			</span>
 
-			@if (isEditable()) {<p-button
-				label="Edit"
-				icon="pi pi-pencil"
-				severity="secondary"
-				size="small"
-				(onClick)="edit.emit()"
-			/>}
+			@if (isEditable()) {
+				<p-button
+					label="Edit"
+					icon="pi pi-pencil"
+					severity="secondary"
+					size="small"
+					(onClick)="edit.emit()"
+				/>
+			}
 		</div>
 	}
 

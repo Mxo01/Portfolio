@@ -1,4 +1,4 @@
-import { AboutInfo } from './../models/about.model';
+import { AboutInfo } from "./../models/about.model";
 import { inject, Injectable, Signal } from "@angular/core";
 import { Picture } from "../models/picture.model";
 import { collection, doc, docData, Firestore, setDoc } from "@angular/fire/firestore";
@@ -37,7 +37,7 @@ export class AboutService {
 						kpis: [{ label: "Experience", value: experienceValue }, ...(kpis || [])],
 						companies: (companies || []) as Picture[]
 					};
-				}),
+				})
 			),
 			{
 				initialValue: {
@@ -51,6 +51,6 @@ export class AboutService {
 
 	public saveAboutInfo(aboutInfo: Omit<AboutInfo, "companies">) {
 		const docRef = doc(this._aboutCollection, "info");
-    return setDoc(docRef, aboutInfo);
+		return setDoc(docRef, aboutInfo);
 	}
 }

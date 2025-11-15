@@ -21,7 +21,7 @@ export class AvatarListComponent {
 	public isEditable = input<boolean>(false);
 	public max = input<number>(3);
 	public description = input<string>("");
-	
+
 	public edit = output();
 
 	public collapsedAvatars = computed(() => this.avatars().splice(0, this.max()));

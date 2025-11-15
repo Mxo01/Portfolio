@@ -29,4 +29,4 @@ export const TAB_TO_MILESTONE_TYPE_MAPPING: Record<TabEnum, MilestoneEnum> = {
 	[TabEnum.EXPERIENCE]: MilestoneEnum.EXPERIENCE,
 	[TabEnum.EDUCATION]: MilestoneEnum.EDUCATION,
 	[TabEnum.PROJECTS]: MilestoneEnum.PROJECT
-}
+};
