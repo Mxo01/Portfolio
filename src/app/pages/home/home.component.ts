@@ -157,17 +157,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public copyEmail() {
+		this.isMailDrawerVisible = false;
+
 		navigator.clipboard
 			.writeText("mariodimodica.01@gmail.com")
-			.then(() => {
+			.then(() =>
 				this._messageService.add({
 					severity: "success",
 					summary: "Success",
 					detail: "Email copied to clipboard"
-				});
-
-				this.isMailDrawerVisible = false;
-			})
+				})
+			)
 			.catch(() =>
 				this._messageService.add({
 					severity: "error",
