@@ -4,7 +4,8 @@
 			<p-avatar
 				size="xlarge"
 				shape="circle"
-				image="images/profile-pic.jpg"
+				[icon]="aboutInfo().profilePicUrl ? undefined : 'pi pi-user'"
+				[image]="aboutInfo().profilePicUrl"
 			/>
 
 			<div class="info">

@@ -379,13 +379,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 	public saveTechStackEdits() {
 		this.isSaveTechStackEditsLoading = true;
 
-		const aboutInfo: Omit<AboutInfo, "companies"> = {
+		const aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl"> = {
 			kpis: this.kpis().filter(kpi => kpi.label !== "Experience"),
 			techStack: this.techStack()
 		};
 
 		this._aboutService
-			.saveAboutInfo(aboutInfo)
+			.saveTechStack(aboutInfo)
 			.then(() => {
 				this._messageService.add({
 					severity: "success",

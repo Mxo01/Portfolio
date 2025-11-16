@@ -43,13 +43,15 @@ export class AboutService {
 				initialValue: {
 					kpis: [],
 					techStack: [],
-					companies: []
+					companies: [],
+					profilePicUrl: "",
+					cvUrl: ""
 				} as AboutInfo
 			}
 		);
 	}
 
-	public saveAboutInfo(aboutInfo: Omit<AboutInfo, "companies">) {
+	public saveTechStack(aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl">) {
 		const docRef = doc(this._aboutCollection, "info");
 		return setDoc(docRef, aboutInfo);
 	}
