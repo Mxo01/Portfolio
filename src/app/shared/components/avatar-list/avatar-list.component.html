@@ -17,7 +17,7 @@
 		</div>
 	}
 
-	@if ((isCollapsed() && !collapsedAvatars().length) || (!isCollapsed() && !avatars().length)) {
+	@if (isLoading()) {
 		<p-skeleton
 			shape="circle"
 			[size]="isMobile() ? '2rem' : '3rem'"

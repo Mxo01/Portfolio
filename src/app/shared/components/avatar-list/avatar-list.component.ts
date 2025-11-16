@@ -18,16 +18,16 @@ export class AvatarListComponent {
 
 	public avatars = input<Picture[]>([]);
 	public isCollapsed = input<boolean>(false);
+	public isLoading = input<boolean>(false);
 	public isEditable = input<boolean>(false);
 	public max = input<number>(3);
 	public description = input<string>("");
 
 	public edit = output();
 
-	public collapsedAvatars = computed(() => this.avatars().splice(0, this.max()));
+	public collapsedAvatars = computed(() => [...this.avatars()].splice(0, this.max()));
 	public remainingAvatars = computed(
 		() => this.avatars().length - this.collapsedAvatars().length
 	);
 	public isMobile = computed(() => this._stateService.isMobile());
-	public skeletonArray = Array.from({ length: 3 });
 }

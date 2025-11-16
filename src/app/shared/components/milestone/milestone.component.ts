@@ -76,12 +76,9 @@ export class MilestoneComponent implements OnInit {
 		description: new FormControl<string>("", [Validators.required, Validators.maxLength(1000)]),
 		tags: new FormControl<string[]>([]),
 		period: new FormControl<string>(""),
-		milestoneDate: new FormControl<string>("", [Validators.required]),
-		media: new FormControl<Picture[]>([]),
-		contributors: new FormControl<Picture[]>([])
+		milestoneDate: new FormControl<string>("", [Validators.required])
 	});
 
-	private _milestoneBeforeEdits: Milestone | null = null;
 	public isSaveEditsLoading = false;
 	public isEditMilestoneVisible = false;
 	public isMobile = computed(() => this._stateService.isMobile());
@@ -107,8 +104,6 @@ export class MilestoneComponent implements OnInit {
 	}
 
 	public onEditMilestone() {
-		this._milestoneBeforeEdits = structuredClone(this.milestone());
-
 		this.milestoneForm.setValue({
 			type: this.milestone().type,
 			logo: this.milestone().logo || null,
@@ -117,27 +112,15 @@ export class MilestoneComponent implements OnInit {
 			description: this.milestone().description,
 			tags: this.milestone().tags,
 			period: this.milestone().period,
-			milestoneDate: this.milestone().milestoneDate,
-			media: this.milestone().media || [],
-			contributors: this.milestone().contributors || []
+			milestoneDate: this.milestone().milestoneDate
 		});
 
 		this.isEditMilestoneVisible = true;
 	}
 
 	public saveMilestoneEdits() {
-		const {
-			type,
-			logo,
-			title,
-			location,
-			description,
-			tags,
-			period,
-			milestoneDate,
-			media,
-			contributors
-		} = this.milestoneForm.value;
+		const { type, logo, title, location, description, tags, period, milestoneDate } =
+			this.milestoneForm.value;
 
 		if (
 			this.milestoneForm.invalid ||
@@ -163,8 +146,10 @@ export class MilestoneComponent implements OnInit {
 			period: period,
 			...(type === MilestoneEnum.EXPERIENCE && { updates: this.milestone().updates || [] }),
 			milestoneDate,
-			...(type === MilestoneEnum.PROJECT && media && { media }),
-			...(type === MilestoneEnum.PROJECT && contributors && { contributors })
+			...(type === MilestoneEnum.PROJECT && { media: this.milestone().media || [] }),
+			...(type === MilestoneEnum.PROJECT && {
+				contributors: this.milestone().contributors || []
+			})
 		};
 
 		this._milestoneService
@@ -195,11 +180,6 @@ export class MilestoneComponent implements OnInit {
 	}
 
 	public onEditsHide() {
-		if (this._milestoneBeforeEdits) {
-			this.milestone.set(this._milestoneBeforeEdits);
-			this._milestoneBeforeEdits = null;
-		}
-
 		this.milestoneForm.reset();
 	}
 
@@ -286,7 +266,7 @@ export class MilestoneComponent implements OnInit {
 
 		this.milestone.set({
 			...this.milestone(),
-			updates: updates
+			updates
 		});
 	}
 
@@ -300,7 +280,74 @@ export class MilestoneComponent implements OnInit {
 
 		this.milestone.set({
 			...this.milestone(),
-			updates: updates
+			updates
+		});
+	}
+
+	public moveContributorUp(index: number, isFirst: boolean) {
+		if (isFirst) return;
+
+		const contributors = this.milestone().contributors || [];
+		const temp = contributors[index - 1];
+		contributors[index - 1] = contributors[index];
+		contributors[index] = temp;
+
+		this.milestone.set({
+			...this.milestone(),
+			contributors
+		});
+	}
+
+	public moveContributorDown(index: number, isLast: boolean) {
+		if (isLast) return;
+
+		const contributors = this.milestone().contributors || [];
+		const temp = contributors[index + 1];
+		contributors[index + 1] = contributors[index];
+		contributors[index] = temp;
+
+		this.milestone.set({
+			...this.milestone(),
+			contributors
+		});
+	}
+
+	public addContributor() {
+		this.milestone.set({
+			...this.milestone(),
+			contributors: [...(this.milestone().contributors || []), { name: "", url: "" }]
+		});
+	}
+
+	public removeContributor(index: number) {
+		this.milestone.set({
+			...this.milestone(),
+			contributors: (this.milestone().contributors || []).filter(
+				(_, contributorIndex) => contributorIndex !== index
+			)
+		});
+	}
+
+	public async onContributorUpload(event: FileUploadEvent, index: number) {
+		const file: File = event.files[0];
+
+		if (!file) return;
+
+		const base64 = await convertFileToBase64(file);
+
+		this.milestone.set({
+			...this.milestone(),
+			contributors: (this.milestone().contributors || []).map(
+				(contributor, contributorIndex) => {
+					if (contributorIndex === index)
+						return {
+							...contributor,
+							url: base64
+						};
+
+					return contributor;
+				}
+			)
 		});
 	}
 

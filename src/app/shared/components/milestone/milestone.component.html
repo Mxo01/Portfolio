@@ -60,8 +60,7 @@
 					<div
 						class="image"
 						[ngStyle]="{
-							'background-image':
-								'url(images/' + media[0].picName + '.' + media[0].extension + ')'
+							'background-image': 'url(media[0].url)'
 						}"
 					>
 						@if (media.length > 1) {
@@ -298,6 +297,10 @@
 			<label for="tags">Tags</label>
 		</p-floatlabel>
 
+		@if (milestoneForm.value.type === MilestoneEnum.PROJECT) {
+			<ng-container [ngTemplateOutlet]="contributorsTemplate" />
+		}
+
 		@if (milestoneForm.value.type === MilestoneEnum.EXPERIENCE) {
 			<div class="logo-upload-container">
 				<b>Logo</b>
@@ -323,9 +326,7 @@
 					/>
 				</div>
 			</div>
-		}
 
-		@if (milestone().type === MilestoneEnum.EXPERIENCE) {
 			<div class="updates-title">
 				<b>Updates</b>
 
@@ -396,4 +397,82 @@
 			}
 		}
 	</form>
+</ng-template>
+
+<ng-template #contributorsTemplate>
+	<div class="contributors-container">
+		<div class="contributors-title">
+			<b>Contributors</b>
+
+			<p-button
+				label="Add"
+				icon="pi pi-plus"
+				severity="secondary"
+				size="small"
+				(onClick)="addContributor()"
+			/>
+		</div>
+
+		@for (contributor of milestone().contributors; track $index) {
+			<div class="contributor">
+				<p-button
+					variant="text"
+					icon="pi pi-chevron-up"
+					size="small"
+					[disabled]="$first"
+					(onClick)="moveContributorUp($index, $first)"
+				/>
+
+				<p-button
+					variant="text"
+					icon="pi pi-chevron-down"
+					size="small"
+					[disabled]="$last"
+					(onClick)="moveContributorDown($index, $last)"
+				/>
+
+				<div>
+					<p-avatar
+						shape="circle"
+						[image]="contributor.url"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="contributor.name"
+						tooltipPosition="bottom"
+					/>
+				</div>
+
+				<p-fileupload
+					mode="basic"
+					chooseIcon="pi pi-upload"
+					accept="image/*"
+					[auto]="true"
+					url="https://www.primefaces.org/cdn/api/upload.php"
+					(onUpload)="onContributorUpload($event, $index)"
+				/>
+
+				<p-floatlabel
+					variant="on"
+					class="fluid-input"
+				>
+					<input
+						[id]="'contributor-name-' + $index"
+						type="text"
+						pInputText
+						[(ngModel)]="contributor.name"
+						[ngModelOptions]="{ standalone: true }"
+					/>
+					<label [for]="'contributor-name-' + $index">Name</label>
+				</p-floatlabel>
+
+				<p-button
+					severity="danger"
+					icon="pi pi-trash"
+					size="small"
+					(onClick)="removeContributor($index)"
+				/>
+			</div>
+		} @empty {
+			<span>No contributors yet.</span>
+		}
+	</div>
 </ng-template>

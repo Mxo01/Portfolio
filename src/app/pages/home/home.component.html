@@ -29,6 +29,7 @@
 
 		<portfolio-avatar-list
 			[avatars]="techStack()"
+			[isLoading]="!techStack().length"
 			[isEditable]="isAdmin()"
 			(edit)="onTechStackEdit()"
 			description="Tech Stack"
@@ -36,6 +37,7 @@
 
 		<portfolio-avatar-list
 			[avatars]="companies()"
+			[isLoading]="!companies().length"
 			description="Companies where I worked"
 			[isCollapsed]="true"
 		/>
@@ -229,13 +231,25 @@
 	</p-drawer>
 
 	<p-drawer
-		header="Edit Tech Stack"
 		[closable]="false"
 		[closeOnEscape]="false"
 		[visible]="isEditTechStackVisible"
 		position="bottom"
 		[style]="{ height: 'auto' }"
 	>
+		<ng-template #header>
+			<div class="header">
+				<span>Edit Tech Stack</span>
+
+				<p-button
+					label="Add"
+					size="small"
+					icon="pi pi-plus"
+					(onClick)="addTech()"
+				/>
+			</div>
+		</ng-template>
+
 		<ng-container [ngTemplateOutlet]="editTechStackTemplate" />
 
 		<ng-template #footer>
@@ -277,7 +291,7 @@
 					label="Cancel"
 					size="small"
 					variant="outlined"
-					(onClick)="closeEditTechStack()"
+					(onClick)="closeAddMilestone()"
 				/>
 
 				<p-button
@@ -285,20 +299,32 @@
 					label="Add"
 					size="small"
 					[loading]="isAddMilestoneLoading"
-					(onClick)="saveTechStackEdits()"
+					(onClick)="createMilestone()"
 				/>
 			</div>
 		</ng-template>
 	</p-dialog>
 
 	<p-dialog
-		header="Edit Tech Stack"
 		[modal]="true"
 		[closable]="false"
 		[closeOnEscape]="false"
 		[(visible)]="isEditTechStackVisible"
 		[style]="{ width: '35rem' }"
 	>
+		<ng-template #header>
+			<div class="header">
+				<span>Edit Tech Stack</span>
+
+				<p-button
+					label="Add"
+					size="small"
+					icon="pi pi-plus"
+					(onClick)="addTech()"
+				/>
+			</div>
+		</ng-template>
+
 		<ng-container [ngTemplateOutlet]="editTechStackTemplate" />
 
 		<ng-template #footer>
@@ -334,6 +360,7 @@
 		>
 			<p-select
 				id="type"
+				appendTo="body"
 				[options]="milestoneTypes"
 				formControlName="type"
 			/>
@@ -420,6 +447,10 @@
 			<label for="tags">Tags</label>
 		</p-floatlabel>
 
+		@if (milestoneForm.value.type === MilestoneEnum.PROJECT) {
+			<ng-container [ngTemplateOutlet]="contributorsTemplate" />
+		}
+
 		@if (milestoneForm.value.type === MilestoneEnum.EXPERIENCE) {
 			<div class="logo-upload-container">
 				<b>Logo</b>
@@ -445,9 +476,7 @@
 					/>
 				</div>
 			</div>
-		}
 
-		@if (milestoneForm.value.type === MilestoneEnum.EXPERIENCE) {
 			<div class="updates-title">
 				<b>Updates</b>
 
@@ -522,7 +551,7 @@
 
 <ng-template #editTechStackTemplate>
 	<div class="tech-stack-edit-container">
-		@for (tech of techStack(); track tech) {
+		@for (tech of techStack(); track $index) {
 			<div class="technology">
 				<p-button
 					variant="text"
@@ -580,6 +609,84 @@
 					(onClick)="removeTech($index)"
 				/>
 			</div>
+		}
+	</div>
+</ng-template>
+
+<ng-template #contributorsTemplate>
+	<div class="contributors-container">
+		<div class="contributors-title">
+			<b>Contributors</b>
+
+			<p-button
+				label="Add"
+				icon="pi pi-plus"
+				severity="secondary"
+				size="small"
+				(onClick)="addContributor()"
+			/>
+		</div>
+
+		@for (contributor of milestoneForm.value.contributors; track $index) {
+			<div class="contributor">
+				<p-button
+					variant="text"
+					icon="pi pi-chevron-up"
+					size="small"
+					[disabled]="$first"
+					(onClick)="moveContributorUp($index, $first)"
+				/>
+
+				<p-button
+					variant="text"
+					icon="pi pi-chevron-down"
+					size="small"
+					[disabled]="$last"
+					(onClick)="moveContributorDown($index, $last)"
+				/>
+
+				<div>
+					<p-avatar
+						shape="circle"
+						[image]="contributor.url"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="contributor.name"
+						tooltipPosition="bottom"
+					/>
+				</div>
+
+				<p-fileupload
+					mode="basic"
+					chooseIcon="pi pi-upload"
+					accept="image/*"
+					[auto]="true"
+					url="https://www.primefaces.org/cdn/api/upload.php"
+					(onUpload)="onContributorUpload($event, $index)"
+				/>
+
+				<p-floatlabel
+					variant="on"
+					class="fluid-input"
+				>
+					<input
+						[id]="'contributor-name-' + $index"
+						type="text"
+						pInputText
+						[(ngModel)]="contributor.name"
+						[ngModelOptions]="{ standalone: true }"
+					/>
+					<label [for]="'contributor-name-' + $index">Name</label>
+				</p-floatlabel>
+
+				<p-button
+					severity="danger"
+					icon="pi pi-trash"
+					size="small"
+					(onClick)="removeContributor($index)"
+				/>
+			</div>
+		} @empty {
+			<span>No contributors yet.</span>
 		}
 	</div>
 </ng-template>

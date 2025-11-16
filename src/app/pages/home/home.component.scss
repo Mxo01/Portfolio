@@ -128,11 +128,12 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	padding: 1rem;
+	padding-top: 1rem;
 	max-height: 70vh;
 	overflow-y: auto;
 
-	.updates-title {
+	.updates-title,
+	.contributors-title {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -168,11 +169,18 @@ main {
 }
 
 .tech-stack-edit-container {
+	overflow-y: auto;
+}
+
+.tech-stack-edit-container,
+.contributors-container {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+	max-height: 70vh;
 
-	.technology {
+	.technology,
+	.contributor {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -187,5 +195,17 @@ main {
 		p-autocomplete {
 			width: 100%;
 		}
+	}
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+
+	span {
+		font-size: 1.5rem;
+		font-weight: bold;
 	}
 }

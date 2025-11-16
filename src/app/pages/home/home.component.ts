@@ -360,6 +360,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 		);
 	}
 
+	public addTech() {
+		this.techStack.set([...this.techStack(), { name: "", url: "" }]);
+	}
+
 	public removeTech(index: number) {
 		this.techStack.set(this.techStack().filter((_, techIndex) => index !== techIndex));
 	}
@@ -374,7 +378,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	public saveTechStackEdits() {
 		const aboutInfo: Omit<AboutInfo, "companies"> = {
-			kpis: this.kpis(),
+			kpis: this.kpis().filter(kpi => kpi.label !== "Experience"),
 			techStack: this.techStack()
 		};
 
@@ -399,6 +403,70 @@ export class HomeComponent implements OnInit, OnDestroy {
 				})
 			)
 			.finally(() => (this.isSaveTechStackEditsLoading = false));
+	}
+
+	public moveContributorUp(index: number, isFirst: boolean) {
+		if (isFirst) return;
+
+		const contributors = this.milestoneForm.value.contributors || [];
+
+		const temp = contributors[index - 1];
+		contributors[index - 1] = contributors[index];
+		contributors[index] = temp;
+
+		this.milestoneForm.patchValue({
+			contributors
+		});
+	}
+
+	public moveContributorDown(index: number, isLast: boolean) {
+		if (isLast) return;
+
+		const contributors = this.milestoneForm.value.contributors || [];
+
+		const temp = contributors[index + 1];
+		contributors[index + 1] = contributors[index];
+		contributors[index] = temp;
+
+		this.milestoneForm.patchValue({
+			contributors
+		});
+	}
+
+	public addContributor() {
+		this.milestoneForm.patchValue({
+			contributors: [...(this.milestoneForm.value.contributors || []), { name: "", url: "" }]
+		});
+	}
+
+	public removeContributor(index: number) {
+		this.milestoneForm.patchValue({
+			contributors: (this.milestoneForm.value.contributors || []).filter(
+				(_, contributorIndex) => contributorIndex !== index
+			)
+		});
+	}
+
+	public async onContributorUpload(event: FileUploadEvent, index: number) {
+		const file: File = event.files[0];
+
+		if (!file) return;
+
+		const base64 = await convertFileToBase64(file);
+
+		this.milestoneForm.patchValue({
+			contributors: (this.milestoneForm.value.contributors || []).map(
+				(contributor, contributorIndex) => {
+					if (contributorIndex === index)
+						return {
+							...contributor,
+							url: base64
+						};
+
+					return contributor;
+				}
+			)
+		});
 	}
 
 	private _updateIsMobile() {

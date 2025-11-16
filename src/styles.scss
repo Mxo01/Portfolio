@@ -36,11 +36,11 @@ body {
 
 ::-webkit-scrollbar {
 	width: 0.25rem;
+	height: 0.25rem;
 	background: light-dark(var(--p-surface-200), var(--p-surface-800));
 
 	@media (min-width: $mobile-breakpoint) {
 		width: 0.5rem;
-		height: 0.5rem;
 	}
 }
 
