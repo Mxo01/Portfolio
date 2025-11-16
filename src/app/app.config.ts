@@ -12,8 +12,6 @@ import { ConfirmationService, MessageService } from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-		MessageService,
-		ConfirmationService,
 		provideRouter(routes),
 		provideHttpClient(withFetch()),
 		provideZonelessChangeDetection(),
@@ -33,6 +31,8 @@ export const appConfig: ApplicationConfig = {
 			})
 		),
 		provideFirestore(() => getFirestore()),
-		provideAuth(() => getAuth())
+		provideAuth(() => getAuth()),
+		MessageService,
+		ConfirmationService,
 	]
 };

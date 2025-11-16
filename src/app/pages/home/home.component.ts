@@ -377,6 +377,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public saveTechStackEdits() {
+		this.isSaveTechStackEditsLoading = true;
+
 		const aboutInfo: Omit<AboutInfo, "companies"> = {
 			kpis: this.kpis().filter(kpi => kpi.label !== "Experience"),
 			techStack: this.techStack()
@@ -409,7 +411,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 		if (isFirst) return;
 
 		const contributors = this.milestoneForm.value.contributors || [];
-
 		const temp = contributors[index - 1];
 		contributors[index - 1] = contributors[index];
 		contributors[index] = temp;
@@ -423,7 +424,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 		if (isLast) return;
 
 		const contributors = this.milestoneForm.value.contributors || [];
-
 		const temp = contributors[index + 1];
 		contributors[index + 1] = contributors[index];
 		contributors[index] = temp;
@@ -466,6 +466,66 @@ export class HomeComponent implements OnInit, OnDestroy {
 					return contributor;
 				}
 			)
+		});
+	}
+
+	public moveMediaUp(index: number, isFirst: boolean) {
+		if (isFirst) return;
+
+		const media = this.milestoneForm.value.media || [];
+		const temp = media[index - 1];
+		media[index - 1] = media[index];
+		media[index] = temp;
+
+		this.milestoneForm.patchValue({
+			media
+		});
+	}
+
+	public moveMediaDown(index: number, isLast: boolean) {
+		if (isLast) return;
+
+		const media = this.milestoneForm.value.media || [];
+		const temp = media[index + 1];
+		media[index + 1] = media[index];
+		media[index] = temp;
+
+		this.milestoneForm.patchValue({
+			media
+		});
+	}
+
+	public addMedia() {
+		this.milestoneForm.patchValue({
+			media: [...(this.milestoneForm.value.media || []), { name: "", url: "" }]
+		});
+	}
+
+	public removeMedia(index: number) {
+		this.milestoneForm.patchValue({
+			media: (this.milestoneForm.value.media || []).filter(
+				(_, contributorIndex) => contributorIndex !== index
+			)
+		});
+	}
+
+	public async onMediaUpload(event: FileUploadEvent, index: number) {
+		const file: File = event.files[0];
+
+		if (!file) return;
+
+		const base64 = await convertFileToBase64(file);
+
+		this.milestoneForm.patchValue({
+			media: (this.milestoneForm.value.media || []).map((media, mediaIndex) => {
+				if (mediaIndex === index)
+					return {
+						...media,
+						url: base64
+					};
+
+				return media;
+			})
 		});
 	}
 
