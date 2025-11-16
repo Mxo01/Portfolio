@@ -59,9 +59,7 @@
 
 					<div
 						class="image"
-						[ngStyle]="{
-							'background-image': 'url(media[0].url)'
-						}"
+						[style]="{ 'background-image': 'url(' + media[0].url + ')' }"
 					>
 						@if (media.length > 1) {
 							<p-button
@@ -92,7 +90,7 @@
 
 							<span
 								class="duration"
-								[ngClass]="{ 'has-border': !$last }"
+								[class]="{ 'has-border': !$last }"
 							>
 								{{ update.duration }}
 							</span>
@@ -193,6 +191,7 @@
 				<p-button
 					[fluid]="true"
 					label="Save Edits"
+					[loading]="isSaveEditsLoading"
 					size="small"
 					(onClick)="saveMilestoneEdits()"
 				/>
@@ -298,6 +297,7 @@
 		</p-floatlabel>
 
 		@if (milestoneForm.value.type === MilestoneEnum.PROJECT) {
+			<ng-container [ngTemplateOutlet]="mediaTemplate" />
 			<ng-container [ngTemplateOutlet]="contributorsTemplate" />
 		}
 
@@ -397,6 +397,84 @@
 			}
 		}
 	</form>
+</ng-template>
+
+<ng-template #mediaTemplate>
+	<div class="media-container">
+		<div class="media-title">
+			<b>Media</b>
+
+			<p-button
+				label="Add"
+				icon="pi pi-plus"
+				severity="secondary"
+				size="small"
+				(onClick)="addMedia()"
+			/>
+		</div>
+
+		@for (media of milestone().media; track $index) {
+			<div class="media">
+				<p-button
+					variant="text"
+					icon="pi pi-chevron-up"
+					size="small"
+					[disabled]="$first"
+					(onClick)="moveMediaUp($index, $first)"
+				/>
+
+				<p-button
+					variant="text"
+					icon="pi pi-chevron-down"
+					size="small"
+					[disabled]="$last"
+					(onClick)="moveMediaDown($index, $last)"
+				/>
+
+				<div>
+					<p-avatar
+						shape="circle"
+						[image]="media.url"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="media.name"
+						tooltipPosition="bottom"
+					/>
+				</div>
+
+				<p-fileupload
+					mode="basic"
+					chooseIcon="pi pi-upload"
+					accept="image/*"
+					[auto]="true"
+					url="https://www.primefaces.org/cdn/api/upload.php"
+					(onUpload)="onMediaUpload($event, $index)"
+				/>
+
+				<p-floatlabel
+					variant="on"
+					class="fluid-input"
+				>
+					<input
+						[id]="'media-name-' + $index"
+						type="text"
+						pInputText
+						[(ngModel)]="media.name"
+						[ngModelOptions]="{ standalone: true }"
+					/>
+					<label [for]="'media-name-' + $index">Name</label>
+				</p-floatlabel>
+
+				<p-button
+					severity="danger"
+					icon="pi pi-trash"
+					size="small"
+					(onClick)="removeMedia($index)"
+				/>
+			</div>
+		} @empty {
+			<span>No media yet.</span>
+		}
+	</div>
 </ng-template>
 
 <ng-template #contributorsTemplate>

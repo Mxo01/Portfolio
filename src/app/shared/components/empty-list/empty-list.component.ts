@@ -1,9 +1,8 @@
-import { NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
 
 @Component({
 	selector: "portfolio-empty-list",
-	imports: [NgClass],
+	imports: [],
 	templateUrl: "./empty-list.component.html",
 	styleUrl: "./empty-list.component.scss"
 })

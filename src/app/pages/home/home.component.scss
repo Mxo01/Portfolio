@@ -169,6 +169,7 @@ main {
 }
 
 .tech-stack-edit-container {
+	max-height: 70vh;
 	overflow-y: auto;
 }
 
@@ -177,7 +178,6 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	max-height: 70vh;
 
 	.technology,
 	.contributor {

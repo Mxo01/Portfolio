@@ -1,6 +1,6 @@
 import { Component, computed, HostListener, inject, model, OnInit } from "@angular/core";
 import { TagModule } from "primeng/tag";
-import { NgClass, NgTemplateOutlet } from "@angular/common";
+import { NgTemplateOutlet } from "@angular/common";
 import { GalleriaModule, GalleriaResponsiveOptions } from "primeng/galleria";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
 import { ImageModule } from "primeng/image";
@@ -43,7 +43,6 @@ import { Tooltip } from "primeng/tooltip";
 		Avatar,
 		ButtonModule,
 		ImageModule,
-		NgClass,
 		GalleriaModule,
 		AvatarListComponent,
 		ReactiveFormsModule,
@@ -346,6 +345,73 @@ export class MilestoneComponent implements OnInit {
 						};
 
 					return contributor;
+				}
+			)
+		});
+	}
+	
+	public moveMediaUp(index: number, isFirst: boolean) {
+		if (isFirst) return;
+
+		const media = this.milestone().media || [];
+		const temp = media[index - 1];
+		media[index - 1] = media[index];
+		media[index] = temp;
+
+		this.milestone.set({
+			...this.milestone(),
+			media
+		});
+	}
+
+	public moveMediaDown(index: number, isLast: boolean) {
+		if (isLast) return;
+
+		const media = this.milestone().media || [];
+		const temp = media[index + 1];
+		media[index + 1] = media[index];
+		media[index] = temp;
+
+		this.milestone.set({
+			...this.milestone(),
+			media
+		});
+	}
+
+	public addMedia() {
+		this.milestone.set({
+			...this.milestone(),
+			media: [...(this.milestone().media || []), { name: "", url: "" }]
+		});
+	}
+
+	public removeMedia(index: number) {
+		this.milestone.set({
+			...this.milestone(),
+			media: (this.milestone().media || []).filter(
+				(_, contributorIndex) => contributorIndex !== index
+			)
+		});
+	}
+
+	public async onMediaUpload(event: FileUploadEvent, index: number) {
+		const file: File = event.files[0];
+
+		if (!file) return;
+
+		const base64 = await convertFileToBase64(file);
+
+		this.milestone.set({
+			...this.milestone(),
+			media: (this.milestone().media || []).map(
+				(media, mediaIndex) => {
+					if (mediaIndex === index)
+						return {
+							...media,
+							url: base64
+						};
+
+					return media;
 				}
 			)
 		});

@@ -32,8 +32,8 @@ export function calculateExperience(experiencePeriods: string[]): string {
 
 export function mapMilestoneMediaToGalleriaImages(media: Picture[] | undefined) {
 	return (media || []).map(media => ({
-		itemImageSrc: /* "images/" + media.picName + "." + media.extension */ "",
-		thumbnailImageSrc: /* "images/" + media.picName + "." + media.extension */ "",
+		itemImageSrc: media.url,
+		thumbnailImageSrc: media.url,
 		alt: media.name,
 		title: media.name
 	}));

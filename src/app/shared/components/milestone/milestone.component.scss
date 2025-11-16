@@ -241,7 +241,8 @@
 	overflow-y: auto;
 
 	.updates-title,
-	.contributors-title {
+	.contributors-title,
+	.media-title {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -276,13 +277,14 @@
 	}
 }
 
+.media-container,
 .contributors-container {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	max-height: 70vh;
 
-	.contributor {
+	.contributor,
+	.media {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
