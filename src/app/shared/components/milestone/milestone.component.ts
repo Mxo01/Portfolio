@@ -349,7 +349,7 @@ export class MilestoneComponent implements OnInit {
 			)
 		});
 	}
-	
+
 	public moveMediaUp(index: number, isFirst: boolean) {
 		if (isFirst) return;
 
@@ -403,17 +403,15 @@ export class MilestoneComponent implements OnInit {
 
 		this.milestone.set({
 			...this.milestone(),
-			media: (this.milestone().media || []).map(
-				(media, mediaIndex) => {
-					if (mediaIndex === index)
-						return {
-							...media,
-							url: base64
-						};
+			media: (this.milestone().media || []).map((media, mediaIndex) => {
+				if (mediaIndex === index)
+					return {
+						...media,
+						url: base64
+					};
 
-					return media;
-				}
-			)
+				return media;
+			})
 		});
 	}
 
