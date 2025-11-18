@@ -1,5 +1,4 @@
 import { TabEnum } from "./../../shared/models/tab.model";
-import { Milestone, MilestoneEnum } from "./../../shared/models/milestone.model";
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -7,39 +6,27 @@ import {
 	HostListener,
 	inject,
 	OnDestroy,
-	OnInit
+	OnInit,
+	signal,
+	viewChild
 } from "@angular/core";
 import { RouterOutlet, RouterLink, Router, NavigationEnd, NavigationStart } from "@angular/router";
-import { MessageService, SelectItem } from "primeng/api";
-import { Avatar } from "primeng/avatar";
+import { MessageService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { DrawerModule } from "primeng/drawer";
 import { TabsModule } from "primeng/tabs";
 import { Subscription } from "rxjs";
 import { StateService } from "../../shared/services/state.service";
 import { PATHS, TAB_TO_MILESTONE_TYPE_MAPPING } from "../../shared/utils/constants";
-import { convertFileToBase64, isMobileDevice } from "../../shared/utils/utils";
+import { isMobileDevice } from "../../shared/utils/utils";
 import { slideInAnimation } from "../../shared/animations/fade-slide.animation";
 import { AuthService } from "../../shared/services/auth.service";
-import { NgTemplateOutlet } from "@angular/common";
 import { Dialog } from "primeng/dialog";
-import {
-	FormControl,
-	FormGroup,
-	FormsModule,
-	ReactiveFormsModule,
-	Validators
-} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AutoCompleteModule } from "primeng/autocomplete";
-import { FloatLabel } from "primeng/floatlabel";
 import { InputTextModule } from "primeng/inputtext";
-import { Picture } from "../../shared/models/picture.model";
-import { MilestoneUpdate } from "../../shared/models/milestone-update.model";
-import { Select } from "primeng/select";
-import { MilestoneService } from "../../shared/services/milestone.service";
-import { Tooltip } from "primeng/tooltip";
-import { FileUpload, FileUploadEvent } from "primeng/fileupload";
 import { AboutComponent } from "../../shared/components/about/about.component";
+import { MilestoneFormComponent } from "../../shared/components/milestone/milestone-form/milestone-form.component";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,21 +35,15 @@ import { AboutComponent } from "../../shared/components/about/about.component";
 		RouterOutlet,
 		RouterLink,
 		DrawerModule,
-		Avatar,
 		ButtonModule,
 		TabsModule,
-		Avatar,
-		NgTemplateOutlet,
 		Dialog,
 		ReactiveFormsModule,
 		FormsModule,
 		InputTextModule,
 		AutoCompleteModule,
-		FloatLabel,
-		Select,
-		Tooltip,
-		FileUpload,
-		AboutComponent
+		AboutComponent,
+		MilestoneFormComponent
 	],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
@@ -72,38 +53,16 @@ import { AboutComponent } from "../../shared/components/about/about.component";
 export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
 	private _authService = inject(AuthService);
-	private _milestoneService = inject(MilestoneService);
-	private _messageService = inject(MessageService);
 
 	private _router = inject(Router);
 
-	protected readonly MilestoneEnum = MilestoneEnum;
+	public milestoneForm = viewChild<MilestoneFormComponent>("milestoneForm");
+
 	protected readonly TabEnum = TabEnum;
 
-	public selectedTab: TabEnum = (this._router.url.split("/").pop() as TabEnum) || TabEnum;
+	public selectedTab = signal(this._router.url.split("/").pop() as TabEnum);
+	public currentMilestoneType = computed(() => TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab()]);
 
-	public milestoneForm = new FormGroup({
-		type: new FormControl<MilestoneEnum>(TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab], [
-			Validators.required
-		]),
-		logo: new FormControl<Picture | null>(null),
-		title: new FormControl<string>("", [Validators.required, Validators.maxLength(100)]),
-		location: new FormControl<string>(""),
-		description: new FormControl<string>("", [Validators.required, Validators.maxLength(1000)]),
-		tags: new FormControl<string[]>([]),
-		period: new FormControl<string>(""),
-		milestoneDate: new FormControl<string>("", [Validators.required]),
-		media: new FormControl<Picture[]>([]),
-		contributors: new FormControl<Picture[]>([])
-	});
-
-	public milestoneTypes: SelectItem<MilestoneEnum>[] = Object.values(MilestoneEnum).map(
-		enumValue => ({
-			label: enumValue,
-			value: enumValue
-		})
-	);
-	public milestoneUpdates: MilestoneUpdate[] = [];
 	public paths = PATHS;
 	public isAddMilestoneLoading = false;
 	public isAddMilestoneVisible = false;
@@ -127,7 +86,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._routeSub = this._router.events.subscribe({
 			next: event => {
 				if (event instanceof NavigationEnd || event instanceof NavigationStart)
-					this.selectedTab = (this._router.url.split("/").pop() as TabEnum) || TabEnum;
+					this.selectedTab.set(this._router.url.split("/").pop() as TabEnum);
 			}
 		});
 
@@ -136,100 +95,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this._routeSub?.unsubscribe();
-	}
-
-	public addMilestone() {
-		this.isAddMilestoneVisible = true;
-	}
-
-	public createMilestone() {
-		const {
-			type,
-			logo,
-			title,
-			location,
-			description,
-			tags,
-			period,
-			milestoneDate,
-			media,
-			contributors
-		} = this.milestoneForm.value;
-
-		if (
-			this.milestoneForm.invalid ||
-			!type ||
-			!title ||
-			!description ||
-			!period ||
-			!milestoneDate ||
-			!tags
-		)
-			return;
-
-		this.isAddMilestoneLoading = true;
-
-		const milestone: Milestone = {
-			type,
-			...(type === MilestoneEnum.EXPERIENCE && logo && { logo }),
-			title,
-			...(type !== MilestoneEnum.PROJECT && location && { location }),
-			description,
-			tags: tags,
-			period: period,
-			...(type === MilestoneEnum.EXPERIENCE && { updates: this.milestoneUpdates }),
-			milestoneDate,
-			...(type === MilestoneEnum.PROJECT && media && { media }),
-			...(type === MilestoneEnum.PROJECT && contributors && { contributors })
-		};
-
-		this._milestoneService
-			.createMilestone(milestone)
-			.then(() => {
-				this._messageService.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Milestone added",
-					life: 3000
-				});
-
-				this.closeAddMilestone();
-			})
-			.catch(() =>
-				this._messageService.add({
-					severity: "error",
-					summary: "Error",
-					detail: "Failed to add the milestone",
-					life: 3000
-				})
-			)
-			.finally(() => (this.isAddMilestoneLoading = false));
-	}
-
-	public closeAddMilestone() {
-		this.isAddMilestoneVisible = false;
-	}
-
-	public async onMilestoneLogoUpload(event: FileUploadEvent) {
-		const file: File = event.files[0];
-		const formValue = this.milestoneForm.value;
-		const { title } = formValue;
-
-		if (!file || !title) return;
-
-		const base64 = await convertFileToBase64(file);
-
-		this.milestoneForm.patchValue({
-			logo: {
-				name: title,
-				url: base64
-			}
-		});
-	}
-
-	public onAddMilestoneHide() {
-		this.milestoneUpdates = [];
-		this.milestoneForm.reset();
 	}
 
 	public toggleDarkMode() {
@@ -241,166 +106,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public onTabChange(tab: string | number) {
-		this.selectedTab = tab as TabEnum;
-		this.milestoneForm.patchValue({
-			type: TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab]
-		});
+		this.selectedTab.set(tab as TabEnum);
 	}
 
 	public getRouteAnimationData(outlet: RouterOutlet) {
 		return outlet?.activatedRouteData?.["animation"];
 	}
 
-	public addMilestoneUpdate() {
-		this.milestoneUpdates = [
-			{
-				title: "",
-				duration: ""
-			},
-			...this.milestoneUpdates
-		];
-	}
-
-	public removeMilestoneUpdate(index: number) {
-		this.milestoneUpdates?.splice(index, 1);
-	}
-
-	public moveMilestoneUpdateUp(index: number, isFirst: boolean) {
-		if (isFirst) return;
-
-		const temp = this.milestoneUpdates[index - 1];
-		this.milestoneUpdates[index - 1] = this.milestoneUpdates[index];
-		this.milestoneUpdates[index] = temp;
-	}
-
-	public moveMilestoneUpdateDown(index: number, isLast: boolean) {
-		if (isLast) return;
-
-		const temp = this.milestoneUpdates[index + 1];
-		this.milestoneUpdates[index + 1] = this.milestoneUpdates[index];
-		this.milestoneUpdates[index] = temp;
-	}
-
-	public moveContributorUp(index: number, isFirst: boolean) {
-		if (isFirst) return;
-
-		const contributors = this.milestoneForm.value.contributors || [];
-		const temp = contributors[index - 1];
-		contributors[index - 1] = contributors[index];
-		contributors[index] = temp;
-
-		this.milestoneForm.patchValue({
-			contributors
-		});
-	}
-
-	public moveContributorDown(index: number, isLast: boolean) {
-		if (isLast) return;
-
-		const contributors = this.milestoneForm.value.contributors || [];
-		const temp = contributors[index + 1];
-		contributors[index + 1] = contributors[index];
-		contributors[index] = temp;
-
-		this.milestoneForm.patchValue({
-			contributors
-		});
-	}
-
-	public addContributor() {
-		this.milestoneForm.patchValue({
-			contributors: [...(this.milestoneForm.value.contributors || []), { name: "", url: "" }]
-		});
-	}
-
-	public removeContributor(index: number) {
-		this.milestoneForm.patchValue({
-			contributors: (this.milestoneForm.value.contributors || []).filter(
-				(_, contributorIndex) => contributorIndex !== index
-			)
-		});
-	}
-
-	public async onContributorUpload(event: FileUploadEvent, index: number) {
-		const file: File = event.files[0];
-
-		if (!file) return;
-
-		const base64 = await convertFileToBase64(file);
-
-		this.milestoneForm.patchValue({
-			contributors: (this.milestoneForm.value.contributors || []).map(
-				(contributor, contributorIndex) => {
-					if (contributorIndex === index)
-						return {
-							...contributor,
-							url: base64
-						};
-
-					return contributor;
-				}
-			)
-		});
-	}
-
-	public moveMediaUp(index: number, isFirst: boolean) {
-		if (isFirst) return;
-
-		const media = this.milestoneForm.value.media || [];
-		const temp = media[index - 1];
-		media[index - 1] = media[index];
-		media[index] = temp;
-
-		this.milestoneForm.patchValue({
-			media
-		});
-	}
-
-	public moveMediaDown(index: number, isLast: boolean) {
-		if (isLast) return;
-
-		const media = this.milestoneForm.value.media || [];
-		const temp = media[index + 1];
-		media[index + 1] = media[index];
-		media[index] = temp;
-
-		this.milestoneForm.patchValue({
-			media
-		});
-	}
-
-	public addMedia() {
-		this.milestoneForm.patchValue({
-			media: [...(this.milestoneForm.value.media || []), { name: "", url: "" }]
-		});
-	}
-
-	public removeMedia(index: number) {
-		this.milestoneForm.patchValue({
-			media: (this.milestoneForm.value.media || []).filter(
-				(_, contributorIndex) => contributorIndex !== index
-			)
-		});
-	}
-
-	public async onMediaUpload(event: FileUploadEvent, index: number) {
-		const file: File = event.files[0];
-
-		if (!file) return;
-
-		const base64 = await convertFileToBase64(file);
-
-		this.milestoneForm.patchValue({
-			media: (this.milestoneForm.value.media || []).map((media, mediaIndex) => {
-				if (mediaIndex === index)
-					return {
-						...media,
-						url: base64
-					};
-
-				return media;
-			})
-		});
+	public onAddNewMilestone() {
+		this.isAddMilestoneVisible = true;
 	}
 
 	private _updateIsMobile() {

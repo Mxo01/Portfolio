@@ -1,4 +1,6 @@
 <div class="reorderable-logos-container">
+	<ng-content select="[header]" />
+
 	@for (logo of logos(); track $index) {
 		<div class="logo-item">
 			<p-button

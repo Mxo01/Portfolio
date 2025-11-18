@@ -142,9 +142,16 @@
 		[visible]="isEditMilestoneVisible"
 		position="bottom"
 		[style]="{ height: 'auto' }"
-		(onHide)="onEditsHide()"
+		(onHide)="milestoneForm.onHide()"
 	>
-		<ng-container [ngTemplateOutlet]="editMilestoneForm" />
+		<portfolio-milestone-form
+			#milestoneForm
+			[currentMilestoneType]="milestone().type"
+			[isMobile]="isMobile()"
+			[(isSaveLoading)]="isSaveEditsLoading"
+			[(isVisible)]="isEditMilestoneVisible"
+			[milestoneToEdit]="milestone()"
+		/>
 
 		<ng-template #footer>
 			<div class="edit-actions">
@@ -153,7 +160,7 @@
 					label="Cancel"
 					size="small"
 					variant="outlined"
-					(onClick)="closeEdits()"
+					(onClick)="milestoneForm.cancel()"
 				/>
 
 				<p-button
@@ -161,7 +168,7 @@
 					[loading]="isSaveEditsLoading"
 					label="Save Edits"
 					size="small"
-					(onClick)="saveMilestoneEdits()"
+					(onClick)="milestoneForm.save()"
 				/>
 			</div>
 		</ng-template>
@@ -174,9 +181,16 @@
 		[closeOnEscape]="false"
 		[(visible)]="isEditMilestoneVisible"
 		[style]="{ width: '35rem' }"
-		(onHide)="onEditsHide()"
+		(onHide)="milestoneForm.onHide()"
 	>
-		<ng-container [ngTemplateOutlet]="editMilestoneForm" />
+		<portfolio-milestone-form
+			#milestoneForm
+			[currentMilestoneType]="milestone().type"
+			[isMobile]="isMobile()"
+			[(isSaveLoading)]="isSaveEditsLoading"
+			[(isVisible)]="isEditMilestoneVisible"
+			[milestoneToEdit]="milestone()"
+		/>
 
 		<ng-template #footer>
 			<div class="edit-actions">
@@ -185,7 +199,7 @@
 					label="Cancel"
 					size="small"
 					variant="outlined"
-					(onClick)="closeEdits()"
+					(onClick)="milestoneForm.cancel()"
 				/>
 
 				<p-button
@@ -193,7 +207,7 @@
 					label="Save Edits"
 					[loading]="isSaveEditsLoading"
 					size="small"
-					(onClick)="saveMilestoneEdits()"
+					(onClick)="milestoneForm.save()"
 				/>
 			</div>
 		</ng-template>
@@ -223,334 +237,3 @@
 		/>
 	</ng-template>
 </p-galleria>
-
-<ng-template #editMilestoneForm>
-	<form
-		[formGroup]="milestoneForm"
-		class="edit-milestone-form"
-	>
-		<p-floatlabel
-			variant="on"
-			class="fluid-input"
-		>
-			<input
-				id="title"
-				type="text"
-				pInputText
-				formControlName="title"
-			/>
-			<label for="title">Title</label>
-		</p-floatlabel>
-
-		<p-floatlabel
-			variant="on"
-			class="fluid-input"
-		>
-			<input
-				id="description"
-				type="text"
-				pInputText
-				formControlName="description"
-			/>
-			<label for="description">Description</label>
-		</p-floatlabel>
-
-		@if (milestone().type !== MilestoneEnum.PROJECT) {
-			<p-floatlabel
-				variant="on"
-				class="fluid-input"
-			>
-				<input
-					id="location"
-					type="text"
-					pInputText
-					formControlName="location"
-				/>
-				<label for="location">Location</label>
-			</p-floatlabel>
-		}
-
-		<p-floatlabel
-			variant="on"
-			class="fluid-input"
-		>
-			<input
-				id="period"
-				type="text"
-				pInputText
-				formControlName="period"
-			/>
-			<label for="period">Period</label>
-		</p-floatlabel>
-
-		<p-floatlabel
-			variant="on"
-			class="fluid-input"
-		>
-			<p-autocomplete
-				inputId="tags"
-				multiple
-				[typeahead]="false"
-				formControlName="tags"
-			/>
-			<label for="tags">Tags</label>
-		</p-floatlabel>
-
-		@if (milestoneForm.value.type === MilestoneEnum.PROJECT) {
-			<ng-container [ngTemplateOutlet]="mediaTemplate" />
-			<ng-container [ngTemplateOutlet]="contributorsTemplate" />
-		}
-
-		@if (milestoneForm.value.type === MilestoneEnum.EXPERIENCE) {
-			<div class="logo-upload-container">
-				<b>Logo</b>
-
-				<div class="milestone-logo-upload">
-					<div>
-						<p-avatar
-							shape="circle"
-							[image]="milestoneForm.value.logo?.url"
-							[size]="isMobile() ? 'normal' : 'large'"
-							[pTooltip]="milestoneForm.value.logo?.name"
-							tooltipPosition="bottom"
-						/>
-					</div>
-
-					<p-fileupload
-						mode="basic"
-						chooseIcon="pi pi-upload"
-						accept="image/*"
-						[auto]="true"
-						url="https://www.primefaces.org/cdn/api/upload.php"
-						(onUpload)="onMilestoneLogoUpload($event)"
-					/>
-				</div>
-			</div>
-
-			<div class="updates-title">
-				<b>Updates</b>
-
-				<p-button
-					label="Add"
-					icon="pi pi-plus"
-					severity="secondary"
-					size="small"
-					(onClick)="addMilestoneUpdate()"
-				/>
-			</div>
-
-			@for (update of milestone().updates; track $index) {
-				<div class="milestone-update">
-					<p-button
-						variant="text"
-						icon="pi pi-chevron-up"
-						size="small"
-						[disabled]="$first"
-						(onClick)="moveMilestoneUpdateUp($index, $first)"
-					/>
-
-					<p-button
-						variant="text"
-						icon="pi pi-chevron-down"
-						size="small"
-						[disabled]="$last"
-						(onClick)="moveMilestoneUpdateDown($index, $last)"
-					/>
-
-					<p-floatlabel
-						variant="on"
-						class="fluid-input"
-					>
-						<input
-							[id]="'update-title-' + $index"
-							type="text"
-							pInputText
-							[(ngModel)]="update.title"
-							[ngModelOptions]="{ standalone: true }"
-						/>
-						<label [for]="'update-title-' + $index">Title</label>
-					</p-floatlabel>
-
-					<p-floatlabel
-						variant="on"
-						class="fluid-input"
-					>
-						<input
-							[id]="'update-duration-' + $index"
-							type="text"
-							pInputText
-							[(ngModel)]="update.duration"
-							[ngModelOptions]="{ standalone: true }"
-						/>
-						<label [for]="'update-duration-' + $index">Duration</label>
-					</p-floatlabel>
-
-					<p-button
-						severity="danger"
-						icon="pi pi-trash"
-						size="small"
-						(onClick)="removeMilestoneUpdate($index)"
-					/>
-				</div>
-			} @empty {
-				<small>No updates yet.</small>
-			}
-		}
-	</form>
-</ng-template>
-
-<ng-template #mediaTemplate>
-	<div class="media-container">
-		<div class="media-title">
-			<b>Media</b>
-
-			<p-button
-				label="Add"
-				icon="pi pi-plus"
-				severity="secondary"
-				size="small"
-				(onClick)="addMedia()"
-			/>
-		</div>
-
-		@for (media of milestone().media; track $index) {
-			<div class="media">
-				<p-button
-					variant="text"
-					icon="pi pi-chevron-up"
-					size="small"
-					[disabled]="$first"
-					(onClick)="moveMediaUp($index, $first)"
-				/>
-
-				<p-button
-					variant="text"
-					icon="pi pi-chevron-down"
-					size="small"
-					[disabled]="$last"
-					(onClick)="moveMediaDown($index, $last)"
-				/>
-
-				<div>
-					<p-avatar
-						shape="circle"
-						[image]="media.url"
-						[size]="isMobile() ? 'normal' : 'large'"
-						[pTooltip]="media.name"
-						tooltipPosition="bottom"
-					/>
-				</div>
-
-				<p-fileupload
-					mode="basic"
-					chooseIcon="pi pi-upload"
-					accept="image/*"
-					[auto]="true"
-					url="https://www.primefaces.org/cdn/api/upload.php"
-					(onUpload)="onMediaUpload($event, $index)"
-				/>
-
-				<p-floatlabel
-					variant="on"
-					class="fluid-input"
-				>
-					<input
-						[id]="'media-name-' + $index"
-						type="text"
-						pInputText
-						[(ngModel)]="media.name"
-						[ngModelOptions]="{ standalone: true }"
-					/>
-					<label [for]="'media-name-' + $index">Name</label>
-				</p-floatlabel>
-
-				<p-button
-					severity="danger"
-					icon="pi pi-trash"
-					size="small"
-					(onClick)="removeMedia($index)"
-				/>
-			</div>
-		} @empty {
-			<span>No media yet.</span>
-		}
-	</div>
-</ng-template>
-
-<ng-template #contributorsTemplate>
-	<div class="contributors-container">
-		<div class="contributors-title">
-			<b>Contributors</b>
-
-			<p-button
-				label="Add"
-				icon="pi pi-plus"
-				severity="secondary"
-				size="small"
-				(onClick)="addContributor()"
-			/>
-		</div>
-
-		@for (contributor of milestone().contributors; track $index) {
-			<div class="contributor">
-				<p-button
-					variant="text"
-					icon="pi pi-chevron-up"
-					size="small"
-					[disabled]="$first"
-					(onClick)="moveContributorUp($index, $first)"
-				/>
-
-				<p-button
-					variant="text"
-					icon="pi pi-chevron-down"
-					size="small"
-					[disabled]="$last"
-					(onClick)="moveContributorDown($index, $last)"
-				/>
-
-				<div>
-					<p-avatar
-						shape="circle"
-						[image]="contributor.url"
-						[size]="isMobile() ? 'normal' : 'large'"
-						[pTooltip]="contributor.name"
-						tooltipPosition="bottom"
-					/>
-				</div>
-
-				<p-fileupload
-					mode="basic"
-					chooseIcon="pi pi-upload"
-					accept="image/*"
-					[auto]="true"
-					url="https://www.primefaces.org/cdn/api/upload.php"
-					(onUpload)="onContributorUpload($event, $index)"
-				/>
-
-				<p-floatlabel
-					variant="on"
-					class="fluid-input"
-				>
-					<input
-						[id]="'contributor-name-' + $index"
-						type="text"
-						pInputText
-						[(ngModel)]="contributor.name"
-						[ngModelOptions]="{ standalone: true }"
-					/>
-					<label [for]="'contributor-name-' + $index">Name</label>
-				</p-floatlabel>
-
-				<p-button
-					severity="danger"
-					icon="pi pi-trash"
-					size="small"
-					(onClick)="removeContributor($index)"
-				/>
-			</div>
-		} @empty {
-			<span>No contributors yet.</span>
-		}
-	</div>
-</ng-template>

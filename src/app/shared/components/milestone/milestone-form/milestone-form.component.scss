@@ -1,0 +1,36 @@
+.milestone-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding-top: 1rem;
+	max-height: 70vh;
+	overflow-y: auto;
+
+	.logo-upload-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		.milestone-logo-upload {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+	}
+
+	.milestone-update {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	p-floatlabel {
+		width: 100%;
+
+		input,
+		p-select,
+		p-autocomplete {
+			width: 100%;
+		}
+	}
+}

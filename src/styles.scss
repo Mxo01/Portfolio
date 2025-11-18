@@ -46,28 +46,10 @@ body {
 	}
 }
 
-.reorderable-logos-container {
+.subheader-with-action-btn {
 	display: flex;
-	flex-direction: column;
+	align-items: center;
 	gap: 1rem;
-	padding-top: 1rem;
-
-	.logo-item {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		flex: 0;
-	}
-
-	p-floatlabel {
-		width: 100%;
-
-		input,
-		p-select,
-		p-autocomplete {
-			width: 100%;
-		}
-	}
 }
 
 .flex-items-center {
