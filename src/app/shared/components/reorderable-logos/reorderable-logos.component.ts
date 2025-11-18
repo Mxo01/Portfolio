@@ -19,9 +19,9 @@ import { moveItem, uploadLogo } from "../../utils/utils";
 export class ReorderableLogosComponent {
 	public logos = input.required<Picture[]>();
 	public isMobile = input.required<boolean>();
-	
-	public logosUpdate = output<Picture[]>()
-	
+
+	public logosUpdate = output<Picture[]>();
+
 	public moveLogoItem(logos: Picture[], startingIndex: number, direction: "up" | "down") {
 		return moveItem(logos, startingIndex, direction);
 	}
