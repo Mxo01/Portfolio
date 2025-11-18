@@ -1,66 +1,8 @@
 <main>
-	<section class="about">
-		<div class="profile">
-			<p-avatar
-				size="xlarge"
-				shape="circle"
-				[icon]="aboutInfo().profilePicUrl ? undefined : 'pi pi-user'"
-				[image]="aboutInfo().profilePicUrl"
-			/>
-
-			<div class="info">
-				<span class="name">Mario Di Modica</span>
-
-				<div class="kpis">
-					@for (kpi of kpis(); track $index) {
-						<portfolio-kpi
-							[label]="kpi.label"
-							[value]="kpi.value"
-						/>
-					}
-				</div>
-			</div>
-		</div>
-
-		<span class="description">
-			<b>Front-End Software Engineer</b>
-			with deep expertise in Angular, RxJS and Signals, crafting scalable and performant web
-			applications. Also exploring React and modern UI technologies.
-		</span>
-
-		<portfolio-avatar-list
-			[avatars]="techStack()"
-			[isLoading]="!techStack().length"
-			[isEditable]="isAdmin()"
-			(edit)="onTechStackEdit()"
-			description="Tech Stack"
-		/>
-
-		<portfolio-avatar-list
-			[avatars]="companies()"
-			[isLoading]="!companies().length"
-			description="Companies where I worked"
-			[isCollapsed]="true"
-		/>
-
-		<div class="actions">
-			<p-button
-				label="View CV"
-				[fluid]="true"
-				[size]="isMobile() ? 'small' : 'large'"
-				(onClick)="viewCV()"
-				icon="pi pi-external-link"
-			/>
-
-			<p-button
-				label="Contact me"
-				[fluid]="true"
-				[size]="isMobile() ? 'small' : 'large'"
-				[outlined]="true"
-				(onClick)="isMailDrawerVisible = true"
-			/>
-		</div>
-	</section>
+	<portfolio-about
+		[isAdmin]="isAdmin()"
+		[isMobile]="isMobile()"
+	/>
 
 	<section class="tabs">
 		<p-tabs
@@ -130,73 +72,6 @@
 	</div>
 </main>
 
-<p-drawer
-	header="How to reach me"
-	[(visible)]="isMailDrawerVisible"
-	position="right"
->
-	<div class="contacts-drawer">
-		<div>
-			<p>
-				This is my email address:
-				<small>mariodimodica.01&#64;gmail.com</small>
-			</p>
-
-			<p class="description">
-				You can either copy it or open your default mail app and send me an email!
-			</p>
-
-			<div class="actions">
-				<p-button
-					label="Send"
-					icon="pi pi-envelope"
-					[fluid]="true"
-					[size]="isMobile() ? 'small' : 'large'"
-					(onClick)="sendEmail()"
-				/>
-
-				<p-button
-					label="Copy"
-					icon="pi pi-copy"
-					[fluid]="true"
-					[outlined]="true"
-					[size]="isMobile() ? 'small' : 'large'"
-					(onClick)="copyEmail()"
-				/>
-			</div>
-		</div>
-
-		<div class="socials">
-			<a
-				href="https://www.instagram.com/not_mxo/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="p-button p-button-text"
-			>
-				<i class="pi pi-instagram"></i>
-			</a>
-
-			<a
-				href="https://www.linkedin.com/in/mariodimodica/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="p-button p-button-text"
-			>
-				<i class="pi pi-linkedin"></i>
-			</a>
-
-			<a
-				href="https://github.com/Mxo01"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="p-button p-button-text"
-			>
-				<i class="pi pi-github"></i>
-			</a>
-		</div>
-	</div>
-</p-drawer>
-
 @if (isMobile()) {
 	<p-drawer
 		header="Add Milestone"
@@ -210,7 +85,7 @@
 		<ng-container [ngTemplateOutlet]="addMilestoneForm" />
 
 		<ng-template #footer>
-			<div class="edit-actions">
+			<div class="actions">
 				<p-button
 					[fluid]="true"
 					label="Cancel"
@@ -225,49 +100,6 @@
 					size="small"
 					[loading]="isAddMilestoneLoading"
 					(onClick)="createMilestone()"
-				/>
-			</div>
-		</ng-template>
-	</p-drawer>
-
-	<p-drawer
-		[closable]="false"
-		[closeOnEscape]="false"
-		[visible]="isEditTechStackVisible"
-		position="bottom"
-		[style]="{ height: 'auto' }"
-	>
-		<ng-template #header>
-			<div class="header">
-				<span>Edit Tech Stack</span>
-
-				<p-button
-					label="Add"
-					size="small"
-					icon="pi pi-plus"
-					(onClick)="addTech()"
-				/>
-			</div>
-		</ng-template>
-
-		<ng-container [ngTemplateOutlet]="editTechStackTemplate" />
-
-		<ng-template #footer>
-			<div class="edit-actions">
-				<p-button
-					[fluid]="true"
-					label="Cancel"
-					size="small"
-					variant="outlined"
-					(onClick)="closeEditTechStack()"
-				/>
-
-				<p-button
-					[fluid]="true"
-					label="Save Edits"
-					size="small"
-					[loading]="isSaveTechStackEditsLoading"
-					(onClick)="saveTechStackEdits()"
 				/>
 			</div>
 		</ng-template>
@@ -285,7 +117,7 @@
 		<ng-container [ngTemplateOutlet]="addMilestoneForm" />
 
 		<ng-template #footer>
-			<div class="edit-actions">
+			<div class="actions">
 				<p-button
 					[fluid]="true"
 					label="Cancel"
@@ -300,49 +132,6 @@
 					size="small"
 					[loading]="isAddMilestoneLoading"
 					(onClick)="createMilestone()"
-				/>
-			</div>
-		</ng-template>
-	</p-dialog>
-
-	<p-dialog
-		[modal]="true"
-		[closable]="false"
-		[closeOnEscape]="false"
-		[(visible)]="isEditTechStackVisible"
-		[style]="{ width: '35rem' }"
-	>
-		<ng-template #header>
-			<div class="header">
-				<span>Edit Tech Stack</span>
-
-				<p-button
-					label="Add"
-					size="small"
-					icon="pi pi-plus"
-					(onClick)="addTech()"
-				/>
-			</div>
-		</ng-template>
-
-		<ng-container [ngTemplateOutlet]="editTechStackTemplate" />
-
-		<ng-template #footer>
-			<div class="edit-actions">
-				<p-button
-					[fluid]="true"
-					label="Cancel"
-					size="small"
-					variant="outlined"
-					(onClick)="closeEditTechStack()"
-				/>
-
-				<p-button
-					[fluid]="true"
-					label="Save Edits"
-					size="small"
-					[loading]="isSaveTechStackEditsLoading"
-					(onClick)="saveTechStackEdits()"
 				/>
 			</div>
 		</ng-template>
@@ -478,8 +267,8 @@
 				</div>
 			</div>
 
-			<div class="updates-title">
-				<b>Updates</b>
+			<div class="header-with-action-btn">
+				<span>Updates</span>
 
 				<p-button
 					label="Add"
@@ -550,73 +339,9 @@
 	</form>
 </ng-template>
 
-<ng-template #editTechStackTemplate>
-	<div class="tech-stack-edit-container">
-		@for (tech of techStack(); track $index) {
-			<div class="technology">
-				<p-button
-					variant="text"
-					icon="pi pi-chevron-up"
-					size="small"
-					[disabled]="$first"
-					(onClick)="moveTechUp($index, $first)"
-				/>
-
-				<p-button
-					variant="text"
-					icon="pi pi-chevron-down"
-					size="small"
-					[disabled]="$last"
-					(onClick)="moveTechDown($index, $last)"
-				/>
-
-				<div>
-					<p-avatar
-						shape="circle"
-						[image]="tech.url"
-						[size]="isMobile() ? 'normal' : 'large'"
-						[pTooltip]="tech.name"
-						tooltipPosition="bottom"
-					/>
-				</div>
-
-				<p-fileupload
-					mode="basic"
-					chooseIcon="pi pi-upload"
-					accept="image/*"
-					[auto]="true"
-					url="https://www.primefaces.org/cdn/api/upload.php"
-					(onUpload)="onTechUpload($event, $index)"
-				/>
-
-				<p-floatlabel
-					variant="on"
-					class="fluid-input"
-				>
-					<input
-						[id]="'tech-name-' + $index"
-						type="text"
-						pInputText
-						[(ngModel)]="tech.name"
-						[ngModelOptions]="{ standalone: true }"
-					/>
-					<label [for]="'tech-name-' + $index">Name</label>
-				</p-floatlabel>
-
-				<p-button
-					severity="danger"
-					icon="pi pi-trash"
-					size="small"
-					(onClick)="removeTech($index)"
-				/>
-			</div>
-		}
-	</div>
-</ng-template>
-
 <ng-template #mediaTemplate>
-	<div class="media-container">
-		<div class="media-title">
+	<div class="reorderable-logo-container">
+		<div class="header-with-action-btn">
 			<b>Media</b>
 
 			<p-button
@@ -629,7 +354,7 @@
 		</div>
 
 		@for (media of milestoneForm.value.media; track $index) {
-			<div class="media">
+			<div class="logo-item">
 				<p-button
 					variant="text"
 					icon="pi pi-chevron-up"
@@ -693,8 +418,8 @@
 </ng-template>
 
 <ng-template #contributorsTemplate>
-	<div class="contributors-container">
-		<div class="contributors-title">
+	<div class="reorderable-logo-container">
+		<div class="header-with-action-btn">
 			<b>Contributors</b>
 
 			<p-button
@@ -707,7 +432,7 @@
 		</div>
 
 		@for (contributor of milestoneForm.value.contributors; track $index) {
-			<div class="contributor">
+			<div class="logo-item">
 				<p-button
 					variant="text"
 					icon="pi pi-chevron-up"

@@ -108,3 +108,41 @@ export function convertFileToBase64(file: File): Promise<string> {
 		reader.readAsDataURL(file);
 	});
 }
+
+export function moveItem(list: unknown[], startingIndex: number, direction: "up" | "down") {
+	const isFirstItem = startingIndex === 0;
+	const isLastItem = startingIndex === list.length - 1;
+
+	if (direction === "up") {
+		if (isFirstItem) return;
+
+		const temp = list[startingIndex - 1];
+		list[startingIndex - 1] = list[startingIndex];
+		list[startingIndex] = temp;
+	}
+
+	if (direction === "down") {
+		if (isLastItem) return;
+
+		const temp = list[startingIndex + 1];
+		list[startingIndex + 1] = list[startingIndex];
+		list[startingIndex] = temp;
+	}
+}
+
+export async function uploadLogo(
+	pictureList: Picture[],
+	file: File,
+	uploadIndex: number
+): Promise<Picture[]> {
+	const base64 = await convertFileToBase64(file);
+
+	return pictureList.map((picture, pictureIndex) => {
+		return pictureIndex === uploadIndex
+			? {
+					...picture,
+					url: base64
+				}
+			: picture;
+	});
+}

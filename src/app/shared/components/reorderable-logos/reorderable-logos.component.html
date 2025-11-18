@@ -1,0 +1,61 @@
+<div class="reorderable-logos-container">
+	@for (logo of logos(); track $index) {
+		<div class="logo-item">
+			<p-button
+				variant="text"
+				icon="pi pi-chevron-up"
+				size="small"
+				[disabled]="$first"
+				(onClick)="moveLogoItem(logos(), $index, 'up')"
+			/>
+
+			<p-button
+				variant="text"
+				icon="pi pi-chevron-down"
+				size="small"
+				[disabled]="$last"
+				(onClick)="moveLogoItem(logos(), $index, 'down')"
+			/>
+
+			<div>
+				<p-avatar
+					shape="circle"
+					[image]="logo.url"
+					[size]="isMobile() ? 'normal' : 'large'"
+					[pTooltip]="logo.name"
+					tooltipPosition="bottom"
+				/>
+			</div>
+
+			<p-fileupload
+				mode="basic"
+				chooseIcon="pi pi-upload"
+				accept="image/*"
+				[auto]="true"
+				url="https://www.primefaces.org/cdn/api/upload.php"
+				(onUpload)="onLogoUpload($event, $index)"
+			/>
+
+			<p-floatlabel
+				variant="on"
+				class="fluid-input"
+			>
+				<input
+					[id]="'logo-name-' + $index"
+					type="text"
+					pInputText
+					[(ngModel)]="logo.name"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+				<label [for]="'logo-name-' + $index">Name</label>
+			</p-floatlabel>
+
+			<p-button
+				severity="danger"
+				icon="pi pi-trash"
+				size="small"
+				(onClick)="removeLogo($index)"
+			/>
+		</div>
+	}
+</div>

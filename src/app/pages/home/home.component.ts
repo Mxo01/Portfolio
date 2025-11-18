@@ -5,9 +5,7 @@ import {
 	Component,
 	computed,
 	HostListener,
-	inject,
-	linkedSignal,
-	OnDestroy,
+	inject, OnDestroy,
 	OnInit
 } from "@angular/core";
 import { RouterOutlet, RouterLink, Router, NavigationEnd, NavigationStart } from "@angular/router";
@@ -17,9 +15,6 @@ import { ButtonModule } from "primeng/button";
 import { DrawerModule } from "primeng/drawer";
 import { TabsModule } from "primeng/tabs";
 import { Subscription } from "rxjs";
-import { AvatarListComponent } from "../../shared/components/avatar-list/avatar-list.component";
-import { KpiComponent } from "../../shared/components/kpi/kpi.component";
-import { AboutService } from "../../shared/services/about.service";
 import { StateService } from "../../shared/services/state.service";
 import { PATHS, TAB_TO_MILESTONE_TYPE_MAPPING } from "../../shared/utils/constants";
 import { convertFileToBase64, isMobileDevice } from "../../shared/utils/utils";
@@ -43,32 +38,31 @@ import { Select } from "primeng/select";
 import { MilestoneService } from "../../shared/services/milestone.service";
 import { Tooltip } from "primeng/tooltip";
 import { FileUpload, FileUploadEvent } from "primeng/fileupload";
-import { AboutInfo } from "../../shared/models/about.model";
+import { AboutComponent } from "../../shared/components/about/about.component";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-home",
 	imports: [
-		RouterOutlet,
-		RouterLink,
-		DrawerModule,
-		Avatar,
-		ButtonModule,
-		TabsModule,
-		KpiComponent,
-		AvatarListComponent,
-		Avatar,
-		NgTemplateOutlet,
-		Dialog,
-		ReactiveFormsModule,
-		FormsModule,
-		InputTextModule,
-		AutoCompleteModule,
-		FloatLabel,
-		Select,
-		Tooltip,
-		FileUpload
-	],
+    RouterOutlet,
+    RouterLink,
+    DrawerModule,
+    Avatar,
+    ButtonModule,
+    TabsModule,
+    Avatar,
+    NgTemplateOutlet,
+    Dialog,
+    ReactiveFormsModule,
+    FormsModule,
+    InputTextModule,
+    AutoCompleteModule,
+    FloatLabel,
+    Select,
+    Tooltip,
+    FileUpload,
+    AboutComponent
+],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
 	providers: [MessageService],
@@ -76,7 +70,6 @@ import { AboutInfo } from "../../shared/models/about.model";
 })
 export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
-	private _aboutService = inject(AboutService);
 	private _authService = inject(AuthService);
 	private _milestoneService = inject(MilestoneService);
 	private _messageService = inject(MessageService);
@@ -111,15 +104,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 	);
 	public milestoneUpdates: MilestoneUpdate[] = [];
 	public paths = PATHS;
-	public aboutInfo = this._aboutService.getAboutInfo();
-	public kpis = linkedSignal(() => this.aboutInfo().kpis);
-	public techStack = linkedSignal(() => this.aboutInfo().techStack);
-	public companies = linkedSignal(() => this.aboutInfo().companies);
-	public isMailDrawerVisible = false;
 	public isAddMilestoneLoading = false;
 	public isAddMilestoneVisible = false;
-	public isEditTechStackVisible = false;
-	public isSaveTechStackEditsLoading = false;
 	public isAdmin = computed(() => !!this._authService.user());
 	public isMobile = computed(() => this._stateService.isMobile());
 	public isDarkMode = computed(() => {
@@ -149,32 +135,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this._routeSub?.unsubscribe();
-	}
-
-	public sendEmail() {
-		this.isMailDrawerVisible = false;
-		window.location.href = "mailto:mariodimodica.01@gmail.com";
-	}
-
-	public copyEmail() {
-		this.isMailDrawerVisible = false;
-
-		navigator.clipboard
-			.writeText("mariodimodica.01@gmail.com")
-			.then(() =>
-				this._messageService.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Email copied to clipboard"
-				})
-			)
-			.catch(() =>
-				this._messageService.add({
-					severity: "error",
-					summary: "Error",
-					detail: "Failed to copy email"
-				})
-			);
 	}
 
 	public addMilestone() {
@@ -279,10 +239,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._authService.signOut();
 	}
 
-	public viewCV() {
-		window.open("CV_Mario_Di_Modica.pdf", "_blank");
-	}
-
 	public onTabChange(tab: string | number) {
 		this.selectedTab = tab as TabEnum;
 		this.milestoneForm.patchValue({
@@ -322,89 +278,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 		const temp = this.milestoneUpdates[index + 1];
 		this.milestoneUpdates[index + 1] = this.milestoneUpdates[index];
 		this.milestoneUpdates[index] = temp;
-	}
-
-	public moveTechUp(index: number, isFirst: boolean) {
-		if (isFirst) return;
-
-		const temp = this.techStack()[index - 1];
-		this.techStack()[index - 1] = this.techStack()[index];
-		this.techStack()[index] = temp;
-	}
-
-	public moveTechDown(index: number, isLast: boolean) {
-		if (isLast) return;
-
-		const temp = this.techStack()[index + 1];
-		this.techStack()[index + 1] = this.techStack()[index];
-		this.techStack()[index] = temp;
-	}
-
-	public async onTechUpload(event: FileUploadEvent, index: number) {
-		const file: File = event.files[0];
-
-		if (!file) return;
-
-		const base64 = await convertFileToBase64(file);
-
-		this.techStack.set(
-			this.techStack().map((tech, techIndex) => {
-				if (techIndex === index)
-					return {
-						...tech,
-						url: base64
-					};
-
-				return tech;
-			})
-		);
-	}
-
-	public addTech() {
-		this.techStack.set([...this.techStack(), { name: "", url: "" }]);
-	}
-
-	public removeTech(index: number) {
-		this.techStack.set(this.techStack().filter((_, techIndex) => index !== techIndex));
-	}
-
-	public onTechStackEdit() {
-		this.isEditTechStackVisible = true;
-	}
-
-	public closeEditTechStack() {
-		this.isEditTechStackVisible = false;
-	}
-
-	public saveTechStackEdits() {
-		this.isSaveTechStackEditsLoading = true;
-
-		const aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl"> = {
-			kpis: this.kpis().filter(kpi => kpi.label !== "Experience"),
-			techStack: this.techStack()
-		};
-
-		this._aboutService
-			.saveTechStack(aboutInfo)
-			.then(() => {
-				this._messageService.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Tech Stack edited",
-					life: 3000
-				});
-
-				this.closeEditTechStack();
-			})
-			.catch(() =>
-				this._messageService.add({
-					severity: "error",
-					summary: "Error",
-					detail: "Failed to edit the Tech Stack",
-					life: 3000
-				})
-			)
-			.finally(() => (this.isSaveTechStackEditsLoading = false));
 	}
 
 	public moveContributorUp(index: number, isFirst: boolean) {
