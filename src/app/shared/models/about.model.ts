@@ -6,4 +6,5 @@ export interface AboutInfo {
 	techStack: Picture[];
 	companies: Picture[];
 	profilePicUrl: string;
+	cvUrl: string;
 }

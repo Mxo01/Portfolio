@@ -48,8 +48,17 @@
 		@if (isAdmin()) {
 			<p-button
 				[size]="isMobile() ? 'small' : 'large'"
+				icon="pi pi-file-edit"
+				[rounded]="true"
+				pTooltip="Upload CV"
+				(onClick)="onUploadCV()"
+			/>
+
+			<p-button
+				[size]="isMobile() ? 'small' : 'large'"
 				icon="pi pi-plus"
 				[rounded]="true"
+				pTooltip="Add Milestone"
 				(onClick)="onAddNewMilestone()"
 			/>
 		}
@@ -58,6 +67,7 @@
 			[size]="isMobile() ? 'small' : 'large'"
 			[icon]="isDarkMode() ? 'pi pi-sun' : 'pi pi-moon'"
 			[rounded]="true"
+			pTooltip="Toggle Theme"
 			(onClick)="toggleDarkMode()"
 		/>
 
@@ -66,11 +76,49 @@
 				[size]="isMobile() ? 'small' : 'large'"
 				icon="pi pi-sign-out"
 				[rounded]="true"
+				pTooltip="Sign Out"
 				(onClick)="signOut()"
 			/>
 		}
 	</div>
 </main>
+
+<p-dialog
+	header="Upload CV"
+	[modal]="true"
+	[(visible)]="isUploadCvVisible"
+	(onHide)="onHideUploadCV()"
+	[style]="{ width: isMobile() ? 'auto' : '35rem' }"
+>
+	<p-fileupload
+		mode="basic"
+		chooseIcon="pi pi-upload"
+		accept=".pdf"
+		[auto]="true"
+		url="https://www.primefaces.org/cdn/api/upload.php"
+		(onUpload)="onChooseCV($event)"
+	/>
+
+	<ng-template #footer>
+		<div class="flex-items-center">
+			<p-button
+				[fluid]="true"
+				label="Cancel"
+				size="small"
+				variant="outlined"
+				(onClick)="onCloseUploadCV()"
+			/>
+
+			<p-button
+				[fluid]="true"
+				label="Upload"
+				size="small"
+				[loading]="isUploadCvLoading"
+				(onClick)="onConfirmUploadCV()"
+			/>
+		</div>
+	</ng-template>
+</p-dialog>
 
 @if (isMobile()) {
 	<p-drawer

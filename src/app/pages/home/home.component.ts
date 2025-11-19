@@ -2,8 +2,7 @@ import { TabEnum } from "./../../shared/models/tab.model";
 import {
 	ChangeDetectionStrategy,
 	Component,
-	computed,
-	HostListener,
+	computed, HostListener,
 	inject,
 	OnDestroy,
 	OnInit,
@@ -18,7 +17,7 @@ import { TabsModule } from "primeng/tabs";
 import { Subscription } from "rxjs";
 import { StateService } from "../../shared/services/state.service";
 import { PATHS, TAB_TO_MILESTONE_TYPE_MAPPING } from "../../shared/utils/constants";
-import { isMobileDevice } from "../../shared/utils/utils";
+import { convertFileToBase64, isMobileDevice } from "../../shared/utils/utils";
 import { slideInAnimation } from "../../shared/animations/fade-slide.animation";
 import { AuthService } from "../../shared/services/auth.service";
 import { Dialog } from "primeng/dialog";
@@ -27,6 +26,9 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { InputTextModule } from "primeng/inputtext";
 import { AboutComponent } from "../../shared/components/about/about.component";
 import { MilestoneFormComponent } from "../../shared/components/milestone/milestone-form/milestone-form.component";
+import { AboutService } from "../../shared/services/about.service";
+import { Tooltip } from "primeng/tooltip";
+import { FileUpload, FileUploadEvent } from "primeng/fileupload";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,7 +45,9 @@ import { MilestoneFormComponent } from "../../shared/components/milestone/milest
 		InputTextModule,
 		AutoCompleteModule,
 		AboutComponent,
-		MilestoneFormComponent
+		MilestoneFormComponent,
+		Tooltip,
+		FileUpload
 	],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
@@ -53,6 +57,7 @@ import { MilestoneFormComponent } from "../../shared/components/milestone/milest
 export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
 	private _authService = inject(AuthService);
+	private _aboutService = inject(AboutService);
 
 	private _router = inject(Router);
 
@@ -64,6 +69,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 	public currentMilestoneType = computed(() => TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab()]);
 
 	public paths = PATHS;
+	private _base64CV: string | null = null;
+	public isUploadCvVisible = false;
+	public isUploadCvLoading = false;
 	public isAddMilestoneLoading = false;
 	public isAddMilestoneVisible = false;
 	public isAdmin = computed(() => !!this._authService.user());
@@ -111,6 +119,37 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	public getRouteAnimationData(outlet: RouterOutlet) {
 		return outlet?.activatedRouteData?.["animation"];
+	}
+
+	public onUploadCV() {
+		this.isUploadCvVisible = true;
+	}
+
+	public onCloseUploadCV() {
+		this.isUploadCvVisible = false;
+	}
+
+	public onHideUploadCV() {
+		this._base64CV = null;
+	}
+
+	public onConfirmUploadCV() {
+		if (this._base64CV) {
+			this.isUploadCvLoading = true;
+
+			this._aboutService
+				.updateCV({ cvUrl: this._base64CV })
+				.then(() => this.onCloseUploadCV())
+				.finally(() => (this.isUploadCvLoading = false));
+		}
+	}
+
+	public async onChooseCV(event: FileUploadEvent) {
+		const file = event.files[0];
+
+		if (!file) return;
+
+		this._base64CV = await convertFileToBase64(file);
 	}
 
 	public onAddNewMilestone() {

@@ -1,7 +1,7 @@
 import { AboutInfo } from "./../models/about.model";
 import { inject, Injectable, Signal } from "@angular/core";
 import { Picture } from "../models/picture.model";
-import { doc, docData, setDoc } from "@angular/fire/firestore";
+import { doc, docData, updateDoc } from "@angular/fire/firestore";
 import { combineLatest, map, Observable } from "rxjs";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { calculateExperience } from "../utils/utils";
@@ -44,8 +44,20 @@ export class AboutService {
 		);
 	}
 
-	public saveTechStack(aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl">) {
+	public saveTechStack(
+		aboutInfo: Omit<AboutInfo, "kpis" | "companies" | "profilePicUrl" | "cvUrl">
+	) {
 		const docRef = doc(this._db.aboutCollection, "info");
-		return setDoc(docRef, aboutInfo);
+		return updateDoc(docRef, aboutInfo);
+	}
+
+	public updateCV(
+		aboutInfo: Omit<
+			AboutInfo,
+			"companies" | "profilePicUrl" | "kpis" | "techStack" | "companies"
+		>
+	) {
+		const docRef = doc(this._db.aboutCollection, "info");
+		return updateDoc(docRef, aboutInfo);
 	}
 }

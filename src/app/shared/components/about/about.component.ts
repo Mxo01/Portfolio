@@ -19,6 +19,7 @@ import { FormsModule } from "@angular/forms";
 import { Picture } from "../../models/picture.model";
 import { ReorderableLogosComponent } from "../reorderable-logos/reorderable-logos.component";
 import { Skeleton } from "primeng/skeleton";
+import { base64ToBlob } from "../../utils/utils";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,7 +56,12 @@ export class AboutComponent {
 	public isSaveTechStackEditsLoading = false;
 
 	public viewCV() {
-		window.open("CV_Mario_Di_Modica.pdf", "_blank");
+		if (this.aboutInfo() && !this.aboutInfo()?.cvUrl) return;
+
+		const blob = base64ToBlob(this.aboutInfo()!.cvUrl!);
+		const url = URL.createObjectURL(blob);
+
+		window.open(url, "_blank");
 	}
 
 	public sendEmail() {
@@ -107,8 +113,7 @@ export class AboutComponent {
 	public saveTechStackEdits() {
 		this.isSaveTechStackEditsLoading = true;
 
-		const aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl"> = {
-			kpis: this.kpis().filter(kpi => kpi.label !== "Experience"),
+		const aboutInfo: Omit<AboutInfo, "kpis" | "companies" | "profilePicUrl" | "cvUrl"> = {
 			techStack: this.editableTechStack()
 		};
 
