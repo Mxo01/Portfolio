@@ -15,7 +15,7 @@ export class WhitelistService {
 		const whitelistIds$ = docData(docRef) as Observable<WhitelistIds>;
 
 		return whitelistIds$.pipe(
-			map(({ whitelistIds }: WhitelistIds) => whitelistIds.includes(uid)),
+			map(({ whitelistIds }: WhitelistIds) => whitelistIds.includes(uid))
 		);
 	}
 }
