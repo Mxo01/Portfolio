@@ -1,23 +1,25 @@
-import { inject, Injectable, signal, WritableSignal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import {
 	GoogleAuthProvider,
 	Auth,
 	signInWithPopup,
 	User,
 	signOut,
-	authState
+	authState,
+	deleteUser
 } from "@angular/fire/auth";
-import { MessageService } from "primeng/api";
-import { take } from "rxjs";
+import { firstValueFrom, take } from "rxjs";
+import { WhitelistService } from "./whitelist.service";
 
 @Injectable({
 	providedIn: "root"
 })
 export class AuthService {
-	private readonly _auth = inject(Auth);
-	private readonly _messageService = inject(MessageService);
+	private readonly _whitelistService = inject(WhitelistService);
 
-	public user: WritableSignal<User | null> = signal(null);
+	private readonly _auth = inject(Auth);
+
+	public user = signal<User | null>(null);
 
 	constructor() {
 		this._checkSessionPersistence();
@@ -30,27 +32,37 @@ export class AuthService {
 	}
 
 	public async signInWithGoogle() {
-		return signInWithPopup(this._auth, new GoogleAuthProvider()).then(userCredential =>
-			this._validateUser(userCredential.user, true)
-		);
+		return signInWithPopup(this._auth, new GoogleAuthProvider())
+			.then(userCredential => this._validateUser(userCredential.user))
+			.catch(() => this.user.set(null));
 	}
 
-	public signOut(unauthorized = false) {
-		if (unauthorized) {
-			this._messageService.add({
-				severity: "error",
-				summary: "Error",
-				detail: "You are not authorized to access this application with this privilege."
-			});
+	public async signOut() {
+		await signOut(this._auth);
+		this.user.set(null);
+	}
+
+	private async _validateUser(user: User | null) {
+		if (!user) {
+			this.user.set(null);
+			return;
 		}
 
-		signOut(this._auth).then(() => this.user.set(null));
-	}
+		const isUserInWhitelist = await firstValueFrom(
+			this._whitelistService.isInWhitelist(user.uid)
+		);
 
-	private _validateUser(user: User | null, unauthorized = false) {
-		const uid = user?.uid;
+		if (!isUserInWhitelist) {
+			try {
+				await deleteUser(user);
+			} catch {
+				await this.signOut();
+			}
 
-		if (uid !== "iumT57pQOrXneO6fpmbWjgmoige2") this.signOut(unauthorized);
-		else this.user.set(user);
+			this.user.set(null);
+			return;
+		}
+
+		this.user.set(user);
 	}
 }

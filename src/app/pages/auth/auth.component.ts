@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	effect,
 	HostListener,
 	inject,
 	OnInit
@@ -24,6 +25,7 @@ import { isMobileDevice } from "../../shared/utils/utils";
 export class AuthComponent implements OnInit {
 	private readonly _stateService = inject(StateService);
 	private readonly _authService = inject(AuthService);
+
 	private readonly _router = inject(Router);
 
 	public isSignInVisible = true;
@@ -32,6 +34,12 @@ export class AuthComponent implements OnInit {
 	@HostListener("window:resize")
 	public onResize() {
 		this._updateIsMobile();
+	}
+
+	constructor() {
+		effect(() => {
+			if (this._authService.user()) this._router.navigate([""]);
+		});
 	}
 
 	ngOnInit() {

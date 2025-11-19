@@ -1,23 +1,22 @@
 import { AboutInfo } from "./../models/about.model";
 import { inject, Injectable, Signal } from "@angular/core";
 import { Picture } from "../models/picture.model";
-import { collection, doc, docData, Firestore, setDoc } from "@angular/fire/firestore";
+import { doc, docData, setDoc } from "@angular/fire/firestore";
 import { combineLatest, map, Observable } from "rxjs";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { calculateExperience } from "../utils/utils";
 import { ExperienceService } from "./experience.service";
+import { DatabaseService } from "./database.service";
 
 @Injectable({
 	providedIn: "root"
 })
 export class AboutService {
-	private _db = inject(Firestore);
-	private _aboutCollection = collection(this._db, "about");
-
+	private _db = inject(DatabaseService);
 	private _experienceService = inject(ExperienceService);
 
 	public getAboutInfo(): Signal<AboutInfo> {
-		const docRef = doc(this._aboutCollection, "info");
+		const docRef = doc(this._db.aboutCollection, "info");
 		const aboutInfo$ = docData(docRef) as Observable<AboutInfo>;
 		const experiences$ = toObservable(this._experienceService.getExperienceMilestones());
 
@@ -52,7 +51,7 @@ export class AboutService {
 	}
 
 	public saveTechStack(aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl">) {
-		const docRef = doc(this._aboutCollection, "info");
+		const docRef = doc(this._db.aboutCollection, "info");
 		return setDoc(docRef, aboutInfo);
 	}
 }
