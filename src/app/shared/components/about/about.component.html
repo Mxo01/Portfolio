@@ -39,6 +39,7 @@
 		[isEditable]="isAdmin()"
 		(edit)="onTechStackEdit()"
 		description="Tech Stack"
+		emptyDescription="At this moment I have no tech stack"
 	/>
 
 	<portfolio-avatar-list
@@ -46,6 +47,7 @@
 		[isLoading]="isAboutInfoLoading()"
 		description="Companies where I worked"
 		[isCollapsed]="true"
+		emptyDescription="Please hire me"
 	/>
 
 	<div class="flex-items-center">

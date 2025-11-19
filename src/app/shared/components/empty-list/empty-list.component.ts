@@ -8,6 +8,8 @@ import { Component, input } from "@angular/core";
 })
 export class EmptyListComponent {
 	public icon = input<string>("pi pi-inbox");
+	public isIconVisible = input<boolean>(true);
 	public title = input<string>();
 	public description = input<string>();
+	public aligned = input<"left" | "center" | "right">("center");
 }

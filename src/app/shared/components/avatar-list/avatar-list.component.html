@@ -34,6 +34,12 @@
 						[pTooltip]="avatar.name"
 						tooltipPosition="bottom"
 					/>
+				} @empty {
+					<portfolio-empty-list
+						[description]="emptyDescription()"
+						aligned="left"
+						[isIconVisible]="false"
+					/>
 				}
 
 				@if (remainingAvatars() > 0) {
@@ -51,6 +57,12 @@
 						[size]="isMobile() ? 'normal' : 'large'"
 						[pTooltip]="avatar.name"
 						tooltipPosition="bottom"
+					/>
+				} @empty {
+					<portfolio-empty-list
+						[description]="emptyDescription()"
+						aligned="left"
+						[isIconVisible]="false"
 					/>
 				}
 			}
