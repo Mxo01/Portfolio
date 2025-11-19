@@ -1,5 +1,14 @@
 import { MilestoneUpdate } from "./../../../models/milestone-update.model";
-import { Component, computed, inject, input, model, effect, linkedSignal, ChangeDetectionStrategy } from "@angular/core";
+import {
+	Component,
+	computed,
+	inject,
+	input,
+	model,
+	effect,
+	linkedSignal,
+	ChangeDetectionStrategy
+} from "@angular/core";
 import {
 	ReactiveFormsModule,
 	FormsModule,
