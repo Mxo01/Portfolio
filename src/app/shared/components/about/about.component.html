@@ -139,6 +139,7 @@
 		[closable]="false"
 		[closeOnEscape]="false"
 		[visible]="isEditTechStackVisible"
+		(onHide)="onTechStackEditHide()"
 		position="bottom"
 		[style]="{ height: 'auto' }"
 	>
@@ -156,7 +157,7 @@
 		</ng-template>
 
 		<portfolio-reorderable-logos
-			[logos]="techStack()"
+			[logos]="editableTechStack()"
 			[isMobile]="isMobile()"
 			(logosUpdate)="onTechStackListUpdate($event)"
 		/>
@@ -187,6 +188,7 @@
 		[closable]="false"
 		[closeOnEscape]="false"
 		[(visible)]="isEditTechStackVisible"
+		(onHide)="onTechStackEditHide()"
 		[style]="{ width: '35rem' }"
 	>
 		<ng-template #header>
@@ -203,7 +205,7 @@
 		</ng-template>
 
 		<portfolio-reorderable-logos
-			[logos]="techStack()"
+			[logos]="editableTechStack()"
 			[isMobile]="isMobile()"
 			(logosUpdate)="onTechStackListUpdate($event)"
 		/>

@@ -45,9 +45,10 @@ export class AboutComponent {
 	public isMobile = input.required<boolean>();
 
 	public aboutInfo = this._aboutService.getAboutInfo();
-	public kpis = linkedSignal(() => this.aboutInfo()?.kpis || []);
-	public techStack = linkedSignal(() => this.aboutInfo()?.techStack || []);
-	public companies = linkedSignal(() => this.aboutInfo()?.companies || []);
+	public kpis = computed(() => this.aboutInfo()?.kpis || []);
+	public techStack = computed(() => this.aboutInfo()?.techStack || []);
+	public companies = computed(() => this.aboutInfo()?.companies || []);
+	public editableTechStack = linkedSignal(() => structuredClone(this.techStack()));
 	public isAboutInfoLoading = computed(() => !this.aboutInfo());
 	public isMailDrawerVisible = false;
 	public isEditTechStackVisible = false;
@@ -83,16 +84,20 @@ export class AboutComponent {
 			);
 	}
 
+	public addTech() {
+		this.editableTechStack.set([...this.editableTechStack(), { name: "", url: "" }]);
+	}
+
+	public onTechStackListUpdate(updatedTechStack: Picture[]) {
+		this.editableTechStack.set(updatedTechStack);
+	}
+
 	public onTechStackEdit() {
 		this.isEditTechStackVisible = true;
 	}
 
-	public addTech() {
-		this.techStack.set([...this.techStack(), { name: "", url: "" }]);
-	}
-
-	public onTechStackListUpdate(updatedTechStack: Picture[]) {
-		this.techStack.set(updatedTechStack);
+	public onTechStackEditHide() {
+		this.editableTechStack.set(this.techStack())
 	}
 
 	public closeEditTechStack() {
@@ -104,7 +109,7 @@ export class AboutComponent {
 
 		const aboutInfo: Omit<AboutInfo, "companies" | "profilePicUrl"> = {
 			kpis: this.kpis().filter(kpi => kpi.label !== "Experience"),
-			techStack: this.techStack()
+			techStack: this.editableTechStack()
 		};
 
 		this._aboutService
