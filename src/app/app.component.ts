@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	inject,
+	OnDestroy
+} from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { Toast } from "primeng/toast";
 import { ConfirmPopup } from "primeng/confirmpopup";
