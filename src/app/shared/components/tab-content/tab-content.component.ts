@@ -14,5 +14,5 @@ export class TabContentComponent {
 	public milestones = input.required<Milestone[]>();
 	public emptyTitle = input.required<string>();
 	public emptyDescription = input.required<string>();
-	public isLoading = input.required<boolean>()
+	public isLoading = input.required<boolean>();
 }

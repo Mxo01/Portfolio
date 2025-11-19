@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	inject,
+	input,
+	linkedSignal
+} from "@angular/core";
 import { Avatar } from "primeng/avatar";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
 import { KpiComponent } from "../kpi/kpi.component";
@@ -17,16 +24,16 @@ import { Skeleton } from "primeng/skeleton";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-about",
 	imports: [
-    Avatar,
-    AvatarListComponent,
-    KpiComponent,
-    Button,
-    Drawer,
-    Dialog,
-    FormsModule,
-    ReorderableLogosComponent,
-    Skeleton
-],
+		Avatar,
+		AvatarListComponent,
+		KpiComponent,
+		Button,
+		Drawer,
+		Dialog,
+		FormsModule,
+		ReorderableLogosComponent,
+		Skeleton
+	],
 	templateUrl: "./about.component.html",
 	styleUrls: ["./about.component.scss", "../../../../styles.scss"]
 })

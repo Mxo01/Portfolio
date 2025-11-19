@@ -13,5 +13,5 @@ export class ProjectsComponent {
 	private _projectsService = inject(ProjectsService);
 
 	public projects = this._projectsService.getProjectsMilestones();
-	public isLoading = computed(() => !this.projects())
+	public isLoading = computed(() => !this.projects());
 }

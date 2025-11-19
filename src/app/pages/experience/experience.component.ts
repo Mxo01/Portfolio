@@ -13,5 +13,5 @@ export class ExperienceComponent {
 	private _experienceService = inject(ExperienceService);
 
 	public experiences = this._experienceService.getExperienceMilestones();
-	public isLoading = computed(() => !this.experiences())
+	public isLoading = computed(() => !this.experiences());
 }

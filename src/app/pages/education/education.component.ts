@@ -13,5 +13,5 @@ export class EducationComponent {
 	private _educationService = inject(EducationService);
 
 	public education = this._educationService.getEducationMilestones();
-	public isLoading = computed(() => !this.education())
+	public isLoading = computed(() => !this.education());
 }
