@@ -2,7 +2,8 @@ import { TabEnum } from "./../../shared/models/tab.model";
 import {
 	ChangeDetectionStrategy,
 	Component,
-	computed, HostListener,
+	computed,
+	HostListener,
 	inject,
 	OnDestroy,
 	OnInit,
