@@ -9,9 +9,9 @@ import { MilestoneService } from "./milestone.service";
 export class ExperienceService {
 	private _milestoneService = inject(MilestoneService);
 
-	public getExperienceMilestones(): Signal<Milestone[]> {
+	public getExperienceMilestones(): Signal<Milestone[] | null> {
 		return toSignal(this._milestoneService.getMilestonesByType(MilestoneEnum.EXPERIENCE), {
-			initialValue: []
+			initialValue: null
 		});
 	}
 }

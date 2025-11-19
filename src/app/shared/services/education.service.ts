@@ -9,9 +9,9 @@ import { toSignal } from "@angular/core/rxjs-interop";
 export class EducationService {
 	private _milestoneService = inject(MilestoneService);
 
-	public getEducationMilestones(): Signal<Milestone[]> {
+	public getEducationMilestones(): Signal<Milestone[] | null> {
 		return toSignal(this._milestoneService.getMilestonesByType(MilestoneEnum.EDUCATION), {
-			initialValue: []
+			initialValue: null
 		});
 	}
 }

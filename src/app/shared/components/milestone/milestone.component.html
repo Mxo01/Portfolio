@@ -99,12 +99,14 @@
 				</div>
 			}
 
-			@if (milestone().contributors; as contributors) {
+			@let contributors = milestone().contributors;
+
+			@if (contributors?.length) {
 				<div class="contributors">
 					<span>Contributors</span>
 
 					<portfolio-avatar-list
-						[avatars]="contributors"
+						[avatars]="contributors || []"
 						[isCollapsed]="true"
 					/>
 				</div>

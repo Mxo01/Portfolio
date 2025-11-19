@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
 import { ProjectsService } from "../../shared/services/projects.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
@@ -13,4 +13,5 @@ export class ProjectsComponent {
 	private _projectsService = inject(ProjectsService);
 
 	public projects = this._projectsService.getProjectsMilestones();
+	public isLoading = computed(() => !this.projects())
 }

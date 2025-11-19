@@ -15,7 +15,7 @@ export class AboutService {
 	private _db = inject(DatabaseService);
 	private _experienceService = inject(ExperienceService);
 
-	public getAboutInfo(): Signal<AboutInfo> {
+	public getAboutInfo(): Signal<AboutInfo | null> {
 		const docRef = doc(this._db.aboutCollection, "info");
 		const aboutInfo$ = docData(docRef) as Observable<AboutInfo>;
 		const experiences$ = toObservable(this._experienceService.getExperienceMilestones());
@@ -24,9 +24,11 @@ export class AboutService {
 			combineLatest({ experiences: experiences$, aboutInfo: aboutInfo$ }).pipe(
 				map(({ experiences, aboutInfo }) => {
 					const { kpis } = aboutInfo;
-					const experiencePeriods = experiences.map(milestone => milestone.period);
+					const experiencePeriods = (experiences || []).map(
+						milestone => milestone.period
+					);
 					const experienceValue = calculateExperience(experiencePeriods);
-					const companies = experiences
+					const companies = (experiences || [])
 						.reverse()
 						.map(milestone => milestone.logo)
 						.filter(Boolean);
@@ -38,15 +40,7 @@ export class AboutService {
 					};
 				})
 			),
-			{
-				initialValue: {
-					kpis: [],
-					techStack: [],
-					companies: [],
-					profilePicUrl: "",
-					cvUrl: ""
-				} as AboutInfo
-			}
+			{ initialValue: null }
 		);
 	}
 

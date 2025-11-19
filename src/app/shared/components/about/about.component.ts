@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, linkedSignal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal } from "@angular/core";
 import { Avatar } from "primeng/avatar";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
 import { KpiComponent } from "../kpi/kpi.component";
@@ -11,20 +11,22 @@ import { Dialog } from "primeng/dialog";
 import { FormsModule } from "@angular/forms";
 import { Picture } from "../../models/picture.model";
 import { ReorderableLogosComponent } from "../reorderable-logos/reorderable-logos.component";
+import { Skeleton } from "primeng/skeleton";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-about",
 	imports: [
-		Avatar,
-		AvatarListComponent,
-		KpiComponent,
-		Button,
-		Drawer,
-		Dialog,
-		FormsModule,
-		ReorderableLogosComponent
-	],
+    Avatar,
+    AvatarListComponent,
+    KpiComponent,
+    Button,
+    Drawer,
+    Dialog,
+    FormsModule,
+    ReorderableLogosComponent,
+    Skeleton
+],
 	templateUrl: "./about.component.html",
 	styleUrls: ["./about.component.scss", "../../../../styles.scss"]
 })
@@ -36,9 +38,10 @@ export class AboutComponent {
 	public isMobile = input.required<boolean>();
 
 	public aboutInfo = this._aboutService.getAboutInfo();
-	public kpis = linkedSignal(() => this.aboutInfo().kpis);
-	public techStack = linkedSignal(() => this.aboutInfo().techStack);
-	public companies = linkedSignal(() => this.aboutInfo().companies);
+	public kpis = linkedSignal(() => this.aboutInfo()?.kpis || []);
+	public techStack = linkedSignal(() => this.aboutInfo()?.techStack || []);
+	public companies = linkedSignal(() => this.aboutInfo()?.companies || []);
+	public isAboutInfoLoading = computed(() => !this.aboutInfo());
 	public isMailDrawerVisible = false;
 	public isEditTechStackVisible = false;
 	public isSaveTechStackEditsLoading = false;

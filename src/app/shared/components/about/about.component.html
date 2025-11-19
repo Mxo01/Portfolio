@@ -3,19 +3,25 @@
 		<p-avatar
 			size="xlarge"
 			shape="circle"
-			[icon]="aboutInfo().profilePicUrl ? undefined : 'pi pi-user'"
-			[image]="aboutInfo().profilePicUrl"
+			[icon]="aboutInfo()?.profilePicUrl ? undefined : 'pi pi-user'"
+			[image]="aboutInfo()?.profilePicUrl"
 		/>
 
 		<div class="info">
 			<span class="name">Mario Di Modica</span>
 
 			<div class="kpis">
-				@for (kpi of kpis(); track $index) {
-					<portfolio-kpi
-						[label]="kpi.label"
-						[value]="kpi.value"
-					/>
+				@if (isAboutInfoLoading()) {
+					<p-skeleton />
+					<p-skeleton />
+					<p-skeleton />
+				} @else {
+					@for (kpi of kpis(); track $index) {
+						<portfolio-kpi
+							[label]="kpi.label"
+							[value]="kpi.value"
+						/>
+					}
 				}
 			</div>
 		</div>
@@ -29,7 +35,7 @@
 
 	<portfolio-avatar-list
 		[avatars]="techStack()"
-		[isLoading]="!techStack().length"
+		[isLoading]="isAboutInfoLoading()"
 		[isEditable]="isAdmin()"
 		(edit)="onTechStackEdit()"
 		description="Tech Stack"
@@ -37,7 +43,7 @@
 
 	<portfolio-avatar-list
 		[avatars]="companies()"
-		[isLoading]="!companies().length"
+		[isLoading]="isAboutInfoLoading()"
 		description="Companies where I worked"
 		[isCollapsed]="true"
 	/>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
 import { EducationService } from "../../shared/services/education.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
@@ -13,4 +13,5 @@ export class EducationComponent {
 	private _educationService = inject(EducationService);
 
 	public education = this._educationService.getEducationMilestones();
+	public isLoading = computed(() => !this.education())
 }
