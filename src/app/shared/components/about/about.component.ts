@@ -97,7 +97,7 @@ export class AboutComponent {
 	}
 
 	public onTechStackEditHide() {
-		this.editableTechStack.set(this.techStack())
+		this.editableTechStack.set(this.techStack());
 	}
 
 	public closeEditTechStack() {
