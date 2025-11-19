@@ -29,7 +29,7 @@ import { AboutComponent } from "../../shared/components/about/about.component";
 import { MilestoneFormComponent } from "../../shared/components/milestone/milestone-form/milestone-form.component";
 import { AboutService } from "../../shared/services/about.service";
 import { Tooltip } from "primeng/tooltip";
-import { FileUpload, FileUploadEvent } from "primeng/fileupload";
+import { FileSelectEvent, FileUpload } from "primeng/fileupload";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 	public currentMilestoneType = computed(() => TAB_TO_MILESTONE_TYPE_MAPPING[this.selectedTab()]);
 
 	public paths = PATHS;
-	private _base64CV: string | null = null;
+	public base64CV: string | null = null;
 	public isUploadCvVisible = false;
 	public isUploadCvLoading = false;
 	public isAddMilestoneLoading = false;
@@ -131,26 +131,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public onHideUploadCV() {
-		this._base64CV = null;
+		this.base64CV = null;
 	}
 
 	public onConfirmUploadCV() {
-		if (this._base64CV) {
+		if (this.base64CV) {
 			this.isUploadCvLoading = true;
 
 			this._aboutService
-				.updateCV({ cvUrl: this._base64CV })
+				.updateCV({ cvUrl: this.base64CV })
 				.then(() => this.onCloseUploadCV())
 				.finally(() => (this.isUploadCvLoading = false));
 		}
 	}
 
-	public async onChooseCV(event: FileUploadEvent) {
+	public async onChooseCV(event: FileSelectEvent) {
 		const file = event.files[0];
+		this.base64CV = null;
 
 		if (!file) return;
 
-		this._base64CV = await convertFileToBase64(file);
+		this.base64CV = await convertFileToBase64(file);
 	}
 
 	public onAddNewMilestone() {

@@ -19,7 +19,7 @@ import { FormsModule } from "@angular/forms";
 import { Picture } from "../../models/picture.model";
 import { ReorderableLogosComponent } from "../reorderable-logos/reorderable-logos.component";
 import { Skeleton } from "primeng/skeleton";
-import { base64ToBlob } from "../../utils/utils";
+import { base64ToBlob, deepClone } from "../../utils/utils";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,7 +49,7 @@ export class AboutComponent {
 	public kpis = computed(() => this.aboutInfo()?.kpis || []);
 	public techStack = computed(() => this.aboutInfo()?.techStack || []);
 	public companies = computed(() => this.aboutInfo()?.companies || []);
-	public editableTechStack = linkedSignal(() => structuredClone(this.techStack()));
+	public editableTechStack = linkedSignal(() => deepClone(this.techStack()));
 	public isAboutInfoLoading = computed(() => !this.aboutInfo());
 	public isMailDrawerVisible = false;
 	public isEditTechStackVisible = false;

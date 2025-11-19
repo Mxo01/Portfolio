@@ -1,13 +1,24 @@
-import { Component, computed, HostListener, inject, model, OnInit, viewChild } from "@angular/core";
-import { TagModule } from "primeng/tag";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	HostListener,
+	inject,
+	linkedSignal,
+	model,
+	OnInit,
+	viewChild
+} from "@angular/core";
+import { Tag } from "primeng/tag";
 import { GalleriaModule, GalleriaResponsiveOptions } from "primeng/galleria";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
-import { ImageModule } from "primeng/image";
-import { ButtonModule } from "primeng/button";
+import { Image, ImageModule } from "primeng/image";
+import { Button } from "primeng/button";
 import { Avatar } from "primeng/avatar";
 import { Milestone, MilestoneEnum } from "../../models/milestone.model";
 import {
 	calculateExperience,
+	deepClone,
 	isMobileDevice,
 	mapMilestoneMediaToGalleriaImages
 } from "../../utils/utils";
@@ -18,19 +29,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Dialog } from "primeng/dialog";
 import { Drawer } from "primeng/drawer";
 import { StateService } from "../../services/state.service";
-import { InputTextModule } from "primeng/inputtext";
-import { AutoCompleteModule } from "primeng/autocomplete";
 import { MilestoneFormComponent } from "./milestone-form/milestone-form.component";
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-milestone",
 	imports: [
-		InputTextModule,
-		AutoCompleteModule,
-		TagModule,
+		Tag,
 		Avatar,
-		ButtonModule,
-		ImageModule,
+		Button,
 		GalleriaModule,
 		AvatarListComponent,
 		ReactiveFormsModule,
@@ -55,6 +62,7 @@ export class MilestoneComponent implements OnInit {
 
 	protected readonly MilestoneEnum = MilestoneEnum;
 
+	public editableMilestone = linkedSignal(() => deepClone(this.milestone()));
 	public isSaveEditsLoading = false;
 	public isEditMilestoneVisible = false;
 	public isMobile = computed(() => this._stateService.isMobile());
@@ -81,6 +89,10 @@ export class MilestoneComponent implements OnInit {
 
 	public onEditMilestone() {
 		this.isEditMilestoneVisible = true;
+	}
+
+	public onMilestoneFormVisibilityChange(isVisible: boolean) {
+		if (!isVisible) this.editableMilestone.set(this.milestone());
 	}
 
 	public onDeleteMilestone(event: Event) {

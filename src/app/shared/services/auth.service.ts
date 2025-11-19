@@ -6,7 +6,9 @@ import {
 	User,
 	signOut,
 	authState,
-	deleteUser
+	deleteUser,
+	setPersistence,
+	browserSessionPersistence
 } from "@angular/fire/auth";
 import { firstValueFrom, take } from "rxjs";
 import { WhitelistService } from "./whitelist.service";
@@ -32,6 +34,8 @@ export class AuthService {
 	}
 
 	public async signInWithGoogle() {
+		await setPersistence(this._auth, browserSessionPersistence);
+
 		return signInWithPopup(this._auth, new GoogleAuthProvider())
 			.then(userCredential => this._validateUser(userCredential.user))
 			.catch(() => this.user.set(null));

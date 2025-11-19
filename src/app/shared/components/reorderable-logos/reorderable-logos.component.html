@@ -23,6 +23,7 @@
 				<p-avatar
 					shape="circle"
 					[image]="logo.url"
+					[icon]="logo.url ? undefined : 'pi pi-image'"
 					[size]="isMobile() ? 'normal' : 'large'"
 					[pTooltip]="logo.name"
 					tooltipPosition="bottom"

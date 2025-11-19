@@ -27,3 +27,13 @@ main {
 		width: 100%;
 	}
 }
+
+.upload-cv-container {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	i {
+		color: var(--p-green-500)
+	}
+}

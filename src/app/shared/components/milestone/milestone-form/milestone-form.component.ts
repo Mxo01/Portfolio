@@ -1,5 +1,5 @@
 import { MilestoneUpdate } from "./../../../models/milestone-update.model";
-import { Component, computed, inject, input, model, effect, linkedSignal } from "@angular/core";
+import { Component, computed, inject, input, model, effect, linkedSignal, ChangeDetectionStrategy } from "@angular/core";
 import {
 	ReactiveFormsModule,
 	FormsModule,
@@ -25,6 +25,7 @@ import { MilestoneService } from "../../../services/milestone.service";
 import { convertFileToBase64, moveItem } from "../../../utils/utils";
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-milestone-form",
 	imports: [
 		DrawerModule,

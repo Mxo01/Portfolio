@@ -90,14 +90,20 @@
 	(onHide)="onHideUploadCV()"
 	[style]="{ width: isMobile() ? 'auto' : '35rem' }"
 >
-	<p-fileupload
-		mode="basic"
-		chooseIcon="pi pi-upload"
-		accept=".pdf"
-		[auto]="true"
-		url="https://www.primefaces.org/cdn/api/upload.php"
-		(onUpload)="onChooseCV($event)"
-	/>
+	<div class="upload-cv-container">
+		<p-fileupload
+			mode="basic"
+			chooseIcon="pi pi-upload"
+			accept=".pdf"
+			[auto]="true"
+			url="https://www.primefaces.org/cdn/api/upload.php"
+			(onSelect)="onChooseCV($event)"
+		/>
+
+		@if (base64CV) {
+			<i class="pi pi-check"></i>
+		}
+	</div>
 
 	<ng-template #footer>
 		<div class="flex-items-center">
@@ -113,6 +119,7 @@
 				[fluid]="true"
 				label="Upload"
 				size="small"
+				[disabled]="!base64CV"
 				[loading]="isUploadCvLoading"
 				(onClick)="onConfirmUploadCV()"
 			/>

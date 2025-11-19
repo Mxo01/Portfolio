@@ -14,6 +14,7 @@
 					<p-avatar
 						shape="circle"
 						[image]="logo.url"
+						[icon]="logo.url ? undefined : 'pi pi-image'"
 					/>
 				}
 
@@ -148,11 +149,12 @@
 	>
 		<portfolio-milestone-form
 			#milestoneForm
-			[currentMilestoneType]="milestone().type"
+			[currentMilestoneType]="editableMilestone().type"
 			[isMobile]="isMobile()"
 			[(isSaveLoading)]="isSaveEditsLoading"
 			[(isVisible)]="isEditMilestoneVisible"
-			[milestoneToEdit]="milestone()"
+			(isVisibleChange)="onMilestoneFormVisibilityChange($event)"
+			[milestoneToEdit]="editableMilestone()"
 		/>
 
 		<ng-template #footer>
@@ -187,11 +189,12 @@
 	>
 		<portfolio-milestone-form
 			#milestoneForm
-			[currentMilestoneType]="milestone().type"
+			[currentMilestoneType]="editableMilestone().type"
 			[isMobile]="isMobile()"
 			[(isSaveLoading)]="isSaveEditsLoading"
 			[(isVisible)]="isEditMilestoneVisible"
-			[milestoneToEdit]="milestone()"
+			(isVisibleChange)="onMilestoneFormVisibilityChange($event)"
+			[milestoneToEdit]="editableMilestone()"
 		/>
 
 		<ng-template #footer>

@@ -150,6 +150,7 @@
 					<p-avatar
 						shape="circle"
 						[image]="milestoneForm.value.logo?.url"
+						[icon]="milestoneForm.value.logo?.url ? undefined : 'pi pi-image'"
 						[size]="isMobile() ? 'normal' : 'large'"
 						[pTooltip]="milestoneForm.value.logo?.name"
 						tooltipPosition="bottom"

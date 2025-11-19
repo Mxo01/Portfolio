@@ -30,6 +30,7 @@
 					<p-avatar
 						shape="circle"
 						[image]="avatar.url"
+						[icon]="avatar.url ? undefined : 'pi pi-image'"
 						[size]="isMobile() ? 'normal' : 'large'"
 						[pTooltip]="avatar.name"
 						tooltipPosition="bottom"
@@ -54,6 +55,7 @@
 					<p-avatar
 						shape="circle"
 						[image]="avatar.url"
+						[icon]="avatar.url ? undefined : 'pi pi-image'"
 						[size]="isMobile() ? 'normal' : 'large'"
 						[pTooltip]="avatar.name"
 						tooltipPosition="bottom"

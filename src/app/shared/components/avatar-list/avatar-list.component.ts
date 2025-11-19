@@ -1,5 +1,5 @@
 import { StateService } from "./../../services/state.service";
-import { Component, computed, inject, input, output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from "@angular/core";
 import { Avatar } from "primeng/avatar";
 import { AvatarGroup } from "primeng/avatargroup";
 import { TooltipModule } from "primeng/tooltip";
@@ -9,6 +9,7 @@ import { Button } from "primeng/button";
 import { EmptyListComponent } from "../empty-list/empty-list.component";
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-avatar-list",
 	imports: [Avatar, AvatarGroup, TooltipModule, Skeleton, Button, EmptyListComponent],
 	templateUrl: "./avatar-list.component.html",
