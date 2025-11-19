@@ -1,8 +1,16 @@
-<div class="empty-list">
-	<div class="title">
-		<i [ngClass]="icon()"></i>
-		<span>{{ title() }}</span>
-	</div>
+<div
+	class="empty-list"
+	[class]="aligned() + '-aligned'"
+	[class.with-title]="title()"
+>
+	@if (title()) {
+		<div class="title">
+			@if (isIconVisible()) {
+				<i [class]="icon()"></i>
+			}
+			<span>{{ title() }}</span>
+		</div>
+	}
 
 	<span class="description">{{ description() }}</span>
 </div>

@@ -7,6 +7,8 @@ import { primengTheme } from "./styles/primeng/primeng-theme";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
+import { getAuth, provideAuth } from "@angular/fire/auth";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -28,6 +30,9 @@ export const appConfig: ApplicationConfig = {
 				measurementId: "G-FJ7W4XF9W5"
 			})
 		),
-		provideFirestore(() => getFirestore())
+		provideFirestore(() => getFirestore()),
+		provideAuth(() => getAuth()),
+		MessageService,
+		ConfirmationService
 	]
 };

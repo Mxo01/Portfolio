@@ -1,0 +1,23 @@
+.reorderable-logos-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding-top: 1rem;
+
+	.logo-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex: 0;
+	}
+
+	p-floatlabel {
+		width: 100%;
+
+		input,
+		p-select,
+		p-autocomplete {
+			width: 100%;
+		}
+	}
+}

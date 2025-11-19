@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
 import { ExperienceService } from "../../shared/services/experience.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
@@ -13,4 +13,5 @@ export class ExperienceComponent {
 	private _experienceService = inject(ExperienceService);
 
 	public experiences = this._experienceService.getExperienceMilestones();
+	public isLoading = computed(() => !this.experiences());
 }

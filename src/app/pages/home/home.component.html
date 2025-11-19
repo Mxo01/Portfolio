@@ -1,0 +1,206 @@
+<main>
+	<portfolio-about
+		[isAdmin]="isAdmin()"
+		[isMobile]="isMobile()"
+	/>
+
+	<section class="tabs">
+		<p-tabs
+			[value]="selectedTab()"
+			(valueChange)="onTabChange($event)"
+		>
+			<p-tablist>
+				<p-tab
+					[value]="TabEnum.EXPERIENCE"
+					[routerLink]="paths.EXPERIENCE"
+				>
+					<i class="pi pi-briefcase"></i>
+					<span class="tab-label">Experience</span>
+				</p-tab>
+
+				<p-tab
+					[value]="TabEnum.EDUCATION"
+					[routerLink]="paths.EDUCATION"
+				>
+					<i class="pi pi-graduation-cap"></i>
+					<span class="tab-label">Education</span>
+				</p-tab>
+
+				<p-tab
+					[value]="TabEnum.PROJECTS"
+					[routerLink]="paths.PROJECTS"
+				>
+					<i class="pi pi-code"></i>
+					<span class="tab-label">Projects</span>
+				</p-tab>
+			</p-tablist>
+		</p-tabs>
+
+		<div
+			[@routeAnimations]="getRouteAnimationData(outlet)"
+			class="outlet-wrapper"
+		>
+			<router-outlet #outlet="outlet" />
+		</div>
+	</section>
+
+	<div class="floating-buttons">
+		@if (isAdmin()) {
+			<p-button
+				[size]="isMobile() ? 'small' : 'large'"
+				icon="pi pi-file-edit"
+				[rounded]="true"
+				pTooltip="Upload CV"
+				(onClick)="onUploadCV()"
+			/>
+
+			<p-button
+				[size]="isMobile() ? 'small' : 'large'"
+				icon="pi pi-plus"
+				[rounded]="true"
+				pTooltip="Add Milestone"
+				(onClick)="onAddNewMilestone()"
+			/>
+		}
+
+		<p-button
+			[size]="isMobile() ? 'small' : 'large'"
+			[icon]="isDarkMode() ? 'pi pi-sun' : 'pi pi-moon'"
+			[rounded]="true"
+			pTooltip="Toggle Theme"
+			(onClick)="toggleDarkMode()"
+		/>
+
+		@if (isAdmin()) {
+			<p-button
+				[size]="isMobile() ? 'small' : 'large'"
+				icon="pi pi-sign-out"
+				[rounded]="true"
+				pTooltip="Sign Out"
+				(onClick)="signOut()"
+			/>
+		}
+	</div>
+</main>
+
+<p-dialog
+	header="Upload CV"
+	[modal]="true"
+	[(visible)]="isUploadCvVisible"
+	(onHide)="onHideUploadCV()"
+	[style]="{ width: isMobile() ? 'auto' : '35rem' }"
+>
+	<div class="upload-cv-container">
+		<p-fileupload
+			mode="basic"
+			chooseIcon="pi pi-upload"
+			accept=".pdf"
+			[auto]="true"
+			url="https://www.primefaces.org/cdn/api/upload.php"
+			(onSelect)="onChooseCV($event)"
+		/>
+
+		@if (base64CV) {
+			<i class="pi pi-check"></i>
+		}
+	</div>
+
+	<ng-template #footer>
+		<div class="flex-items-center">
+			<p-button
+				[fluid]="true"
+				label="Cancel"
+				size="small"
+				variant="outlined"
+				(onClick)="onCloseUploadCV()"
+			/>
+
+			<p-button
+				[fluid]="true"
+				label="Upload"
+				size="small"
+				[disabled]="!base64CV"
+				[loading]="isUploadCvLoading"
+				(onClick)="onConfirmUploadCV()"
+			/>
+		</div>
+	</ng-template>
+</p-dialog>
+
+@if (isMobile()) {
+	<p-drawer
+		header="Add Milestone"
+		[closable]="false"
+		[closeOnEscape]="false"
+		[visible]="isAddMilestoneVisible"
+		position="bottom"
+		[style]="{ height: 'auto' }"
+		(onHide)="milestoneForm.onHide()"
+	>
+		<portfolio-milestone-form
+			#milestoneForm
+			[currentMilestoneType]="currentMilestoneType()"
+			[isMobile]="isMobile()"
+			[(isSaveLoading)]="isAddMilestoneLoading"
+			[(isVisible)]="isAddMilestoneVisible"
+		/>
+
+		<ng-template #footer>
+			<div class="flex-items-center">
+				<p-button
+					[fluid]="true"
+					label="Cancel"
+					size="small"
+					variant="outlined"
+					(onClick)="milestoneForm.cancel()"
+				/>
+
+				<p-button
+					[fluid]="true"
+					label="Add"
+					size="small"
+					[loading]="isAddMilestoneLoading"
+					(onClick)="milestoneForm.save()"
+				/>
+			</div>
+		</ng-template>
+	</p-drawer>
+} @else {
+	<p-dialog
+		header="Add Milestone"
+		[modal]="true"
+		[closable]="false"
+		[closeOnEscape]="false"
+		[(visible)]="isAddMilestoneVisible"
+		(onHide)="milestoneForm.onHide()"
+		[style]="{ width: '35rem' }"
+	>
+		<portfolio-milestone-form
+			#milestoneForm
+			[currentMilestoneType]="currentMilestoneType()"
+			[isMobile]="isMobile()"
+			[(isSaveLoading)]="isAddMilestoneLoading"
+			[(isVisible)]="isAddMilestoneVisible"
+		/>
+
+		<ng-template #footer>
+			<div class="flex-items-center">
+				<p-button
+					[fluid]="true"
+					label="Cancel"
+					size="small"
+					variant="outlined"
+					(onClick)="milestoneForm.cancel()"
+				/>
+
+				<p-button
+					[fluid]="true"
+					label="Add"
+					size="small"
+					[loading]="isAddMilestoneLoading"
+					(onClick)="milestoneForm.save()"
+				/>
+			</div>
+		</ng-template>
+	</p-dialog>
+}

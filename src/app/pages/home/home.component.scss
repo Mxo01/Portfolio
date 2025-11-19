@@ -1,0 +1,39 @@
+@use "utils/variables" as *;
+
+@media (min-width: $mobile-breakpoint) {
+	:host {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	padding: 1rem 1rem 0 1rem;
+	gap: 1rem;
+
+	section.tabs {
+		.outlet-wrapper {
+			position: relative;
+			overflow: hidden;
+			min-height: 100svh;
+		}
+	}
+
+	@media (min-width: $mobile-breakpoint) {
+		max-width: $mobile-breakpoint;
+		width: 100%;
+	}
+}
+
+.upload-cv-container {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	i {
+		color: var(--p-green-500);
+	}
+}

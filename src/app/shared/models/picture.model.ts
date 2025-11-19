@@ -1,7 +1,6 @@
 export interface Picture {
 	name: string;
-	picName: string;
-	extension: string;
+	url: string;
 }
 
 export interface TechStackResponse {

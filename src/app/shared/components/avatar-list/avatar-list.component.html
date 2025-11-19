@@ -1,39 +1,73 @@
 <div class="avatar-list">
 	@if (description(); as description) {
-		<span class="description">
-			{{ description }}
-		</span>
+		<div class="description">
+			<span class="description">
+				{{ description }}
+			</span>
+
+			@if (isEditable()) {
+				<p-button
+					label="Edit"
+					icon="pi pi-pencil"
+					severity="secondary"
+					size="small"
+					(onClick)="edit.emit()"
+				/>
+			}
+		</div>
 	}
 
-	<p-avatar-group>
-		@if (isCollapsed()) {
-			@for (avatar of collapsedAvatars(); track $index) {
-				<p-avatar
-					shape="circle"
-					[image]="'images/' + avatar.picName + '.' + avatar.extension"
-					[size]="isMobile() ? 'normal' : 'large'"
-					[pTooltip]="avatar.name"
-					tooltipPosition="bottom"
-				/>
-			}
+	@if (isLoading()) {
+		<p-skeleton
+			shape="circle"
+			[size]="isMobile() ? '2rem' : '3rem'"
+			style="margin-right: -0.5rem"
+		/>
+	} @else {
+		<p-avatar-group>
+			@if (isCollapsed()) {
+				@for (avatar of collapsedAvatars(); track $index) {
+					<p-avatar
+						shape="circle"
+						[image]="avatar.url"
+						[icon]="avatar.url ? undefined : 'pi pi-image'"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="avatar.name"
+						tooltipPosition="bottom"
+					/>
+				} @empty {
+					<portfolio-empty-list
+						[description]="emptyDescription()"
+						aligned="left"
+						[isIconVisible]="false"
+					/>
+				}
 
-			@if (remainingAvatars() > 0) {
-				<p-avatar
-					[label]="'+' + remainingAvatars()"
-					shape="circle"
-					[size]="isMobile() ? 'normal' : 'large'"
-				/>
+				@if (remainingAvatars() > 0) {
+					<p-avatar
+						[label]="'+' + remainingAvatars()"
+						shape="circle"
+						[size]="isMobile() ? 'normal' : 'large'"
+					/>
+				}
+			} @else {
+				@for (avatar of avatars(); track $index) {
+					<p-avatar
+						shape="circle"
+						[image]="avatar.url"
+						[icon]="avatar.url ? undefined : 'pi pi-image'"
+						[size]="isMobile() ? 'normal' : 'large'"
+						[pTooltip]="avatar.name"
+						tooltipPosition="bottom"
+					/>
+				} @empty {
+					<portfolio-empty-list
+						[description]="emptyDescription()"
+						aligned="left"
+						[isIconVisible]="false"
+					/>
+				}
 			}
-		} @else {
-			@for (avatar of avatars(); track $index) {
-				<p-avatar
-					shape="circle"
-					[image]="'images/' + avatar.picName + '.' + avatar.extension"
-					[size]="isMobile() ? 'normal' : 'large'"
-					[pTooltip]="avatar.name"
-					tooltipPosition="bottom"
-				/>
-			}
-		}
-	</p-avatar-group>
+		</p-avatar-group>
+	}
 </div>

@@ -5,4 +5,6 @@ export interface AboutInfo {
 	kpis: Kpi[];
 	techStack: Picture[];
 	companies: Picture[];
+	profilePicUrl: string;
+	cvUrl: string;
 }

@@ -7,110 +7,217 @@
 <div class="milestone-container">
 	<div class="timeline"></div>
 
-	<div class="milestone">
-		<span class="title">
-			@if (milestone().logo; as logo) {
-				<p-avatar
-					shape="circle"
-					[image]="'images/' + logo.picName + '.' + logo.extension"
-				/>
-			}
-
-			{{ milestone().title }}
-		</span>
-
-		<span class="description">{{ milestone().description }}</span>
-
-		<div class="location-period">
-			@if (milestone().location; as location) {
-				<span class="location">
-					<span class="pi pi-map-marker"></span>
-
-					<span>{{ location }}</span>
-				</span>
-			}
-
-			<span class="period">
-				<span class="pi pi-calendar"></span>
-
-				<span>{{ milestone().period }}</span>
-
-				@if (milestone().type === MilestoneEnum.EXPERIENCE) {
-					<span>·</span>
-
-					<span>{{ experienceDuration() }}</span>
+	<div class="milestone-card">
+		<div class="milestone">
+			<span class="title">
+				@if (milestone().logo; as logo) {
+					<p-avatar
+						shape="circle"
+						[image]="logo.url"
+						[icon]="logo.url ? undefined : 'pi pi-image'"
+					/>
 				}
+
+				{{ milestone().title }}
 			</span>
-		</div>
 
-		<div class="tags">
-			@for (tag of milestone().tags; track $index) {
-				<p-tag
-					[value]="tag"
-					severity="contrast"
-				/>
+			<span class="description">{{ milestone().description }}</span>
+
+			<div class="location-period">
+				@if (milestone().location; as location) {
+					<span class="location">
+						<span class="pi pi-map-marker"></span>
+
+						<span>{{ location }}</span>
+					</span>
+				}
+
+				<span class="period">
+					<span class="pi pi-calendar"></span>
+
+					<span>{{ milestone().period }}</span>
+
+					@if (milestone().type === MilestoneEnum.EXPERIENCE) {
+						<span>·</span>
+
+						<span>{{ experienceDuration() }}</span>
+					}
+				</span>
+			</div>
+
+			<div class="tags">
+				@for (tag of milestone().tags; track $index) {
+					<p-tag
+						[value]="tag"
+						severity="contrast"
+					/>
+				}
+			</div>
+
+			@if (milestone().media; as media) {
+				<div class="media">
+					<span>Media</span>
+
+					<div
+						class="image"
+						[style]="{ 'background-image': 'url(' + media[0].url + ')' }"
+					>
+						@if (media.length > 1) {
+							<p-button
+								[fluid]="true"
+								(onClick)="isGalleriaVisible = true"
+							>
+								<span>
+									+{{ media.length - 1 }}
+									<i class="pi pi-images"></i>
+								</span>
+							</p-button>
+						}
+					</div>
+				</div>
 			}
-		</div>
 
-		@if (milestone().media; as media) {
-			<div class="media">
-				<span>Media</span>
+			@let updates = milestone().updates;
 
-				<div
-					class="image"
-					[ngStyle]="{
-						'background-image':
-							'url(images/' + media[0].picName + '.' + media[0].extension + ')'
-					}"
-				>
-					@if (media.length > 1) {
-						<p-button
-							[fluid]="true"
-							(onClick)="isGalleriaVisible = true"
-						>
-							<span>
-								+{{ media.length - 1 }}
-								<i class="pi pi-images"></i>
+			@if (updates?.length) {
+				<div class="updates">
+					@for (update of updates; track $index) {
+						<div class="milestone-update">
+							<span class="title">
+								<div class="circle"></div>
+
+								{{ update.title }}
 							</span>
-						</p-button>
+
+							<span
+								class="duration"
+								[class]="{ 'has-border': !$last }"
+							>
+								{{ update.duration }}
+							</span>
+						</div>
 					}
 				</div>
-			</div>
-		}
+			}
 
-		@if (milestone().updates; as updates) {
-			<div class="updates">
-				@for (update of updates; track $index) {
-					<div class="milestone-update">
-						<span class="title">
-							<div class="circle"></div>
+			@let contributors = milestone().contributors;
 
-							{{ update.title }}
-						</span>
+			@if (contributors?.length) {
+				<div class="contributors">
+					<span>Contributors</span>
 
-						<span
-							class="duration"
-							[ngClass]="{ 'has-border': !$last }"
-						>
-							{{ update.duration }}
-						</span>
-					</div>
-				}
-			</div>
-		}
+					<portfolio-avatar-list
+						[avatars]="contributors || []"
+						[isCollapsed]="true"
+					/>
+				</div>
+			}
+		</div>
 
-		@if (milestone().contributors; as contributors) {
-			<div class="contributors">
-				<span>Contributors</span>
+		@if (isAdmin()) {
+			<div class="milestone-admin-actions">
+				<p-button
+					[fluid]="true"
+					label="Edit"
+					icon="pi pi-pencil"
+					size="small"
+					(onClick)="onEditMilestone()"
+				/>
 
-				<portfolio-avatar-list
-					[avatars]="contributors"
-					[isCollapsed]="true"
+				<p-button
+					[fluid]="true"
+					severity="danger"
+					label="Delete"
+					icon="pi pi-trash"
+					size="small"
+					(onClick)="onDeleteMilestone($event)"
 				/>
 			</div>
 		}
 	</div>
 </div>
+
+@if (isMobile()) {
+	<p-drawer
+		header="Edit Milestone"
+		[closable]="false"
+		[closeOnEscape]="false"
+		[visible]="isEditMilestoneVisible"
+		position="bottom"
+		[style]="{ height: 'auto' }"
+		(onHide)="milestoneForm.onHide()"
+	>
+		<portfolio-milestone-form
+			#milestoneForm
+			[currentMilestoneType]="editableMilestone().type"
+			[isMobile]="isMobile()"
+			[(isSaveLoading)]="isSaveEditsLoading"
+			[(isVisible)]="isEditMilestoneVisible"
+			(isVisibleChange)="onMilestoneFormVisibilityChange($event)"
+			[milestoneToEdit]="editableMilestone()"
+		/>
+
+		<ng-template #footer>
+			<div class="edit-actions">
+				<p-button
+					[fluid]="true"
+					label="Cancel"
+					size="small"
+					variant="outlined"
+					(onClick)="milestoneForm.cancel()"
+				/>
+
+				<p-button
+					[fluid]="true"
+					[loading]="isSaveEditsLoading"
+					label="Save Edits"
+					size="small"
+					(onClick)="milestoneForm.save()"
+				/>
+			</div>
+		</ng-template>
+	</p-drawer>
+} @else {
+	<p-dialog
+		header="Edit Milestone"
+		[modal]="true"
+		[closable]="false"
+		[closeOnEscape]="false"
+		[(visible)]="isEditMilestoneVisible"
+		[style]="{ width: '35rem' }"
+		(onHide)="milestoneForm.onHide()"
+	>
+		<portfolio-milestone-form
+			#milestoneForm
+			[currentMilestoneType]="editableMilestone().type"
+			[isMobile]="isMobile()"
+			[(isSaveLoading)]="isSaveEditsLoading"
+			[(isVisible)]="isEditMilestoneVisible"
+			(isVisibleChange)="onMilestoneFormVisibilityChange($event)"
+			[milestoneToEdit]="editableMilestone()"
+		/>
+
+		<ng-template #footer>
+			<div class="edit-actions">
+				<p-button
+					[fluid]="true"
+					label="Cancel"
+					size="small"
+					variant="outlined"
+					(onClick)="milestoneForm.cancel()"
+				/>
+
+				<p-button
+					[fluid]="true"
+					label="Save Edits"
+					[loading]="isSaveEditsLoading"
+					size="small"
+					(onClick)="milestoneForm.save()"
+				/>
+			</div>
+		</ng-template>
+	</p-dialog>
+}
 
 <p-galleria
 	[value]="galleriaImages()"
