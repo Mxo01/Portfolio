@@ -1,5 +1,69 @@
-.loading-state {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+.tab-content {
+	transition: 1.5s;
+
+	&.enter-slide-left {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-in,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both enter-slide-left;
+	}
+
+	&.leave-slide-left {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both leave-slide-left;
+	}
+
+	&.enter-slide-right {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-in,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both enter-slide-right;
+	}
+
+	&.leave-slide-right {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both leave-slide-right;
+	}
+
+	.loading-state {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes enter-slide-left {
+	from {
+		transform: translateX(50%);
+	}
+}
+
+@keyframes leave-slide-left {
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes enter-slide-right {
+	from {
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes leave-slide-right {
+	to {
+		transform: translateX(50%);
+	}
 }

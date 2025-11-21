@@ -8,6 +8,7 @@ export class StateService {
 
 	public isMobile = signal(false);
 	public isDarkMode = signal(localStorage.getItem("darkMode") === "true");
+	public tabAnimationDirection = signal<"left" | "right" | null>(null);
 
 	public updateTheme(isDarkMode: boolean) {
 		if (isDarkMode) {

@@ -23,18 +23,15 @@ export const routes: Routes = [
 			},
 			{
 				path: PATHS.EXPERIENCE,
-				component: ExperienceComponent,
-				data: { animation: PATHS.EXPERIENCE }
+				component: ExperienceComponent
 			},
 			{
 				path: PATHS.EDUCATION,
-				component: EducationComponent,
-				data: { animation: PATHS.EDUCATION }
+				component: EducationComponent
 			},
 			{
 				path: PATHS.PROJECTS,
-				component: ProjectsComponent,
-				data: { animation: PATHS.PROJECTS }
+				component: ProjectsComponent
 			}
 		]
 	},
