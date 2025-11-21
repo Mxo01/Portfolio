@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
 					) {
 						this._stateService.tabAnimationDirection.set("left");
 					} else {
-						console.log("Resetting animations")
+						console.log("Resetting animations");
 						this._stateService.tabAnimationDirection.set(null);
 					}
 				}
