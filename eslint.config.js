@@ -1,16 +1,25 @@
-// @ts-check
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 
 module.exports = tseslint.config(
 	{
+		ignores: [
+			".angular/**",
+			".github/**",
+			".husky/**",
+			".vscode/**",
+			"node_modules/**",
+			"public/**"
+		]
+	},
+	{
 		files: ["**/*.ts"],
 		extends: [
 			eslint.configs.recommended,
-			...tseslint.configs.recommended,
-			...angular.configs.tsRecommended,
-			...tseslint.configs.stylistic
+			tseslint.configs.recommended,
+			angular.configs.tsRecommended,
+			tseslint.configs.stylistic
 		],
 		processor: angular.processInlineTemplates,
 		rules: {
@@ -30,12 +39,10 @@ module.exports = tseslint.config(
 					style: "kebab-case"
 				}
 			],
-			"no-console": ["warn", { allow: ["warn", "error"] }],
 			"@typescript-eslint/no-unused-vars": [
 				"warn",
 				{ vars: "all", args: "after-used", ignoreRestSiblings: false }
 			],
-			"no-unused-private-class-members": "warn",
 			"@typescript-eslint/naming-convention": [
 				"error",
 				{
@@ -69,7 +76,9 @@ module.exports = tseslint.config(
 					]
 				}
 			],
-			"@typescript-eslint/array-type": ["error", { default: "array" }]
+			"@typescript-eslint/array-type": ["error", { default: "array" }],
+			"no-unused-private-class-members": "warn",
+			"no-console": ["warn", { allow: ["warn", "error"] }]
 		}
 	},
 	{
@@ -78,10 +87,5 @@ module.exports = tseslint.config(
 		rules: {
 			"@angular-eslint/template/prefer-self-closing-tags": ["warn"]
 		}
-	},
-	{
-		files: ["*.scss", "*.css", "*.json"],
-		extends: [...angular.configs.templateRecommended],
-		rules: {}
 	}
 );
