@@ -1,4 +1,8 @@
-<section class="tab-content">
+<section
+	class="tab-content"
+	[animate.enter]="'enter-slide-' + tabAnimationDirection()"
+	[animate.leave]="'leave-slide-' + tabAnimationDirection()"
+>
 	@if (isLoading()) {
 		<div class="loading-state">
 			<p-skeleton height="12rem" />

@@ -36,12 +36,7 @@
 			</p-tablist>
 		</p-tabs>
 
-		<div
-			[@routeAnimations]="getRouteAnimationData(outlet)"
-			class="outlet-wrapper"
-		>
-			<router-outlet #outlet="outlet" />
-		</div>
+		<router-outlet />
 	</section>
 
 	<div class="floating-buttons">

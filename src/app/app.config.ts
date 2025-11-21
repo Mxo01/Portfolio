@@ -1,4 +1,3 @@
-import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { ApplicationConfig, provideZonelessChangeDetection } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { providePrimeNG } from "primeng/config";
@@ -9,13 +8,14 @@ import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { provideAnimations } from "@angular/platform-browser/animations"; // TODO: remove once primeng deprecates it
 
 export const appConfig: ApplicationConfig = {
 	providers: [
 		provideRouter(routes),
 		provideHttpClient(withFetch()),
 		provideZonelessChangeDetection(),
-		provideAnimationsAsync(),
+		provideAnimations(), // TODO: remove once primeng deprecates it
 		providePrimeNG({
 			theme: { preset: primengTheme, options: { darkModeSelector: ".dark" } }
 		}),

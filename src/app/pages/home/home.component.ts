@@ -19,7 +19,6 @@ import { Subscription } from "rxjs";
 import { StateService } from "../../shared/services/state.service";
 import { PATHS, TAB_TO_MILESTONE_TYPE_MAPPING } from "../../shared/utils/constants";
 import { convertFileToBase64, isMobileDevice } from "../../shared/utils/utils";
-import { slideInAnimation } from "../../shared/animations/fade-slide.animation";
 import { AuthService } from "../../shared/services/auth.service";
 import { Dialog } from "primeng/dialog";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -52,8 +51,7 @@ import { FileSelectEvent, FileUpload } from "primeng/fileupload";
 	],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
-	providers: [MessageService],
-	animations: [slideInAnimation]
+	providers: [MessageService]
 })
 export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
@@ -116,10 +114,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	public onTabChange(tab: string | number) {
 		this.selectedTab.set(tab as TabEnum);
-	}
-
-	public getRouteAnimationData(outlet: RouterOutlet) {
-		return outlet?.activatedRouteData?.["animation"];
 	}
 
 	public onUploadCV() {
