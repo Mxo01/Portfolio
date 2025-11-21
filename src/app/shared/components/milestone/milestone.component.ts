@@ -12,7 +12,6 @@ import {
 import { Tag } from "primeng/tag";
 import { GalleriaModule, GalleriaResponsiveOptions } from "primeng/galleria";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
-import { Image, ImageModule } from "primeng/image";
 import { Button } from "primeng/button";
 import { Avatar } from "primeng/avatar";
 import { Milestone, MilestoneEnum } from "../../models/milestone.model";
