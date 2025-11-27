@@ -43,17 +43,29 @@ export function sortMilestonesByPeriod(milestones: Milestone[]): Milestone[] {
 		const [milestone1PeriodStart, milestone1PeriodEnd] = milestone1.period.split(" - ");
 		const [milestone2PeriodStart, milestone2PeriodEnd] = milestone2.period.split(" - ");
 
-		const milestone1StartTimestamp = new Date(milestone1PeriodStart).getTime();
+		const [milestone1StartMonth, milestone1StartYear] = milestone1PeriodStart.split(" ");
+		const [milestone1EndMonth, milestone1EndYear] = milestone1PeriodEnd.split(" ");
+
+		const milestone1StartTimestamp = new Date(
+			+milestone1StartYear,
+			MONTHS_MAPPING[milestone1StartMonth]
+		).getTime();
 		const milestone1EndTimestamp =
 			milestone1PeriodEnd === "Present"
 				? Date.now()
-				: new Date(milestone1PeriodEnd).getTime();
+				: new Date(+milestone1EndYear, MONTHS_MAPPING[milestone1EndMonth]).getTime();
 
-		const milestone2StartTimestamp = new Date(milestone2PeriodStart).getTime();
+		const [milestone2StartMonth, milestone2StartYear] = milestone2PeriodStart.split(" ");
+		const [milestone2EndMonth, milestone2EndYear] = milestone2PeriodEnd.split(" ");
+
+		const milestone2StartTimestamp = new Date(
+			+milestone2StartYear,
+			MONTHS_MAPPING[milestone2StartMonth]
+		).getTime();
 		const milestone2EndTimestamp =
 			milestone2PeriodEnd === "Present"
 				? Date.now()
-				: new Date(milestone2PeriodEnd).getTime();
+				: new Date(+milestone2EndYear, MONTHS_MAPPING[milestone2EndMonth]).getTime();
 
 		const startDifference = milestone2StartTimestamp - milestone1StartTimestamp;
 		const endDifference = milestone2EndTimestamp - milestone1EndTimestamp;
