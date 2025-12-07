@@ -145,10 +145,10 @@
 		[visible]="isEditMilestoneVisible"
 		position="bottom"
 		[style]="{ height: 'auto' }"
-		(onHide)="milestoneForm.onHide()"
+		(onHide)="milestoneFormComponent.onHide()"
 	>
 		<portfolio-milestone-form
-			#milestoneForm
+			#milestoneFormComponent
 			[currentMilestoneType]="editableMilestone().type"
 			[isMobile]="isMobile()"
 			[(isSaveLoading)]="isSaveEditsLoading"
@@ -164,15 +164,16 @@
 					label="Cancel"
 					size="small"
 					variant="outlined"
-					(onClick)="milestoneForm.cancel()"
+					(onClick)="milestoneFormComponent.cancel()"
 				/>
 
 				<p-button
 					[fluid]="true"
-					[loading]="isSaveEditsLoading"
 					label="Save Edits"
 					size="small"
-					(onClick)="milestoneForm.save()"
+					[loading]="isSaveEditsLoading"
+					[disabled]="milestoneFormComponent.milestoneForm().invalid()"
+					(onClick)="milestoneFormComponent.save()"
 				/>
 			</div>
 		</ng-template>
@@ -185,10 +186,10 @@
 		[closeOnEscape]="false"
 		[(visible)]="isEditMilestoneVisible"
 		[style]="{ width: '35rem' }"
-		(onHide)="milestoneForm.onHide()"
+		(onHide)="milestoneFormComponent.onHide()"
 	>
 		<portfolio-milestone-form
-			#milestoneForm
+			#milestoneFormComponent
 			[currentMilestoneType]="editableMilestone().type"
 			[isMobile]="isMobile()"
 			[(isSaveLoading)]="isSaveEditsLoading"
@@ -204,15 +205,16 @@
 					label="Cancel"
 					size="small"
 					variant="outlined"
-					(onClick)="milestoneForm.cancel()"
+					(onClick)="milestoneFormComponent.cancel()"
 				/>
 
 				<p-button
 					[fluid]="true"
 					label="Save Edits"
-					[loading]="isSaveEditsLoading"
 					size="small"
-					(onClick)="milestoneForm.save()"
+					[loading]="isSaveEditsLoading"
+					[disabled]="milestoneFormComponent.milestoneForm().invalid()"
+					(onClick)="milestoneFormComponent.save()"
 				/>
 			</div>
 		</ng-template>

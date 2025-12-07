@@ -15,7 +15,6 @@ import { MessageService } from "primeng/api";
 import { AboutInfo } from "../../models/about.model";
 import { Drawer } from "primeng/drawer";
 import { Dialog } from "primeng/dialog";
-import { FormsModule } from "@angular/forms";
 import { Picture } from "../../models/picture.model";
 import { ReorderableLogosComponent } from "../reorderable-logos/reorderable-logos.component";
 import { Skeleton } from "primeng/skeleton";
@@ -31,7 +30,6 @@ import { base64ToBlob, deepClone } from "../../utils/utils";
 		Button,
 		Drawer,
 		Dialog,
-		FormsModule,
 		ReorderableLogosComponent,
 		Skeleton
 	],
