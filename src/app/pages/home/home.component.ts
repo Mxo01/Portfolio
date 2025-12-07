@@ -11,7 +11,7 @@ import {
 	viewChild
 } from "@angular/core";
 import { RouterOutlet, RouterLink, Router, NavigationEnd, NavigationStart } from "@angular/router";
-import { MessageService } from "primeng/api";
+
 import { ButtonModule } from "primeng/button";
 import { DrawerModule } from "primeng/drawer";
 import { TabsModule } from "primeng/tabs";
@@ -50,8 +50,7 @@ import { FileSelectEvent, FileUpload } from "primeng/fileupload";
 		FileUpload
 	],
 	templateUrl: "./home.component.html",
-	styleUrl: "./home.component.scss",
-	providers: [MessageService]
+	styleUrl: "./home.component.scss"
 })
 export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
@@ -112,7 +111,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._authService.signOut();
 	}
 
-	public onTabChange(tab: string | number) {
+	public onTabChange(tab?: string | number) {
+		if (!tab) return;
 		this.selectedTab.set(tab as TabEnum);
 	}
 

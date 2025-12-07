@@ -1,10 +1,6 @@
 import { Routes } from "@angular/router";
-import { ExperienceComponent } from "./pages/experience/experience.component";
-import { EducationComponent } from "./pages/education/education.component";
-import { ProjectsComponent } from "./pages/projects/projects.component";
 import { PATHS } from "./shared/utils/constants";
 import { HomeComponent } from "./pages/home/home.component";
-import { AuthComponent } from "./pages/auth/auth.component";
 
 export const routes: Routes = [
 	{
@@ -23,21 +19,26 @@ export const routes: Routes = [
 			},
 			{
 				path: PATHS.EXPERIENCE,
-				component: ExperienceComponent
+				loadComponent: () =>
+					import("./pages/experience/experience.component").then(
+						m => m.ExperienceComponent
+					)
 			},
 			{
 				path: PATHS.EDUCATION,
-				component: EducationComponent
+				loadComponent: () =>
+					import("./pages/education/education.component").then(m => m.EducationComponent)
 			},
 			{
 				path: PATHS.PROJECTS,
-				component: ProjectsComponent
+				loadComponent: () =>
+					import("./pages/projects/projects.component").then(m => m.ProjectsComponent)
 			}
 		]
 	},
 	{
 		path: PATHS.AUTH,
-		component: AuthComponent
+		loadComponent: () => import("./pages/auth/auth.component").then(m => m.AuthComponent)
 	},
 	{
 		path: "**",
