@@ -24,7 +24,6 @@ import {
 import { AuthService } from "../../services/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { MilestoneService } from "../../services/milestone.service";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Dialog } from "primeng/dialog";
 import { Drawer } from "primeng/drawer";
 import { StateService } from "../../services/state.service";
@@ -39,8 +38,6 @@ import { MilestoneFormComponent } from "./milestone-form/milestone-form.componen
 		Button,
 		GalleriaModule,
 		AvatarListComponent,
-		ReactiveFormsModule,
-		FormsModule,
 		Dialog,
 		Drawer,
 		MilestoneFormComponent

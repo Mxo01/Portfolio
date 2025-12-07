@@ -21,7 +21,6 @@ import { PATHS, TAB_TO_MILESTONE_TYPE_MAPPING } from "../../shared/utils/constan
 import { convertFileToBase64, isMobileDevice } from "../../shared/utils/utils";
 import { AuthService } from "../../shared/services/auth.service";
 import { Dialog } from "primeng/dialog";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { InputTextModule } from "primeng/inputtext";
 import { AboutComponent } from "../../shared/components/about/about.component";
@@ -40,8 +39,6 @@ import { FileSelectEvent, FileUpload } from "primeng/fileupload";
 		ButtonModule,
 		TabsModule,
 		Dialog,
-		ReactiveFormsModule,
-		FormsModule,
 		InputTextModule,
 		AutoCompleteModule,
 		AboutComponent,

@@ -7,15 +7,10 @@ import {
 	model,
 	effect,
 	linkedSignal,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	signal
 } from "@angular/core";
-import {
-	ReactiveFormsModule,
-	FormsModule,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { form, maxLength, required, Field } from "@angular/forms/signals";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { Avatar } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
@@ -32,6 +27,7 @@ import { Picture } from "../../../models/picture.model";
 import { MessageService, SelectItem } from "primeng/api";
 import { MilestoneService } from "../../../services/milestone.service";
 import { convertFileToBase64, moveItem } from "../../../utils/utils";
+import { FormsModule } from "@angular/forms";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,13 +37,13 @@ import { convertFileToBase64, moveItem } from "../../../utils/utils";
 		Avatar,
 		ButtonModule,
 		TabsModule,
+		FormsModule,
 		Avatar,
 		ReorderableLogosComponent,
-		ReactiveFormsModule,
-		FormsModule,
 		InputTextModule,
 		AutoCompleteModule,
 		FloatLabel,
+		Field,
 		Select,
 		Tooltip,
 		FileUpload
@@ -69,17 +65,28 @@ export class MilestoneFormComponent {
 
 	public isNew = computed(() => !this.milestoneToEdit());
 
-	public milestoneForm = new FormGroup({
-		type: new FormControl<MilestoneEnum>(this.currentMilestoneType(), [Validators.required]),
-		logo: new FormControl<Picture | null>(null),
-		title: new FormControl<string>("", [Validators.required, Validators.maxLength(100)]),
-		location: new FormControl<string>(""),
-		description: new FormControl<string>("", [Validators.required, Validators.maxLength(1000)]),
-		tags: new FormControl<string[]>([]),
-		period: new FormControl<string>(""),
-		milestoneDate: new FormControl<string>("", [Validators.required]),
-		media: new FormControl<Picture[]>([]),
-		contributors: new FormControl<Picture[]>([])
+	private _milestoneFormSchema = signal<Milestone>({
+		type: this.currentMilestoneType(),
+		logo: undefined,
+		title: "",
+		location: "",
+		description: "",
+		tags: [],
+		period: "",
+		milestoneDate: "",
+		media: [],
+		contributors: []
+	});
+	public milestoneForm = form(this._milestoneFormSchema, schemaPath => {
+		required(schemaPath.type);
+
+		required(schemaPath.title);
+		maxLength(schemaPath.title, 100);
+
+		required(schemaPath.description);
+		maxLength(schemaPath.description, 1000);
+
+		required(schemaPath.milestoneDate);
 	});
 
 	public milestoneUpdates = linkedSignal<MilestoneUpdate[]>(
@@ -94,14 +101,17 @@ export class MilestoneFormComponent {
 
 	constructor() {
 		effect(() => {
-			if (this.milestoneToEdit()) this.milestoneForm.patchValue(this.milestoneToEdit()!);
+			if (this.milestoneToEdit()) this.milestoneForm().value.set(this.milestoneToEdit()!);
 		});
 	}
 
 	public onHide() {
 		if (this.isNew()) {
-			this.milestoneForm.reset();
-			this.milestoneForm.patchValue({ type: this.currentMilestoneType() });
+			this.milestoneForm().reset();
+			this.milestoneForm().value.update(milestone => ({
+				...milestone,
+				type: this.currentMilestoneType()
+			}));
 		}
 	}
 
@@ -121,10 +131,10 @@ export class MilestoneFormComponent {
 			milestoneDate,
 			media,
 			contributors
-		} = this.milestoneForm.value;
+		} = this.milestoneForm().value();
 
 		if (
-			this.milestoneForm.invalid ||
+			this.milestoneForm().invalid() ||
 			!type ||
 			!title ||
 			!description ||
@@ -200,19 +210,20 @@ export class MilestoneFormComponent {
 
 	public async onMilestoneLogoUpload(event: FileUploadEvent) {
 		const file: File = event.files[0];
-		const formValue = this.milestoneForm.value;
+		const formValue = this.milestoneForm().value();
 		const { title } = formValue;
 
 		if (!file || !title) return;
 
 		const base64 = await convertFileToBase64(file);
 
-		this.milestoneForm.patchValue({
+		this.milestoneForm().value.update(milestone => ({
+			...milestone,
 			logo: {
 				name: title,
 				url: base64
 			}
-		});
+		}));
 	}
 
 	public addMilestoneUpdate() {
@@ -238,22 +249,30 @@ export class MilestoneFormComponent {
 	}
 
 	public addMedia() {
-		this.milestoneForm.patchValue({
-			media: [...(this.milestoneForm.value.media || []), { name: "", url: "" }]
-		});
+		this.milestoneForm().value.update(milestone => ({
+			...milestone,
+			media: [...(milestone.media || []), { name: "", url: "" }]
+		}));
 	}
 
 	public onNewMilestoneMediaUpdate(media: Picture[]) {
-		this.milestoneForm.patchValue({ media });
+		this.milestoneForm().value.update(milestone => ({
+			...milestone,
+			media
+		}));
 	}
 
 	public addContributor() {
-		this.milestoneForm.patchValue({
-			contributors: [...(this.milestoneForm.value.contributors || []), { name: "", url: "" }]
-		});
+		this.milestoneForm().value.update(milestone => ({
+			...milestone,
+			contributors: [...(milestone.contributors || []), { name: "", url: "" }]
+		}));
 	}
 
 	public onNewMilestoneContributorsUpdate(contributors: Picture[]) {
-		this.milestoneForm.patchValue({ contributors });
+		this.milestoneForm().value.update(milestone => ({
+			...milestone,
+			contributors
+		}));
 	}
 }
