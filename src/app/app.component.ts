@@ -4,7 +4,7 @@ import { Toast } from "primeng/toast";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { filter, map, pairwise, startWith, Subscription } from "rxjs";
 import { TabEnum } from "./shared/models/tab.model";
-import { StateService } from "./shared/services/state.service";
+import { StateService } from "./shared/services/state/state.service";
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: "portfolio-root",

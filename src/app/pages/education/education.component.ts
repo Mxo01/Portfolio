@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
-import { EducationService } from "../../shared/services/education.service";
+import { EducationService } from "../../shared/services/education/education.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
 @Component({

@@ -10,7 +10,7 @@ import { Avatar } from "primeng/avatar";
 import { AvatarListComponent } from "../avatar-list/avatar-list.component";
 import { KpiComponent } from "../kpi/kpi.component";
 import { Button } from "primeng/button";
-import { AboutService } from "../../services/about.service";
+import { AboutService } from "../../services/about/about.service";
 import { MessageService } from "primeng/api";
 import { AboutInfo } from "../../models/about.model";
 import { Drawer } from "primeng/drawer";

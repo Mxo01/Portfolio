@@ -1,4 +1,4 @@
-import { StateService } from "./../../services/state.service";
+import { StateService } from "../../services/state/state.service";
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from "@angular/core";
 import { Avatar } from "primeng/avatar";
 import { AvatarGroup } from "primeng/avatargroup";

@@ -11,7 +11,7 @@ import {
 	browserSessionPersistence
 } from "@angular/fire/auth";
 import { firstValueFrom, take } from "rxjs";
-import { WhitelistService } from "./whitelist.service";
+import { WhitelistService } from "../whitelist/whitelist.service";
 
 @Injectable({
 	providedIn: "root"

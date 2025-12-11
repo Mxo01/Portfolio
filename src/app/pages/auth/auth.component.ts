@@ -8,10 +8,10 @@ import {
 	OnInit
 } from "@angular/core";
 import { Button } from "primeng/button";
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../shared/services/auth/auth.service";
 import { Router, RouterLink } from "@angular/router";
 import { Dialog } from "primeng/dialog";
-import { StateService } from "../../shared/services/state.service";
+import { StateService } from "../../shared/services/state/state.service";
 import { Drawer } from "primeng/drawer";
 import { isMobileDevice } from "../../shared/utils/utils";
 

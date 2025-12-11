@@ -3,7 +3,7 @@ import { MilestoneComponent } from "../milestone/milestone.component";
 import { EmptyListComponent } from "../empty-list/empty-list.component";
 import { Milestone } from "../../models/milestone.model";
 import { Skeleton } from "primeng/skeleton";
-import { StateService } from "../../services/state.service";
+import { StateService } from "../../services/state/state.service";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,

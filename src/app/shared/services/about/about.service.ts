@@ -1,12 +1,12 @@
-import { AboutInfo } from "./../models/about.model";
+import { AboutInfo } from "../../models/about.model";
 import { inject, Injectable, Signal } from "@angular/core";
-import { Picture } from "../models/picture.model";
+import { Picture } from "../../models/picture.model";
 import { doc, docData, updateDoc } from "@angular/fire/firestore";
 import { combineLatest, map, Observable } from "rxjs";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
-import { calculateExperience } from "../utils/utils";
-import { ExperienceService } from "./experience.service";
-import { DatabaseService } from "./database.service";
+import { calculateExperience } from "../../utils/utils";
+import { ExperienceService } from "../../services/experience/experience.service";
+import { DatabaseService } from "../../services/database/database.service";
 
 @Injectable({
 	providedIn: "root"

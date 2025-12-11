@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
-import { ExperienceService } from "../../shared/services/experience.service";
+import { ExperienceService } from "../../shared/services/experience/experience.service";
 import { TabContentComponent } from "../../shared/components/tab-content/tab-content.component";
 
 @Component({

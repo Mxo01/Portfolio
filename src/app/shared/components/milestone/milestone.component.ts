@@ -21,12 +21,12 @@ import {
 	isMobileDevice,
 	mapMilestoneMediaToGalleriaImages
 } from "../../utils/utils";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../services/auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { MilestoneService } from "../../services/milestone.service";
+import { MilestoneService } from "../../services/milestone/milestone.service";
 import { Dialog } from "primeng/dialog";
 import { Drawer } from "primeng/drawer";
-import { StateService } from "../../services/state.service";
+import { StateService } from "../../services/state/state.service";
 import { MilestoneFormComponent } from "./milestone-form/milestone-form.component";
 
 @Component({

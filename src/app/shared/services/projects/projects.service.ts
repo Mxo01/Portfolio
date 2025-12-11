@@ -1,6 +1,6 @@
 import { inject, Injectable, Signal } from "@angular/core";
-import { Milestone, MilestoneEnum } from "../models/milestone.model";
-import { MilestoneService } from "./milestone.service";
+import { Milestone, MilestoneEnum } from "../../models/milestone.model";
+import { MilestoneService } from "../milestone/milestone.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 @Injectable({

@@ -1,6 +1,6 @@
-import { WhitelistIds } from "../models/whitelist-id.model";
+import { WhitelistIds } from "../../models/whitelist-id.model";
 import { inject, Injectable } from "@angular/core";
-import { DatabaseService } from "./database.service";
+import { DatabaseService } from "../database/database.service";
 import { doc, docData } from "@angular/fire/firestore";
 import { map, Observable } from "rxjs";
 

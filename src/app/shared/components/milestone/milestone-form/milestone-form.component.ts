@@ -25,7 +25,7 @@ import { ReorderableLogosComponent } from "../../reorderable-logos/reorderable-l
 import { Milestone, MilestoneEnum } from "../../../models/milestone.model";
 import { Picture } from "../../../models/picture.model";
 import { MessageService, SelectItem } from "primeng/api";
-import { MilestoneService } from "../../../services/milestone.service";
+import { MilestoneService } from "../../../services/milestone/milestone.service";
 import { convertFileToBase64, moveItem } from "../../../utils/utils";
 import { FormsModule } from "@angular/forms";
 
