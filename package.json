@@ -7,7 +7,7 @@
 		"prod": "ng serve --configuration production",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
-		"test": "ng test --coverage",
+		"test": "ng test --coverage --watch=false",
 		"prepare": "husky",
 		"format": "prettier --write \"*/**/*.{js,ts,html,css,scss,json}\"",
 		"lint": "eslint --fix",

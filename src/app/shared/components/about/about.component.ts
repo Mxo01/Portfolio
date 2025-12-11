@@ -111,7 +111,7 @@ export class AboutComponent {
 	public saveTechStackEdits() {
 		this.isSaveTechStackEditsLoading = true;
 
-		const aboutInfo: Omit<AboutInfo, "kpis" | "companies" | "profilePicUrl" | "cvUrl"> = {
+		const aboutInfo: Pick<AboutInfo, "techStack"> = {
 			techStack: this.editableTechStack()
 		};
 

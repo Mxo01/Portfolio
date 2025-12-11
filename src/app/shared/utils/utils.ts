@@ -7,6 +7,8 @@ export function isMobileDevice(width: number): boolean {
 }
 
 export function calculateExperience(experiencePeriods: string[]): string {
+	if (!experiencePeriods.length) return "None";
+
 	const now = Date.now();
 
 	const months = experiencePeriods.reduce((sum, period) => {

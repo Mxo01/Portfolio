@@ -24,19 +24,20 @@ export class AboutService {
 			combineLatest({ experiences: experiences$, aboutInfo: aboutInfo$ }).pipe(
 				map(({ experiences, aboutInfo }) => {
 					const { kpis } = aboutInfo;
-					const experiencePeriods = (experiences || []).map(
+					const experienceMilestones = experiences || [];
+					const experiencePeriods = experienceMilestones.map(
 						milestone => milestone.period
 					);
 					const experienceValue = calculateExperience(experiencePeriods);
-					const companies = (experiences || [])
+					const companies = experienceMilestones
 						.reverse()
 						.map(milestone => milestone.logo)
 						.filter(Boolean);
 
 					return {
 						...aboutInfo,
-						kpis: [{ label: "Experience", value: experienceValue }, ...(kpis || [])],
-						companies: (companies || []) as Picture[]
+						kpis: [{ label: "Experience", value: experienceValue }, ...kpis],
+						companies: companies as Picture[]
 					};
 				})
 			),
@@ -44,19 +45,12 @@ export class AboutService {
 		);
 	}
 
-	public saveTechStack(
-		aboutInfo: Omit<AboutInfo, "kpis" | "companies" | "profilePicUrl" | "cvUrl">
-	) {
+	public saveTechStack(aboutInfo: Pick<AboutInfo, "techStack">) {
 		const docRef = doc(this._db.aboutCollection, "info");
 		return updateDoc(docRef, aboutInfo);
 	}
 
-	public updateCV(
-		aboutInfo: Omit<
-			AboutInfo,
-			"companies" | "profilePicUrl" | "kpis" | "techStack" | "companies"
-		>
-	) {
+	public updateCV(aboutInfo: Pick<AboutInfo, "cvUrl">) {
 		const docRef = doc(this._db.aboutCollection, "info");
 		return updateDoc(docRef, aboutInfo);
 	}
