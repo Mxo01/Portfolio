@@ -7,7 +7,7 @@ import { Milestone, MilestoneEnum } from "../../models/milestone.model";
 import { of } from "rxjs";
 
 describe("ProjectsService", () => {
-	let service: ProjectsService;
+	let projectsService: ProjectsService;
 	let milestoneService: MilestoneService;
 
 	beforeEach(() => {
@@ -15,7 +15,7 @@ describe("ProjectsService", () => {
 			providers: [ProjectsService, MockProvider(MilestoneService)]
 		});
 
-		service = TestBed.inject(ProjectsService);
+		projectsService = TestBed.inject(ProjectsService);
 		milestoneService = TestBed.inject(MilestoneService);
 	});
 
@@ -48,7 +48,9 @@ describe("ProjectsService", () => {
 			vi.spyOn(milestoneService, "getMilestonesByType").mockReturnValue(of(mockMilestones));
 
 			// WHEN
-			const milestones = TestBed.runInInjectionContext(() => service.getProjectsMilestones());
+			const milestones = TestBed.runInInjectionContext(() =>
+				projectsService.getProjectsMilestones()
+			);
 
 			// THEN
 			expect(milestoneService.getMilestonesByType).toHaveBeenCalledWith(type);
