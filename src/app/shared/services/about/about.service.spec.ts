@@ -76,7 +76,7 @@ describe("AboutService", () => {
 				.reverse()
 				.map(milestone => milestone.logo)
 				.filter(Boolean);
-			const mockCalculatedExperience = "2y";
+			const mockCalculatedExperience = "2y 1m";
 			const docRefMock = { id: "info" } as DocumentReference;
 
 			vi.mocked(doc).mockReturnValue(docRefMock);
