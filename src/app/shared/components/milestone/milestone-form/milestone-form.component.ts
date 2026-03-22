@@ -26,7 +26,7 @@ import { Milestone, MilestoneEnum } from "../../../models/milestone.model";
 import { Picture } from "../../../models/picture.model";
 import { MessageService, SelectItem } from "primeng/api";
 import { MilestoneService } from "../../../services/milestone.service";
-import { convertFileToBase64, moveItem } from "../../../utils/utils";
+import { uploadToCloudinary, moveItem } from "../../../utils/utils";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -215,13 +215,13 @@ export class MilestoneFormComponent {
 
 		if (!file || !title) return;
 
-		const base64 = await convertFileToBase64(file);
+		const url = await uploadToCloudinary(file);
 
 		this.milestoneForm().value.update(milestone => ({
 			...milestone,
 			logo: {
 				name: title,
-				url: base64
+				url
 			}
 		}));
 	}

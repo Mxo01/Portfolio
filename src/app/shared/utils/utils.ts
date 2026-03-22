@@ -1,5 +1,5 @@
 import { Picture } from "../models/picture.model";
-import { MONTHS_MAPPING } from "./constants";
+import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET, MONTHS_MAPPING } from "./constants";
 import { Milestone } from "../models/milestone.model";
 
 export function isMobileDevice(width: number): boolean {
@@ -91,6 +91,50 @@ export function convertFileToBase64(file: File): Promise<string> {
 	});
 }
 
+export function compressImage(file: File, maxDimension = 1200, quality = 0.7): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const img = new Image();
+		const objectUrl = URL.createObjectURL(file);
+
+		img.onload = () => {
+			URL.revokeObjectURL(objectUrl);
+
+			let { width, height } = img;
+			if (width > height) {
+				if (width > maxDimension) {
+					height = Math.round((height * maxDimension) / width);
+					width = maxDimension;
+				}
+			} else {
+				if (height > maxDimension) {
+					width = Math.round((width * maxDimension) / height);
+					height = maxDimension;
+				}
+			}
+
+			const canvas = document.createElement("canvas");
+			canvas.width = width;
+			canvas.height = height;
+
+			const ctx = canvas.getContext("2d");
+			if (!ctx) {
+				reject(new Error("Failed to get canvas context"));
+				return;
+			}
+
+			ctx.drawImage(img, 0, 0, width, height);
+			resolve(canvas.toDataURL("image/jpeg", quality));
+		};
+
+		img.onerror = () => {
+			URL.revokeObjectURL(objectUrl);
+			reject(new Error("Failed to load image"));
+		};
+
+		img.src = objectUrl;
+	});
+}
+
 export function base64ToBlob(base64: string): Blob {
 	const parts = base64.split(";base64,");
 	const contentType = parts[0].split(":")[1];
@@ -135,18 +179,34 @@ export function moveItem(list: unknown[], startingIndex: number, direction: "up"
 	}
 }
 
+export async function uploadToCloudinary(file: File): Promise<string> {
+	const formData = new FormData();
+	formData.append("file", file);
+	formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+	const response = await fetch(
+		`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+		{ method: "POST", body: formData }
+	);
+
+	if (!response.ok) throw new Error("Cloudinary upload failed");
+
+	const data = await response.json();
+	return data.secure_url as string;
+}
+
 export async function uploadLogo(
 	pictureList: Picture[],
 	file: File,
 	uploadIndex: number
 ): Promise<Picture[]> {
-	const base64 = await convertFileToBase64(file);
+	const url = await uploadToCloudinary(file);
 
 	return pictureList.map((picture, pictureIndex) => {
 		return pictureIndex === uploadIndex
 			? {
 					...picture,
-					url: base64
+					url
 				}
 			: picture;
 	});
