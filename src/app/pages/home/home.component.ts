@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 	private _stateService = inject(StateService);
 	private _authService = inject(AuthService);
 	private _aboutService = inject(AboutService);
-
 	private _router = inject(Router);
 
 	public milestoneForm = viewChild<MilestoneFormComponent>("milestoneForm");

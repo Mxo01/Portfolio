@@ -30,3 +30,6 @@ export const TAB_TO_MILESTONE_TYPE_MAPPING: Record<TabEnum, MilestoneEnum> = {
 	[TabEnum.EDUCATION]: MilestoneEnum.EDUCATION,
 	[TabEnum.PROJECTS]: MilestoneEnum.PROJECT
 };
+
+export const CLOUDINARY_CLOUD_NAME = "dyxkwq4vr";
+export const CLOUDINARY_UPLOAD_PRESET = "portfolio";
