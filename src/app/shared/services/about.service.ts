@@ -44,19 +44,12 @@ export class AboutService {
 		);
 	}
 
-	public saveTechStack(
-		aboutInfo: Omit<AboutInfo, "kpis" | "companies" | "profilePicUrl" | "cvUrl">
-	) {
+	public saveTechStack(aboutInfo: Omit<AboutInfo, "kpis" | "companies" | "cvUrl">) {
 		const docRef = doc(this._db.aboutCollection, "info");
 		return updateDoc(docRef, aboutInfo);
 	}
 
-	public updateCV(
-		aboutInfo: Omit<
-			AboutInfo,
-			"companies" | "profilePicUrl" | "kpis" | "techStack" | "companies"
-		>
-	) {
+	public updateCV(aboutInfo: Omit<AboutInfo, "companies" | "kpis" | "techStack" | "companies">) {
 		const docRef = doc(this._db.aboutCollection, "info");
 		return updateDoc(docRef, aboutInfo);
 	}
