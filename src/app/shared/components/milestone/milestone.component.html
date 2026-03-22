@@ -54,7 +54,9 @@
 				}
 			</div>
 
-			@if (milestone().media; as media) {
+			@if (milestone().media?.length) {
+				@let media = milestone().media!;
+
 				<div class="media">
 					<span>Media</span>
 
