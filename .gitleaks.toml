@@ -1,0 +1,17 @@
+title = "Portfolio gitleaks config"
+
+# Extend gitleaks' built-in rule set (secret patterns for AWS, GitHub, Google,
+# generic API keys, private keys, etc.) instead of redefining it from scratch.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''(?i)\.lock$''',
+  '''(?i)package-lock\.json$''',
+  # The retired Angular app's Firebase web config. A web API key is a public
+  # client identifier, not a credential; the file is deleted from the tree and
+  # this only suppresses the historical commit that still contains it.
+  '''^src/app/app\.config\.ts$''',
+]
