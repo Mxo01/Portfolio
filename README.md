@@ -167,6 +167,13 @@ otherwise the command table answers; a name the table does not have is tried as 
 before it is declared unknown. `help` is built from the same table the dispatcher reads, so
 a command is added in one entry and appears in the usage table, the index and Tab at once.
 
+A line is one command, never a pipeline. A command that reads a fixed number of arguments
+refuses the rest with its own usage line: `cd career /projects` prints
+`cd: too many arguments`. A shell operator is refused before anything runs —
+`cd career && ls` answers `unsupported operator: &&` and `run one command at a time` — so a
+chained or mistyped line never executes a prefix of itself. Text inside quotes stays one
+argument, so `cat "a && b"` names a file.
+
 Tall output is not paged: the line the output starts on is captured before the write and the
 viewport is scrolled back to it, so a long `cat` begins at its first line and the visitor
 reaches the prompt by scrolling. Output that fits stays where every shell leaves it.
@@ -391,7 +398,7 @@ with no client routes.
 | ----------------------------------------- | ----------------------------------------------------------- |
 | A line the terminal prints                | the CV PDF in `public/cv/`; no build step                   |
 | The splash, its hints, the failure lines  | `src/lib/terminal/content.ts`                               |
-| A command, its summary or its help        | `src/lib/terminal/commands.ts`                              |
+| A command, its arity, summary or help     | `src/lib/terminal/commands.ts`                              |
 | How a line is dispatched, how a file runs | `src/lib/terminal/execute.ts`                               |
 | The easter egg's copy, pace or download   | `src/lib/terminal/script-data.ts`                           |
 | What the layout contract can read         | `src/lib/cv/parse.ts`                                       |
