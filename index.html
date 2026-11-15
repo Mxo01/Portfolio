@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+		/>
+		<title>Portfolio</title>
+		<meta
+			name="description"
+			content="Mario Di Modica, software engineer in Pisa. A terminal that prints his CV: type help to see the commands."
+		/>
+		<link
+			rel="canonical"
+			href="https://mxo01.github.io/Portfolio/"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="icon-32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="192x192"
+			href="icon-192.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="apple-touch-icon.png"
+		/>
+		<meta
+			name="theme-color"
+			content="#07070a"
+		/>
+		<!--
+			The terminal cannot measure its grid until the real font is here, so the
+			regular face is preloaded. Vite rewrites this href to the hashed asset.
+		-->
+		<link
+			rel="preload"
+			href="/src/assets/fonts/0xProto-Regular.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<meta
+			property="og:type"
+			content="website"
+		/>
+		<meta
+			property="og:site_name"
+			content="Mario Di Modica"
+		/>
+		<meta
+			property="og:title"
+			content="Mario Di Modica — Software Engineer"
+		/>
+		<meta
+			property="og:description"
+			content="Mario Di Modica, software engineer in Pisa. A terminal that prints his CV: type help to see the commands."
+		/>
+		<meta
+			property="og:url"
+			content="https://mxo01.github.io/Portfolio/"
+		/>
+		<meta
+			property="og:locale"
+			content="en_GB"
+		/>
+		<meta
+			name="twitter:card"
+			content="summary"
+		/>
+		<meta
+			name="twitter:title"
+			content="Mario Di Modica — Software Engineer"
+		/>
+		<meta
+			name="twitter:description"
+			content="Mario Di Modica, software engineer in Pisa. A terminal that prints his CV: type help to see the commands."
+		/>
+		<!--
+			The terminal owns the palette after it mounts. These rules only exist so the
+			first frame is already dark and full-bleed: no flash of white, no seam around
+			the grid, no scrollbar from a stray pixel.
+		-->
+		<style>
+			html,
+			body {
+				height: 100%;
+				margin: 0;
+				overflow: hidden;
+				background: #07070a;
+			}
+
+			#root {
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script
+			type="module"
+			src="/src/main.tsx"
+		></script>
+	</body>
+</html>

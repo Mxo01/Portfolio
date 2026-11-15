@@ -1,91 +1,53 @@
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
+import js from "@eslint/js";
+import prettier from "eslint-config-prettier";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
-module.exports = tseslint.config(
+export default tseslint.config(
 	{
-		ignores: [
-			".angular/**",
-			".github/**",
-			".husky/**",
-			".vscode/**",
-			"node_modules/**",
-			"public/**"
-		]
+		ignores: ["dist", "coverage", "playwright-report", "test-results", "public", ".opencode"]
 	},
+	js.configs.recommended,
+	...tseslint.configs.recommended,
+	jsxA11y.flatConfigs.recommended,
 	{
-		files: ["**/*.ts"],
-		extends: [
-			eslint.configs.recommended,
-			tseslint.configs.recommended,
-			angular.configs.tsRecommended,
-			tseslint.configs.stylistic
-		],
-		processor: angular.processInlineTemplates,
+		files: ["**/*.{ts,tsx}"],
+		languageOptions: {
+			ecmaVersion: 2022,
+			globals: { ...globals.browser, ...globals.node }
+		},
+		plugins: {
+			"react-hooks": reactHooks,
+			"react-refresh": reactRefresh
+		},
 		rules: {
-			"@angular-eslint/directive-selector": [
-				"error",
-				{
-					type: "attribute",
-					prefix: "portfolio",
-					style: "camelCase"
-				}
-			],
-			"@angular-eslint/component-selector": [
-				"error",
-				{
-					type: "element",
-					prefix: "portfolio",
-					style: "kebab-case"
-				}
-			],
+			...reactHooks.configs.recommended.rules,
+			"react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
 			"@typescript-eslint/no-unused-vars": [
-				"warn",
-				{ vars: "all", args: "after-used", ignoreRestSiblings: false }
-			],
-			"@typescript-eslint/naming-convention": [
 				"error",
-				{
-					selector: "memberLike",
-					modifiers: ["private"],
-					format: ["camelCase"],
-					leadingUnderscore: "require"
-				}
+				{ argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
 			],
-			"@typescript-eslint/explicit-member-accessibility": [
-				"error",
-				{
-					accessibility: "explicit",
-					overrides: {
-						constructors: "no-public",
-						accessors: "explicit",
-						methods: "explicit",
-						properties: "explicit",
-						parameterProperties: "explicit"
-					},
-					ignoredMethodNames: [
-						"ngOnChanges",
-						"ngOnInit",
-						"ngDoCheck",
-						"ngAfterContentInit",
-						"ngAfterContentChecked",
-						"ngAfterViewInit",
-						"ngAfterViewChecked",
-						"ngOnDestroy",
-						"effect"
-					]
-				}
-			],
-			"@typescript-eslint/array-type": ["error", { default: "array" }],
-			"no-unused-private-class-members": "warn",
-			"no-console": ["warn", { allow: ["warn", "error"] }]
+			"@typescript-eslint/no-explicit-any": "error",
+			"@typescript-eslint/consistent-type-imports": "error"
 		}
 	},
 	{
-		files: ["**/*.html"],
-		extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
-		rules: {
-			"@angular-eslint/template/prefer-self-closing-tags": ["warn"]
+		files: ["**/*.cjs"],
+		languageOptions: {
+			sourceType: "commonjs",
+			globals: { ...globals.node }
 		}
-	}
+	},
+	{
+		files: ["vite.config.ts", "src/test/**"],
+		rules: { "react-refresh/only-export-components": "off" }
+	},
+	{
+		files: ["src/**/*.test.{ts,tsx}"],
+		rules: { "react-hooks/rules-of-hooks": "off" }
+	},
+	prettier
 );
