@@ -1,0 +1,32 @@
+/*
+ * 0xProto is the only typeface the site ships, vendored under `src/assets/fonts`
+ * so Vite hashes the files and the preload in `index.html` can point at the
+ * built asset. Nothing is fetched from a CDN.
+ *
+ * `font-display: block` is deliberate: xterm measures the cell grid, and a
+ * fallback measured before the real font lands would bake the wrong cell width
+ * into every line until the next fit.
+ */
+@font-face {
+	font-family: "0xProto";
+	font-style: normal;
+	font-weight: 400;
+	font-display: block;
+	src: url("../assets/fonts/0xProto-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "0xProto";
+	font-style: normal;
+	font-weight: 700;
+	font-display: block;
+	src: url("../assets/fonts/0xProto-Bold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "0xProto";
+	font-style: italic;
+	font-weight: 400;
+	font-display: block;
+	src: url("../assets/fonts/0xProto-Italic.woff2") format("woff2");
+}

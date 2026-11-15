@@ -1,0 +1,27 @@
+/*
+ * The breath around the grid.
+ *
+ * The padding lives on `.xterm`, the element xterm creates inside the container,
+ * and never on the container itself: FitAddon.proposeDimensions() reads the
+ * *parent's* computed box and then subtracts the padding it finds on the terminal
+ * element. Padding on the container would therefore be counted once as space and
+ * never subtracted from the columns, and the last column would be cut off.
+ *
+ * 12px is the inset on all four sides; the theme background still fills the whole
+ * viewport, because `.xterm-viewport` is absolutely positioned to the padding box
+ * and the body underneath carries the same colour.
+ */
+.xterm {
+	padding: 12px;
+}
+
+/*
+ * xterm.css paints the viewport `#000` and the terminal never repaints it from the
+ * active theme, so the band the padding opens would read as a hard black frame
+ * around the grid in the light theme. The viewport spans the whole element, so
+ * letting it take the colour behind it — the body, which `applyBodyBackground`
+ * keeps on the terminal background — is what makes the padding part of the page.
+ */
+.xterm .xterm-viewport {
+	background-color: transparent;
+}
