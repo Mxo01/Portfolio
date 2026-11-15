@@ -7,6 +7,7 @@ import { fixtureContext, fixtureDir, fixtureFile, fixtureSession } from "@/test/
 const testSubject = execute;
 
 const UNKNOWN_HINT = "type 'help'";
+const OPERATOR_HINT = "run one command at a time";
 const SCRIPT_TOKEN = "export_cv.sh";
 const SCRIPT_MODE = "script" as const;
 
@@ -170,6 +171,93 @@ describe("execute", () => {
 
 		// THEN
 		expect(result.session.cwd).toBe("/career");
+	});
+
+	describe("a line carrying more than the command reads", () => {
+		const extra: readonly {
+			readonly name: string;
+			readonly line: string;
+			readonly usage: string;
+		}[] = [
+			{ name: "help", line: "help cd ls", usage: "help <command>" },
+			{ name: "ls", line: "ls career projects", usage: "ls [path]" },
+			{ name: "cd", line: "cd career projects", usage: "cd <path>" },
+			{ name: "cat", line: "cat cv.pdf about", usage: "cat <path>" },
+			{ name: "tree", line: "tree .", usage: "tree" },
+			{ name: "pwd", line: "pwd -P", usage: "pwd" },
+			{ name: "whoami", line: "whoami now", usage: "whoami" },
+			{ name: "theme", line: "theme light", usage: "theme" },
+			{ name: "welcome", line: "welcome again", usage: "welcome" },
+			{ name: "clear", line: "clear all", usage: "clear" }
+		];
+
+		it.each(extra)("refuses $name with its usage line", ({ name, line, usage }) => {
+			// WHEN
+			const result = withContext(line, fixtureSession());
+
+			// THEN the refusal names the command, and the way to type it comes under it
+			expect(result.lines).toEqual([error(`${name}: too many arguments`), dim(`usage: ${usage}`)]);
+		});
+
+		it("runs nothing and keeps the working directory it had", () => {
+			// GIVEN
+			const session = fixtureSession({ cwd: "/" });
+
+			// WHEN a second path is the canonical case: two directories, one command
+			const result = withContext("cd career projects", session);
+
+			// THEN the line is on the history, and the shell did not half of it
+			expect(result.session).toEqual({ ...session, history: ["cd career projects"] });
+			expect(result.session.cwd).toBe("/");
+		});
+	});
+
+	describe("a line chaining commands", () => {
+		const chained: readonly {
+			readonly name: string;
+			readonly line: string;
+			readonly operator: string;
+		}[] = [
+			{ name: "and", line: "cd career && ls", operator: "&&" },
+			{ name: "or", line: "cd career || ls", operator: "||" },
+			{ name: "pipe", line: "ls | cat", operator: "|" },
+			{ name: "semicolon", line: "pwd ; ls", operator: ";" },
+			{ name: "redirect", line: "tree > out", operator: ">" },
+			{ name: "append", line: "tree >> out", operator: ">>" },
+			{ name: "background", line: "pwd &", operator: "&" },
+			{ name: "variable", line: "cd $HOME", operator: "$HOME" }
+		];
+
+		it.each(chained)("refuses $name with the operator it found", ({ line, operator }) => {
+			// WHEN
+			const result = withContext(line, fixtureSession());
+
+			// THEN
+			expect(result.lines).toEqual([
+				error(`unsupported operator: ${operator}`),
+				dim(OPERATOR_HINT)
+			]);
+		});
+
+		it("runs no part of the line, the first command included", () => {
+			// GIVEN
+			const session = fixtureSession({ cwd: "/" });
+
+			// WHEN
+			const result = withContext("cd career && ls", session);
+
+			// THEN nothing moved, and nothing was listed
+			expect(result.session.cwd).toBe("/");
+			expect(result.session.history).toEqual(["cd career && ls"]);
+		});
+
+		it("keeps an operator inside quotes a literal argument", () => {
+			// WHEN
+			const result = withContext('cat "a && b"', fixtureSession());
+
+			// THEN the token is one file name, so the tree answers it and no operator was read
+			expect(result.lines).toEqual([error("no such file or directory: a && b"), dim(UNKNOWN_HINT)]);
+		});
 	});
 
 	describe("before the CV has loaded", () => {

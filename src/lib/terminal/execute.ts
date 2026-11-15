@@ -1,4 +1,5 @@
 import { COMMANDS } from "./commands";
+import type { Command } from "./commands";
 import { remember } from "./history";
 import { dim, error } from "./lines";
 import { resolve } from "./path";
@@ -11,6 +12,14 @@ const PATH_PREFIXES = [".", "/"] as const;
 /** While a script plays the line editor is closed: the mode is what says so. */
 const SCRIPT_MODE = "script" as const;
 const UNKNOWN_HINT = "type 'help'";
+/**
+ * What a real shell would read as an operator joining, piping or redirecting commands.
+ * This one implements none of them, so a line carrying one is refused rather than halved.
+ */
+const OPERATORS: ReadonlySet<string> = new Set(["&&", "||", "|", ";", ">", ">>", "&"]);
+/** Nothing here expands a variable, so a token that names one is an operator too. */
+const VARIABLE_PREFIX = "$";
+const OPERATOR_HINT = "run one command at a time";
 
 /**
  * One Enter press. The view has already painted the prompt and the line it sent,
@@ -22,6 +31,9 @@ const UNKNOWN_HINT = "type 'help'";
  * does not have is tried as a file before it is declared unknown, which is how a bare
  * `export_cv.sh` runs. Whatever resolves to a file the shell cannot run is refused in
  * the shell's own words. A path that resolves to nothing is missing, not unknown.
+ *
+ * A line carries one command and nothing else: an argument written as a shell operator is
+ * refused before anything runs, so a chained or mistyped line never executes half of itself.
  */
 export function execute(input: string, session: ShellSession, ctx: ShellContext): ShellResult {
 	const typed = input.trim();
@@ -30,11 +42,27 @@ export function execute(input: string, session: ShellSession, ctx: ShellContext)
 	if (typed.length === 0) return { session: { ...session, ...settled }, lines: [] };
 
 	const [name = "", ...args] = tokenize(typed);
+	const operator = args.find(isOperator);
+	if (operator !== undefined) {
+		return {
+			session: { ...session, ...settled },
+			lines: [error(`unsupported operator: ${operator}`), dim(OPERATOR_HINT)]
+		};
+	}
+
 	const outcome = isPath(name)
 		? pathOutcome(name, session, ctx)
 		: nameOutcome(name, args, session, ctx);
 
 	return { ...outcome, session: { ...outcome.session, ...settled } };
+}
+
+/**
+ * True for an argument this shell cannot honour. Quoted text is already one plain token by
+ * the time it gets here, so `cat "a && b"` names a file and only a bare token trips this.
+ */
+function isOperator(token: string): boolean {
+	return OPERATORS.has(token) || token.startsWith(VARIABLE_PREFIX);
 }
 
 /** True for a token the visitor wrote as a path: relative to here, or from the root. */
@@ -58,7 +86,7 @@ function nameOutcome(
 	ctx: ShellContext
 ): ShellResult {
 	const command = COMMANDS[name];
-	if (command !== undefined) return command.run(session, args, ctx);
+	if (command !== undefined) return commandOutcome(name, command, args, session, ctx);
 
 	const resolved = ctx.root === null ? null : resolve(session.cwd, name, ctx.root);
 	if (resolved !== null && resolved.ok) return applied(resolved.node, name, session);
@@ -67,6 +95,27 @@ function nameOutcome(
 		session,
 		lines: [error(`unknown command: ${name}`), dim(UNKNOWN_HINT)]
 	};
+}
+
+/**
+ * A command's own outcome, unless the line gave it more than it reads: a command states its
+ * arity, and an argument it would ignore is a refusal with its invocation instead.
+ */
+function commandOutcome(
+	name: string,
+	command: Command,
+	args: readonly string[],
+	session: ShellSession,
+	ctx: ShellContext
+): ShellResult {
+	if (args.length > command.arity) {
+		return {
+			session,
+			lines: [error(`${name}: too many arguments`), dim(`usage: ${command.usage}`)]
+		};
+	}
+
+	return command.run(session, args, ctx);
 }
 
 /**

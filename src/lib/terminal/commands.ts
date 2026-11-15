@@ -39,6 +39,11 @@ export interface Command {
 	/** The sentence `help <command>` prints under the summary. */
 	readonly detail: string;
 	/**
+	 * How many arguments the command reads. A line carrying more is refused whole by the
+	 * dispatcher, so an unread argument is never silently dropped.
+	 */
+	readonly arity: number;
+	/**
 	 * What the line cannot produce on its own: the view loads it before `execute`, so the
 	 * command stays synchronous and only the first call pays for the fetch.
 	 */
@@ -66,6 +71,7 @@ const WHOAMI: Command = {
 	summary: "who I am, with a face",
 	detail:
 		"Projects the CV's own facts — name, role, city, contact links, current role, education — beside a portrait drawn in characters, loaded on the first call. Too narrow for both, it prints the facts alone.",
+	arity: 0,
 	needsPortrait: true,
 	run: (session, _args, ctx) => {
 		const { root } = ctx;
@@ -94,6 +100,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		summary: "show a command's details",
 		detail:
 			"Prints every command with its invocation, then the names alone as an index. With a name, explains that one command and nothing else.",
+		arity: 1,
 		run: (session, args, ctx) => {
 			const name = args[0];
 			if (name === undefined) return result(session, helpLines(ctx.columns));
@@ -114,6 +121,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		summary: "list a directory",
 		detail:
 			"Lists one directory's entries, the current one by default. Directories carry a trailing slash; a file prints alone.",
+		arity: 1,
 		run: (session, args, ctx) => {
 			if (ctx.root === null) return result(session, unavailableLines(ctx.reason));
 
@@ -135,6 +143,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		summary: "change directory",
 		detail:
 			"Moves through the virtual filesystem. No argument goes home; `~`, `.`, `..` and absolute paths all resolve.",
+		arity: 1,
 		run: (session, args, ctx) => {
 			if (ctx.root === null) return result(session, unavailableLines(ctx.reason));
 
@@ -151,6 +160,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		summary: "print a file: CV, role or project",
 		detail:
 			"Prints a file as the CV states it. On a directory it prints that category's entries instead, one block each.",
+		arity: 1,
 		run: (session, args, ctx) => {
 			if (ctx.root === null) return result(session, unavailableLines(ctx.reason));
 
@@ -176,6 +186,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		usage: "tree",
 		summary: "print the whole filesystem",
 		detail: "Prints every file and directory, in the order the CV states them.",
+		arity: 0,
 		run: (session, _args, ctx) => {
 			if (ctx.root === null) return result(session, unavailableLines(ctx.reason));
 
@@ -186,6 +197,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		usage: "pwd",
 		summary: "print the working directory",
 		detail: "Prints the current directory's absolute path.",
+		arity: 0,
 		run: session => result(session, [plain(session.cwd)])
 	},
 	whoami: WHOAMI,
@@ -193,6 +205,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		usage: "theme",
 		summary: "switch dark and light",
 		detail: "Flips the terminal palette and remembers the choice for the next visit.",
+		arity: 0,
 		run: (session, _args, ctx) => ({
 			session,
 			lines: [dim(`theme: ${ctx.theme === "dark" ? "light" : "dark"}`)],
@@ -204,6 +217,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		summary: "print the welcome splash",
 		detail:
 			"Reprints the block the boot prints: the banner, the name and city, the summary sentence, then the ways in. A screen too narrow for the banner shows the rest alone.",
+		arity: 0,
 		run: (session, _args, ctx) => {
 			if (ctx.root === null) return result(session, unavailableLines(ctx.reason));
 
@@ -217,6 +231,7 @@ export const COMMANDS: Readonly<Record<string, Command>> = {
 		usage: "clear",
 		summary: "wipe the scrollback",
 		detail: "Clears the screen and homes the cursor. Ctrl+L does the same.",
+		arity: 0,
 		run: session => ({ session, lines: [], clear: true })
 	}
 };
