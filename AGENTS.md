@@ -202,10 +202,10 @@ code. A bug fix ships with a test that fails before the fix and passes after.
 
 ## CI and Deploy
 
-- `.github/workflows/ci.yml` — on every push to `main` and every pull request into it:
-  `npm ci`, `npm run typecheck`, `npm run lint`, `npm run test:run`, then
-  `npm run test:coverage`, whose 100% thresholds sit in the script so a gap fails the job
-  instead of warning.
+- `.github/workflows/ci.yml` — on every pull request into `main` only: the same commit already
+  ran there, so a merge does not re-run it. `npm ci`, `npm run typecheck`, `npm run lint`,
+  `npm run test:run`, then `npm run test:coverage`, whose 100% thresholds sit in the script so a
+  gap fails the job instead of warning.
 - `.github/workflows/gitleaks.yml` — a full-history secret scan (`fetch-depth: 0`) with
   `.gitleaks.toml`, which extends the default rule set and allowlists the lockfile. The job
   asks for `pull-requests: read` as well as `contents: read`, because the action lists a

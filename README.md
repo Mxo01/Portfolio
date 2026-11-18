@@ -364,10 +364,11 @@ never deleted code.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every push to `main` and every pull request into it:
-`npm ci`, `npm run typecheck`, `npm run lint`, `npm run test:run`, then `npm run
-test:coverage`. A type error, a lint error or a failing test stops the branch before it
-ships; the coverage run reports the included files against the 100% gate.
+`.github/workflows/ci.yml` runs on every pull request into `main` only: the same commit
+already ran there, so a merge does not re-run it. `npm ci`, `npm run typecheck`,
+`npm run lint`, `npm run test:run`, then `npm run test:coverage`. A type error, a lint
+error or a failing test stops the branch before it ships; the coverage run reports the
+included files against the 100% gate.
 
 `.github/workflows/gitleaks.yml` scans the full history on every push and pull request
 (`fetch-depth: 0`) with `.gitleaks.toml`, which extends the default rule set and allowlists
