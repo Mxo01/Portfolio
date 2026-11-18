@@ -223,9 +223,6 @@ code. A bug fix ships with a test that fails before the fix and passes after.
   Hosting; `firebase.json`, `.firebaserc.json` and the Firebase workflows are gone and the
   site deploys to GitHub Pages. `firebase deploy`, `firebase use` and the rest of that CLI
   have nothing to act on.
-- **No branch operation on `main`.** An agent never commits to, pushes or merges into
-  `main`: work happens on a `feat/`, `fix/` or `chore/` branch, and the merge into `main` is
-  not an agent step in this repository.
 - **Nothing destructive.** No `git reset --hard`, no force-push, no `rm -rf`, no deleting
   branches or files this session did not create, and no rewriting of the CV PDF or the
   assets under `public/`.
